@@ -1,0 +1,23 @@
+.board__grid {
+  display: flex;
+  /* width: 100%; */
+}
+
+.board__first-column {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  width: 10%;
+  background-color: lightgray;
+}
+
+.board__game-row {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+}
+
+.board__last-row {
+  display: flex;
+  background-color: darkgray;
+}
