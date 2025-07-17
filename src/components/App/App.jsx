@@ -13,12 +13,31 @@ function App() {
   return (
     <>
       <div className="page">
-        <Main
-          gameBoard={gameBoard}
-          setGameBoard={setGameBoard}
-          gameStarted={gameStarted}
-          setGameHasStarted={setGameHasStarted}
-        />
+        <Routes>
+          <Route path="*" element={<PageNotFound />}></Route>
+          <Route
+            path="/"
+            element={
+              <Main
+                gameBoard={gameBoard}
+                setGameBoard={setGameBoard}
+                gameStarted={gameStarted}
+                setGameHasStarted={setGameHasStarted}
+              />
+            }
+          ></Route>
+          <Route
+            path="/random-board"
+            element={
+              <Main
+                gameBoard={gameBoard}
+                setGameBoard={setGameBoard}
+                gameStarted={gameStarted}
+                setGameHasStarted={setGameHasStarted}
+              />
+            }
+          ></Route>
+        </Routes>
       </div>
     </>
   );

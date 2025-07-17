@@ -11,12 +11,12 @@ function Main({ gameBoard, setGameBoard, gameStarted, setGameHasStarted }) {
     <main>
       <section className="main">
         <h1 className="main__header">Welcome! This is the forest fire game.</h1>
-        <Board
-          gameBoard={gameBoard}
-          setGameBoard={setGameBoard}
-          gameStarted={gameStarted}
-          setGameHasStarted={setGameHasStarted}
-        />
+        <Link
+          className="main__link"
+          to={"/random-board"}
+        >
+          Random Board
+        </Link>
       </section>
     </main>
   );
