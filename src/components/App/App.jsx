@@ -27,7 +27,7 @@ function App() {
             }
           ></Route>
           <Route
-            path="/forest-fire-game/random-board"
+            path="/random-board/"
             element={
               <Main
                 gameBoard={gameBoard}
