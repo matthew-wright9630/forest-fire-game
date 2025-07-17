@@ -16,7 +16,7 @@ function App() {
         <Routes>
           {/* <Route path="*" element={<PageNotFound />}></Route> */}
           <Route
-            path="/forest-fire-game/"
+            path="/"
             element={
               <Main
                 gameBoard={gameBoard}
