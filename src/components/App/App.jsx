@@ -11,13 +11,15 @@ function App() {
   const [gameBoard, setGameBoard] = useState([]);
   const [gameStarted, setGameHasStarted] = useState(false);
 
+  const baseURL = "/forest-fire-game/";
+
   return (
     <Routes>
-      <Route path="/" element={<Main />}>
+      <Route path="/forest-fire-game/" element={<Main />}>
         {/* <Main /> */}
       </Route>
 
-      <Route path="/random-board" element={<RandomBoard />}>
+      <Route path="/forest-fire-game/random-board" element={<RandomBoard />}>
         {/* <RandomBoard /> */}
       </Route>
 
