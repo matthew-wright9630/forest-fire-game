@@ -2,7 +2,7 @@
   "name": "forest-fire-game",
   "private": false,
   "version": "0.0.0",
-  "homepage": "https://matthew-wright9630.github.io/forest-fire-game/#",
+  "homepage": "https://matthew-wright9630.github.io/",
   "type": "module",
   "scripts": {
     "dev": "vite",
