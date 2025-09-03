@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import "../BoardTile/BoardTile";
 import BoardTile from "../BoardTile/BoardTile";
@@ -6,19 +6,26 @@ import "./Board.css";
 import treeImage from "../../assets/Tree.png";
 import fireImage from "../../assets/Fire.png";
 
-function Board({ gameBoard, setGameBoard, gameStarted, setGameHasStarted }) {
+function Board({
+  gameBoard,
+  setGameBoard,
+  gameStarted,
+  setGameHasStarted,
+  boardArray,
+  setBoardArray,
+}) {
   let numberOfTiles = 100;
   let numberOfTrees = 99;
   let numberOfFire = 1;
 
-  let boardArray = new Array();
-
   function setUpBoard() {
-    console.log("Set game has started");
     setGameHasStarted(true);
     randomizeBoard(numberOfTrees, numberOfFire);
-    console.log("randomized board function has finished");
-    setUpTile();
+    // setTimeout(() => {
+    //   console.log(boardArray);
+    // }, 1000);
+    // console.log(boardArray);
+    // setUpTile();
   }
 
   function setUpTile() {
@@ -26,25 +33,37 @@ function Board({ gameBoard, setGameBoard, gameStarted, setGameHasStarted }) {
   }
 
   function randomizeBoard(numberOfTrees, numberOfFire) {
-    console.log("randomized board is starting");
     let selectedTileAmount = 0;
+    let newBoardArray = new Array();
     while (selectedTileAmount < numberOfTiles) {
-      const num = Math.floor(Math.random() * 50) + 1;
-      if (num < 50 && numberOfTrees > 0) {
+      const num = Math.floor(Math.random() * 35) + 1;
+      if (num < 35 && numberOfTrees > 0) {
         numberOfTrees--;
-        boardArray.push({ name: "Tree", image: treeImage });
+        // setBoardArray([...boardArray, { name: "Tree", image: treeImage }]);
+        newBoardArray.push({
+          name: "Tree",
+          image: treeImage,
+          key: newBoardArray.length - 1,
+        });
         selectedTileAmount++;
-      } else if (num === 50 && numberOfFire > 0) {
+      } else if (num === 35 && numberOfFire > 0) {
         numberOfFire--;
-        boardArray.push({ name: "Fire", image: fireImage });
+        // setBoardArray([...boardArray, { name: "Fire", image: fireImage }]);
+        newBoardArray.push({
+          name: "Fire",
+          image: fireImage,
+          key: newBoardArray.length - 1,
+        });
         selectedTileAmount++;
       }
     }
+    setBoardArray(newBoardArray);
   }
 
   function endGame() {
+    console.log("Game has ended.");
     setGameHasStarted(false);
-    boardArray = [];
+    setBoardArray([]);
     numberOfTiles = 100;
     numberOfTrees = 100;
     numberOfFire = 1;
@@ -68,16 +87,30 @@ function Board({ gameBoard, setGameBoard, gameStarted, setGameHasStarted }) {
   //   }
   // }
 
-  function testButton() {
-    console.log(gameBoard);
+  // function testButton() {
+  //   console.log(gameBoard);
+  // }
+
+  function nextButton() {
+    console.log("This will eventually move to the next round");
+    boardArray.map((tile, index) => {
+      if (tile.name === "Fire") {
+        console.log(tile, tile.key);
+      }
+    });
   }
+
+  useEffect(() => {
+    console.log("board array has been changed.", boardArray);
+    setGameBoard(boardArray);
+  }, [boardArray]);
 
   return (
     <div className="board">
       <button onClick={setUpBoard} className="board__start-btn">
         Start
       </button>
-      <button onClick={testButton}>Test</button>
+      <button onClick={nextButton}>Next</button>
       {gameStarted ? (
         <div>
           <button onClick={endGame} className="board__end-btn">

@@ -9,6 +9,8 @@ function RandomBoard({
   setGameBoard,
   gameStarted,
   setGameHasStarted,
+  boardArray,
+  setBoardArray,
 }) {
   const [count, setCount] = useState(0);
 
@@ -20,6 +22,8 @@ function RandomBoard({
           setGameBoard={setGameBoard}
           gameStarted={gameStarted}
           setGameHasStarted={setGameHasStarted}
+          boardArray={boardArray}
+          setBoardArray={setBoardArray}
         />
       </section>
       <Link className="main__link" to={"/forest-fire-game/"}>

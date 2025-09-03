@@ -10,31 +10,36 @@ function App() {
   const [count, setCount] = useState(0);
   const [gameBoard, setGameBoard] = useState([]);
   const [gameStarted, setGameHasStarted] = useState(false);
+  const [boardArray, setBoardArray] = useState([]);
 
   return (
-    <Routes>
-      <Route path="/forest-fire-game/" element={<Main />}>
-        {/* <Main /> */}
-      </Route>
+    <div className="page">
+      <Routes>
+        <Route path="/forest-fire-game/" element={<Main />}>
+          {/* <Main /> */}
+        </Route>
 
-      <Route
-        path="/forest-fire-game/random-board"
-        element={
-          <RandomBoard
-            gameBoard={gameBoard}
-            setGameBoard={setGameBoard}
-            gameStarted={gameStarted}
-            setGameHasStarted={setGameHasStarted}
-          />
-        }
-      >
-        {/* <RandomBoard /> */}
-      </Route>
+        <Route
+          path="/forest-fire-game/random-board"
+          element={
+            <RandomBoard
+              gameBoard={gameBoard}
+              setGameBoard={setGameBoard}
+              gameStarted={gameStarted}
+              setGameHasStarted={setGameHasStarted}
+              boardArray={boardArray}
+              setBoardArray={setBoardArray}
+            />
+          }
+        >
+          {/* <RandomBoard /> */}
+        </Route>
 
-      {/* <Route path="*">
+        {/* <Route path="*">
                     <Error404 />
-                </Route> */}
-    </Routes>
+                    </Route> */}
+      </Routes>
+    </div>
   );
 }
 
