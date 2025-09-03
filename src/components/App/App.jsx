@@ -14,11 +14,11 @@ function App() {
   return (
     <Routes>
       <Route path="/" element={<Main />}>
-        <Main />
+        {/* <Main /> */}
       </Route>
 
       <Route path="/random-board" element={<RandomBoard />}>
-        <RandomBoard />
+        {/* <RandomBoard /> */}
       </Route>
 
       {/* <Route path="*">
