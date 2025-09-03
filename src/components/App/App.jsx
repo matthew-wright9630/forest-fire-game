@@ -1,9 +1,10 @@
 import { useState } from "react";
 import reactLogo from "../../assets/react.svg";
 import viteLogo from "/vite.svg";
-import { Route, Routes } from "react-router-dom";
+import { Route, Router, Routes } from "react-router-dom";
 import "./App.css";
 import Main from "../Main/Main";
+import RandomBoard from "../RandomBoard/RandomBoard";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -11,36 +12,22 @@ function App() {
   const [gameStarted, setGameHasStarted] = useState(false);
 
   return (
-    <>
-      <div className="page">
-        <Routes>
-          {/* <Route path="*" element={<PageNotFound />}></Route> */}
-          <Route
-            path="/"
-            element={
-              <Main
-                gameBoard={gameBoard}
-                setGameBoard={setGameBoard}
-                gameStarted={gameStarted}
-                setGameHasStarted={setGameHasStarted}
-              />
-            }
-          ></Route>
-          <Route
-            path="/random-board/"
-            element={
-              <Main
-                gameBoard={gameBoard}
-                setGameBoard={setGameBoard}
-                gameStarted={gameStarted}
-                setGameHasStarted={setGameHasStarted}
-              />
-            }
-          ></Route>
-        </Routes>
-      </div>
-    </>
-  );
+        <Router>
+            <Switch>
+                <Route key="main" exact path={['/', '/main']}>
+                    <Main />
+                </Route>
+
+                <Route key="randomBoard" exact path="/random-board">
+                    <RandomBoard />
+                </Route>
+
+                <Route path="*">
+                    <Error404 />
+                </Route>
+            </Switch>
+        </Router>
+    );
 }
 
 export default App;
