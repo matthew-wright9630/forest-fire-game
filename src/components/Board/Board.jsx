@@ -5,6 +5,7 @@ import BoardTile from "../BoardTile/BoardTile";
 import "./Board.css";
 import treeImage from "../../assets/Tree.png";
 import fireImage from "../../assets/Fire.png";
+import { getAdjacentIndices } from "../../utils/tileArrayMapping";
 
 function Board({
   gameBoard,
@@ -95,7 +96,7 @@ function Board({
     console.log("This will eventually move to the next round");
     boardArray.map((tile, index) => {
       if (tile.name === "Fire") {
-        console.log(tile, tile.key);
+        const neighbors = getAdjacentIndices(index);
       }
     });
   }
