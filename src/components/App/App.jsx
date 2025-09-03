@@ -17,7 +17,17 @@ function App() {
         {/* <Main /> */}
       </Route>
 
-      <Route path="/forest-fire-game/random-board" element={<RandomBoard />}>
+      <Route
+        path="/forest-fire-game/random-board"
+        element={
+          <RandomBoard
+            gameBoard={gameBoard}
+            setGameBoard={setGameBoard}
+            gameStarted={gameStarted}
+            setGameHasStarted={setGameHasStarted}
+          />
+        }
+      >
         {/* <RandomBoard /> */}
       </Route>
 

@@ -1,12 +1,8 @@
 import { useState } from "react";
-import reactLogo from "../../assets/react.svg";
-import viteLogo from "/vite.svg";
 import "./Main.css";
-import Board from "../Board/Board";
 import { Link } from "react-router-dom";
 
-function Main({ gameBoard, setGameBoard, gameStarted, setGameHasStarted }) {
-  const [count, setCount] = useState(0);
+function Main({ }) {
 
   return (
     <main>
