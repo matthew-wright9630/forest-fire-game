@@ -3,10 +3,16 @@ import reactLogo from "../../assets/react.svg";
 import viteLogo from "/vite.svg";
 import Board from "../Board/Board";
 
-function RandomBoard({ gameBoard, setGameBoard, gameStarted, setGameHasStarted }) {
+function RandomBoard({
+  gameBoard,
+  setGameBoard,
+  gameStarted,
+  setGameHasStarted,
+}) {
   const [count, setCount] = useState(0);
 
   return (
+    <div>
       <section className="random-board">
         <Board
           gameBoard={gameBoard}
@@ -15,6 +21,10 @@ function RandomBoard({ gameBoard, setGameBoard, gameStarted, setGameHasStarted }
           setGameHasStarted={setGameHasStarted}
         />
       </section>
+      <Link className="main__link" to={"/forest-fire-game/"}>
+        Return to the homepage
+      </Link>
+    </div>
   );
 }
 

@@ -14,8 +14,10 @@ function Board({ gameBoard, setGameBoard, gameStarted, setGameHasStarted }) {
   let boardArray = new Array();
 
   function setUpBoard() {
+    console.log("Set game has started");
     setGameHasStarted(true);
     randomizeBoard(numberOfTrees, numberOfFire);
+    console.log("randomized board function has finished");
     setUpTile();
   }
 
@@ -24,6 +26,7 @@ function Board({ gameBoard, setGameBoard, gameStarted, setGameHasStarted }) {
   }
 
   function randomizeBoard(numberOfTrees, numberOfFire) {
+    console.log("randomized board is starting");
     let selectedTileAmount = 0;
     while (selectedTileAmount < numberOfTiles) {
       const num = Math.floor(Math.random() * 50) + 1;
@@ -66,7 +69,7 @@ function Board({ gameBoard, setGameBoard, gameStarted, setGameHasStarted }) {
   // }
 
   function testButton() {
-    console.log(gameBoard.id);
+    console.log(gameBoard);
   }
 
   return (
