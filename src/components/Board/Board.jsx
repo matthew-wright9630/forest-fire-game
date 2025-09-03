@@ -93,16 +93,46 @@ function Board({
   // }
 
   function nextButton() {
-    console.log("This will eventually move to the next round");
+    let adjacentTiles = new Array();
     boardArray.map((tile, index) => {
       if (tile.name === "Fire") {
         const neighbors = getAdjacentIndices(index);
+        adjacentTiles.push(...neighbors);
       }
     });
+    console.log(adjacentTiles, "Adjacent Tiles");
+    spreadFire(adjacentTiles);
+  }
+
+  function spreadFire(indices) {
+    let newArray = new Array();
+    let treeShouldBurn;
+    for (let i = 0; i < 100; i++) {
+      treeShouldBurn = false;
+      for (let m = 0; m < indices.length; m++) {
+        if (indices[m] === i) {
+          treeShouldBurn = true;
+        }
+      }
+      if (i === 67) {
+        console.log(treeShouldBurn, "This tree should burn");
+      }
+      if (treeShouldBurn === true) {
+        newArray.push({
+          name: "Fire",
+          image: fireImage,
+          key: newArray.length - 1,
+        });
+      } else {
+        newArray.push(boardArray[i]);
+      }
+    }
+    console.log(newArray, "New Array");
+    setBoardArray(newArray);
   }
 
   useEffect(() => {
-    console.log("board array has been changed.", boardArray);
+    // console.log("board array has been changed.", boardArray);
     setGameBoard(boardArray);
   }, [boardArray]);
 
