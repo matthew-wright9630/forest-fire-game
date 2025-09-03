@@ -74,7 +74,7 @@ function Board({ gameBoard, setGameBoard, gameStarted, setGameHasStarted }) {
       <button onClick={setUpBoard} className="board__start-btn">
         Start
       </button>
-      {/* <button onClick={testButton}>Test</button> */}
+      <button onClick={testButton}>Test</button>
       {gameStarted ? (
         <div>
           <button onClick={endGame} className="board__end-btn">
