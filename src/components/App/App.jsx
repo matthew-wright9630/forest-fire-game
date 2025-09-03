@@ -12,21 +12,19 @@ function App() {
   const [gameStarted, setGameHasStarted] = useState(false);
 
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<Main />}>
-          <Main />
-        </Route>
+    <Routes>
+      <Route path="/" element={<Main />}>
+        <Main />
+      </Route>
 
-        <Route path="/random-board" element={<RandomBoard />}>
-          <RandomBoard />
-        </Route>
+      <Route path="/random-board" element={<RandomBoard />}>
+        <RandomBoard />
+      </Route>
 
-        {/* <Route path="*">
+      {/* <Route path="*">
                     <Error404 />
                 </Route> */}
-      </Routes>
-    </Router>
+    </Routes>
   );
 }
 
