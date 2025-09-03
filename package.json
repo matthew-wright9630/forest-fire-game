@@ -17,7 +17,8 @@
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-router-dom": "^7.8.2",
-    "react-router-hash-link": "^2.4.3"
+    "react-router-hash-link": "^2.4.3",
+    "switch": "^0.0.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.9.0",
