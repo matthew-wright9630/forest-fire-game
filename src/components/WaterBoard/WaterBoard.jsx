@@ -1,7 +1,7 @@
 import Board from "../Board/Board";
 import { Link } from "react-router-dom";
 
-function RandomBoard({
+function WaterBoard({
   gameBoard,
   setGameBoard,
   gameStarted,
@@ -9,9 +9,10 @@ function RandomBoard({
   boardArray,
   setBoardArray,
 }) {
+
   return (
     <div>
-      <section className="random-board">
+      <section className="tree-board">
         <Board
           gameBoard={gameBoard}
           setGameBoard={setGameBoard}
@@ -19,8 +20,8 @@ function RandomBoard({
           setGameHasStarted={setGameHasStarted}
           boardArray={boardArray}
           setBoardArray={setBoardArray}
-          numberOfFire={2}
-          numberOfTrees={78}
+          numberOfFire={1}
+          numberOfTrees={79}
           numberOfDeadTrees={8}
           numberOfWater={12}
         />
@@ -32,4 +33,4 @@ function RandomBoard({
   );
 }
 
-export default RandomBoard;
+export default WaterBoard;

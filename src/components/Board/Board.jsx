@@ -75,7 +75,6 @@ function Board({
   }
 
   function endGame() {
-    console.log("Game has ended.");
     setGameHasStarted(false);
     setBoardArray([]);
   }
@@ -92,7 +91,6 @@ function Board({
         adjacentTiles.push(...neighbors);
       }
     });
-    console.log(adjacentTiles, "Adjacent Tiles");
     spreadFire(adjacentTiles);
   }
 
@@ -105,9 +103,6 @@ function Board({
         if (indices[m] === i && boardArray[i].name !== "Water") {
           treeShouldBurn = true;
         }
-      }
-      if (i === 67) {
-        console.log(treeShouldBurn, "This tree should burn");
       }
       if (treeShouldBurn === true) {
         if (

@@ -7,6 +7,7 @@ import Main from "../Main/Main";
 import RandomBoard from "../RandomBoard/RandomBoard";
 import TreeBoard from "../TreeBoard/TreeBoard";
 import DeadTreeBoard from "../DeadTreeBoard/DeadTreeBoard";
+import WaterBoard from "../WaterBoard/WaterBoard";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -51,6 +52,19 @@ function App() {
           path="/forest-fire-game/dead-tree-board"
           element={
             <DeadTreeBoard
+              gameBoard={gameBoard}
+              setGameBoard={setGameBoard}
+              gameStarted={gameStarted}
+              setGameHasStarted={setGameHasStarted}
+              boardArray={boardArray}
+              setBoardArray={setBoardArray}
+            />
+          }
+        ></Route>
+        <Route
+          path="/forest-fire-game/water-board"
+          element={
+            <WaterBoard
               gameBoard={gameBoard}
               setGameBoard={setGameBoard}
               gameStarted={gameStarted}
