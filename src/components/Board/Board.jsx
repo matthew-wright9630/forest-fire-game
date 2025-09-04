@@ -10,10 +10,7 @@ import deadTreeFireImage from "../../assets/Fire_Dead_Tree.png";
 import waterImage from "../../assets/Water.png";
 import houseImage from "../../assets/House.png";
 import burningHouseImage from "../../assets/Burning-House.png";
-import {
-  getAdjacentIndices,
-  getAdjacentOfDeadTrees,
-} from "../../utils/tileArrayMapping";
+import { getAdjacentIndices } from "../../utils/tileArrayMapping";
 
 function Board({
   gameBoard,
@@ -27,6 +24,7 @@ function Board({
   numberOfDeadTrees,
   numberOfWater,
   numberOfHouses,
+  windDirection,
 }) {
   const [houseIsBurning, setHouseIsBurning] = useState(false);
 
@@ -101,8 +99,10 @@ function Board({
   function nextButton() {
     let adjacentTiles = new Array();
     boardArray.map((tile, index) => {
+      if (tile.name === "Fire" || tile.name === "Dead Tree Fire") {
         const neighbors = getAdjacentIndices(index, tile.name);
         adjacentTiles.push(...neighbors);
+      }
     });
     spreadFire(adjacentTiles);
   }

@@ -13,7 +13,7 @@ export function getAdjacentIndices(index, name, gridSize = 10) {
     [1, 1],
   ];
 
-  if (name === "Dead Trees") {
+  if (name === "Dead Tree Fire") {
     directions.push([2, 0], [-2, 0], [0, 2], [0, -2]);
   }
 
