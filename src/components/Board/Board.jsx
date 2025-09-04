@@ -19,7 +19,12 @@ import southWestArrow from "../../assets/South_West_Arrow.png";
 import westArrow from "../../assets/West_Arrow.png";
 import northWestArrow from "../../assets/North_West_Arrow.png";
 import burningHouseImage from "../../assets/Burning-House.png";
-import { getAdjacentIndices } from "../../utils/tileArrayMapping";
+import protectedTreeImage from "../../assets/Protected_Tree.png";
+import fireFighterImage from "../../assets/Fire_Fighter.png";
+import {
+  getAdjacentIndices,
+  getProtectedTrees,
+} from "../../utils/tileArrayMapping";
 
 function Board({
   gameBoard,
@@ -34,66 +39,64 @@ function Board({
   numberOfWater,
   numberOfHouses,
   windDirection,
+  numberOfFireFighter,
 }) {
   const [houseIsBurning, setHouseIsBurning] = useState(false);
   const [arrowDirection, setArrowDirection] = useState({});
+  const [roundNumber, setRoundNumber] = useState(0);
 
   function setUpBoard() {
     setGameHasStarted(true);
     determineArrowDirection(windDirection);
-    randomizeBoard(
-      numberOfTrees,
-      numberOfFire,
-      numberOfDeadTrees,
-      numberOfWater,
-      numberOfHouses
-    );
+    randomizeBoard();
+    setRoundNumber(0);
   }
 
   function determineArrowDirection(wind) {
     switch (wind) {
-    case 1:
-      setArrowDirection({name: "North", image: northArrow});
-      break;
-    case 2:
-      setArrowDirection({name: "North East", image: northEastArrow});
-      break;
-    case 3:
-      setArrowDirection({name: "East", image: eastArrow});
-      break;
-    case 4:
-      setArrowDirection({name: "South East", image: southEastArrow});
-      break;
-    case 5:
-      setArrowDirection({name: "South", image: southArrow});
-      break;
-    case 6:
-      setArrowDirection({name: "South West", image: southWestArrow});
-      break;
-    case 7:
-      setArrowDirection({name: "West", image: westArrow});
-      break;
-    case 8:
-      setArrowDirection({name: "North West", image: northWestArrow});
-      break;
-    default:
-      console.log("Error: incorrect direction");
-      break;
-  }
+      case 1:
+        setArrowDirection({ name: "North", image: northArrow });
+        break;
+      case 2:
+        setArrowDirection({ name: "North East", image: northEastArrow });
+        break;
+      case 3:
+        setArrowDirection({ name: "East", image: eastArrow });
+        break;
+      case 4:
+        setArrowDirection({ name: "South East", image: southEastArrow });
+        break;
+      case 5:
+        setArrowDirection({ name: "South", image: southArrow });
+        break;
+      case 6:
+        setArrowDirection({ name: "South West", image: southWestArrow });
+        break;
+      case 7:
+        setArrowDirection({ name: "West", image: westArrow });
+        break;
+      case 8:
+        setArrowDirection({ name: "North West", image: northWestArrow });
+        break;
+      default:
+        console.log("Error: incorrect direction");
+        break;
+    }
   }
 
-  function randomizeBoard(numberOfTrees, numberOfFire, numberOfDeadTrees) {
+  function randomizeBoard() {
     let numberOfTiles = 100;
     let treesLeft = numberOfTrees;
     let fireLeft = numberOfFire;
     let deadTreesLeft = numberOfDeadTrees;
     let waterLeft = numberOfWater;
     let housesLeft = numberOfHouses;
+    let fireFighterLeft = numberOfFireFighter;
     let selectedTileAmount = 0;
     let newBoardArray = new Array();
     while (selectedTileAmount < numberOfTiles) {
       const num = Math.floor(Math.random() * 60) + 1;
-      if (num < 35 && treesLeft > 0) {
+      if (num < 30 && treesLeft > 0) {
         treesLeft--;
         newBoardArray.push({
           name: "Tree",
@@ -107,7 +110,14 @@ function Board({
           image: fireImage,
         });
         selectedTileAmount++;
-      } else if (num > 35 && num <= 45 && deadTreesLeft > 0) {
+      } else if (num >= 30 && num < 35 && fireFighterLeft > 0) {
+        fireFighterLeft--;
+        newBoardArray.push({
+          name: "Fire Fighter",
+          image: fireFighterImage,
+        });
+        selectedTileAmount++;
+      } else if (num > 30 && num <= 45 && deadTreesLeft > 0) {
         deadTreesLeft--;
         newBoardArray.push({
           name: "Dead Tree",
@@ -133,6 +143,35 @@ function Board({
     setBoardArray(newBoardArray);
   }
 
+  function protectTrees() {
+    let adjacentTiles = new Array();
+    boardArray.map((tile, index) => {
+      if (tile.name === "Fire Fighter") {
+        const neighbors = getProtectedTrees(index);
+        adjacentTiles.push(...neighbors);
+      }
+    });
+    let newArray = new Array();
+    let treeIsProtected;
+    for (let i = 0; i < 100; i++) {
+      treeIsProtected = false;
+      for (let m = 0; m < adjacentTiles.length; m++) {
+        if (
+          adjacentTiles[m] === i &&
+          (boardArray[i].name === "Tree" || boardArray[i].name === "Dead Tree")
+        ) {
+          treeIsProtected = true;
+        }
+      }
+      if (treeIsProtected === true) {
+        newArray.push({ name: "Protected Tree", image: protectedTreeImage });
+      } else {
+        newArray.push(boardArray[i]);
+      }
+    }
+    setBoardArray(newArray);
+  }
+
   function endGame() {
     setGameHasStarted(false);
     setHouseIsBurning(false);
@@ -141,14 +180,19 @@ function Board({
   }
 
   function nextButton() {
-    let adjacentTiles = new Array();
-    boardArray.map((tile, index) => {
-      if (tile.name === "Fire" || tile.name === "Dead Tree Fire") {
-        const neighbors = getAdjacentIndices(index, tile.name, windDirection);
-        adjacentTiles.push(...neighbors);
-      }
-    });
-    spreadFire(adjacentTiles);
+    if (roundNumber === 0 && numberOfFireFighter) {
+      protectTrees();
+    } else {
+      let adjacentTiles = new Array();
+      boardArray.map((tile, index) => {
+        if (tile.name === "Fire" || tile.name === "Dead Tree Fire") {
+          const neighbors = getAdjacentIndices(index, tile.name, windDirection);
+          adjacentTiles.push(...neighbors);
+        }
+      });
+      spreadFire(adjacentTiles);
+    }
+    setRoundNumber(roundNumber + 1);
   }
 
   function spreadFire(indices) {
@@ -157,7 +201,12 @@ function Board({
     for (let i = 0; i < 100; i++) {
       treeShouldBurn = false;
       for (let m = 0; m < indices.length; m++) {
-        if (indices[m] === i && boardArray[i].name !== "Water") {
+        if (
+          indices[m] === i &&
+          boardArray[i].name !== "Water" &&
+          boardArray[i].name !== "Fire Fighter" &&
+          boardArray[i].name !== "Protected Tree"
+        ) {
           treeShouldBurn = true;
         }
       }
@@ -208,8 +257,12 @@ function Board({
         <div className="board__started">
           {windDirection ? (
             <div className="board__wind">
-              <img className="board__compass" src={compassImage}></img>
-              <img src={arrowDirection.image} alt={arrowDirection.name} className="board__wind__direction" />
+              {/* <img className="board__compass" src={compassImage}></img> */}
+              <img
+                src={arrowDirection.image}
+                alt={arrowDirection.name}
+                className="board__wind__direction"
+              />
             </div>
           ) : (
             ""

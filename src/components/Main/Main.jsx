@@ -26,6 +26,9 @@ function Main({}) {
           <Link className="main__link" to={"/forest-fire-game/wind-board/"}>
             Wind Board
           </Link>
+          <Link className="main__link" to={"/forest-fire-game/fire-fighter-board/"}>
+            Fire Fighter Board
+          </Link>
         </div>
       </section>
     </main>
