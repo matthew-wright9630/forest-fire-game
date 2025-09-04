@@ -9,6 +9,15 @@ import deadTreeImage from "../../assets/Dead_Tree.png";
 import deadTreeFireImage from "../../assets/Fire_Dead_Tree.png";
 import waterImage from "../../assets/Water.png";
 import houseImage from "../../assets/House.png";
+import compassImage from "../../assets/Compass.png";
+import northArrow from "../../assets/North_Arrow.png";
+import northEastArrow from "../../assets/North_East_Arrow.png";
+import eastArrow from "../../assets/East_Arrow.png";
+import southEastArrow from "../../assets/South_East_Arrow.png";
+import southArrow from "../../assets/South_Arrow.png";
+import southWestArrow from "../../assets/South_West_Arrow.png";
+import westArrow from "../../assets/West_Arrow.png";
+import northWestArrow from "../../assets/North_West_Arrow.png";
 import burningHouseImage from "../../assets/Burning-House.png";
 import { getAdjacentIndices } from "../../utils/tileArrayMapping";
 
@@ -27,9 +36,11 @@ function Board({
   windDirection,
 }) {
   const [houseIsBurning, setHouseIsBurning] = useState(false);
+  const [arrowDirection, setArrowDirection] = useState({});
 
   function setUpBoard() {
     setGameHasStarted(true);
+    determineArrowDirection(windDirection);
     randomizeBoard(
       numberOfTrees,
       numberOfFire,
@@ -37,6 +48,38 @@ function Board({
       numberOfWater,
       numberOfHouses
     );
+  }
+
+  function determineArrowDirection(wind) {
+    switch (wind) {
+    case 1:
+      setArrowDirection({name: "North", image: northArrow});
+      break;
+    case 2:
+      setArrowDirection({name: "North East", image: northEastArrow});
+      break;
+    case 3:
+      setArrowDirection({name: "East", image: eastArrow});
+      break;
+    case 4:
+      setArrowDirection({name: "South East", image: southEastArrow});
+      break;
+    case 5:
+      setArrowDirection({name: "South", image: southArrow});
+      break;
+    case 6:
+      setArrowDirection({name: "South West", image: southWestArrow});
+      break;
+    case 7:
+      setArrowDirection({name: "West", image: westArrow});
+      break;
+    case 8:
+      setArrowDirection({name: "North West", image: northWestArrow});
+      break;
+    default:
+      console.log("Error: incorrect direction");
+      break;
+  }
   }
 
   function randomizeBoard(numberOfTrees, numberOfFire, numberOfDeadTrees) {
@@ -93,6 +136,7 @@ function Board({
   function endGame() {
     setGameHasStarted(false);
     setHouseIsBurning(false);
+    setArrowDirection({});
     setBoardArray([]);
   }
 
@@ -100,7 +144,7 @@ function Board({
     let adjacentTiles = new Array();
     boardArray.map((tile, index) => {
       if (tile.name === "Fire" || tile.name === "Dead Tree Fire") {
-        const neighbors = getAdjacentIndices(index, tile.name);
+        const neighbors = getAdjacentIndices(index, tile.name, windDirection);
         adjacentTiles.push(...neighbors);
       }
     });
@@ -154,12 +198,22 @@ function Board({
 
   return (
     <div className="board">
-      <button onClick={setUpBoard} className="board__start-btn">
-        Start
-      </button>
-      {!houseIsBurning ? <button onClick={nextButton}>Next</button> : ""}
+      <div className="board__buttons">
+        <button onClick={setUpBoard} className="board__start-btn">
+          Start
+        </button>
+        {!houseIsBurning ? <button onClick={nextButton}>Next</button> : ""}
+      </div>
       {gameStarted ? (
-        <div>
+        <div className="board__started">
+          {windDirection ? (
+            <div className="board__wind">
+              <img className="board__compass" src={compassImage}></img>
+              <img src={arrowDirection.image} alt={arrowDirection.name} className="board__wind__direction" />
+            </div>
+          ) : (
+            ""
+          )}
           <button onClick={endGame} className="board__end-btn">
             End
           </button>

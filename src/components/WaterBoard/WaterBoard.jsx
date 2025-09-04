@@ -12,7 +12,7 @@ function WaterBoard({
 
   return (
     <div>
-      <section className="tree-board">
+      <section className="water-board">
         <Board
           gameBoard={gameBoard}
           setGameBoard={setGameBoard}

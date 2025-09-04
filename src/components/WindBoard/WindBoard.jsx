@@ -1,7 +1,7 @@
 import Board from "../Board/Board";
 import { Link } from "react-router-dom";
 
-function RandomBoard({
+function WindBoard({
   gameBoard,
   setGameBoard,
   gameStarted,
@@ -11,7 +11,7 @@ function RandomBoard({
 }) {
   return (
     <div>
-      <section className="random-board">
+      <section className="wind-board">
         <Board
           gameBoard={gameBoard}
           setGameBoard={setGameBoard}
@@ -34,4 +34,4 @@ function RandomBoard({
   );
 }
 
-export default RandomBoard;
+export default WindBoard;
