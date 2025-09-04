@@ -8,6 +8,8 @@ import fireImage from "../../assets/Fire.png";
 import deadTreeImage from "../../assets/Dead_Tree.png";
 import deadTreeFireImage from "../../assets/Fire_Dead_Tree.png";
 import waterImage from "../../assets/Water.png";
+import houseImage from "../../assets/House.png";
+import burningHouseImage from "../../assets/Burning-House.png";
 import {
   getAdjacentIndices,
   getAdjacentOfDeadTrees,
@@ -24,10 +26,19 @@ function Board({
   numberOfFire,
   numberOfDeadTrees,
   numberOfWater,
+  numberOfHouses,
 }) {
+  const [houseIsBurning, setHouseIsBurning] = useState(false);
+
   function setUpBoard() {
     setGameHasStarted(true);
-    randomizeBoard(numberOfTrees, numberOfFire, numberOfDeadTrees, numberOfWater);
+    randomizeBoard(
+      numberOfTrees,
+      numberOfFire,
+      numberOfDeadTrees,
+      numberOfWater,
+      numberOfHouses
+    );
   }
 
   function randomizeBoard(numberOfTrees, numberOfFire, numberOfDeadTrees) {
@@ -36,6 +47,7 @@ function Board({
     let fireLeft = numberOfFire;
     let deadTreesLeft = numberOfDeadTrees;
     let waterLeft = numberOfWater;
+    let housesLeft = numberOfHouses;
     let selectedTileAmount = 0;
     let newBoardArray = new Array();
     while (selectedTileAmount < numberOfTiles) {
@@ -61,12 +73,18 @@ function Board({
           image: deadTreeImage,
         });
         selectedTileAmount++;
-      }
-      else if (num > 45 && waterLeft > 0) {
+      } else if (num < 60 && waterLeft > 0) {
         waterLeft--;
         newBoardArray.push({
           name: "Water",
           image: waterImage,
+        });
+        selectedTileAmount++;
+      } else if (num === 60 && housesLeft > 0) {
+        housesLeft--;
+        newBoardArray.push({
+          name: "House",
+          image: houseImage,
         });
         selectedTileAmount++;
       }
@@ -76,20 +94,15 @@ function Board({
 
   function endGame() {
     setGameHasStarted(false);
+    setHouseIsBurning(false);
     setBoardArray([]);
   }
 
   function nextButton() {
     let adjacentTiles = new Array();
     boardArray.map((tile, index) => {
-      if (tile.name === "Fire") {
-        const neighbors = getAdjacentIndices(index);
+        const neighbors = getAdjacentIndices(index, tile.name);
         adjacentTiles.push(...neighbors);
-      }
-      if (tile.name === "Dead Tree Fire") {
-        const neighbors = getAdjacentOfDeadTrees(index);
-        adjacentTiles.push(...neighbors);
-      }
     });
     spreadFire(adjacentTiles);
   }
@@ -113,6 +126,15 @@ function Board({
             name: "Dead Tree Fire",
             image: deadTreeFireImage,
           });
+        } else if (
+          boardArray[i].name === "House" ||
+          boardArray[i].name === "Burning House"
+        ) {
+          setHouseIsBurning(true);
+          newArray.push({
+            name: "Burning House",
+            image: burningHouseImage,
+          });
         } else {
           newArray.push({
             name: "Fire",
@@ -135,7 +157,7 @@ function Board({
       <button onClick={setUpBoard} className="board__start-btn">
         Start
       </button>
-      <button onClick={nextButton}>Next</button>
+      {!houseIsBurning ? <button onClick={nextButton}>Next</button> : ""}
       {gameStarted ? (
         <div>
           <button onClick={endGame} className="board__end-btn">
