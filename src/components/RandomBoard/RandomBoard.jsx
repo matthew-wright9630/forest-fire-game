@@ -23,8 +23,9 @@ function RandomBoard({
           boardArray={boardArray}
           setBoardArray={setBoardArray}
           numberOfFire={2}
-          numberOfTrees={90}
+          numberOfTrees={78}
           numberOfDeadTrees={8}
+          numberOfWater={12}
         />
       </section>
       <Link className="main__link" to={"/forest-fire-game/"}>

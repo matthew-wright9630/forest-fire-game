@@ -7,6 +7,7 @@ import treeImage from "../../assets/Tree.png";
 import fireImage from "../../assets/Fire.png";
 import deadTreeImage from "../../assets/Dead_Tree.png";
 import deadTreeFireImage from "../../assets/Fire_Dead_Tree.png";
+import waterImage from "../../assets/Water.png";
 import {
   getAdjacentIndices,
   getAdjacentOfDeadTrees,
@@ -22,11 +23,11 @@ function Board({
   numberOfTrees,
   numberOfFire,
   numberOfDeadTrees,
-  name,
+  numberOfWater,
 }) {
   function setUpBoard() {
     setGameHasStarted(true);
-    randomizeBoard(numberOfTrees, numberOfFire, numberOfDeadTrees);
+    randomizeBoard(numberOfTrees, numberOfFire, numberOfDeadTrees, numberOfWater);
   }
 
   function randomizeBoard(numberOfTrees, numberOfFire, numberOfDeadTrees) {
@@ -34,10 +35,11 @@ function Board({
     let treesLeft = numberOfTrees;
     let fireLeft = numberOfFire;
     let deadTreesLeft = numberOfDeadTrees;
+    let waterLeft = numberOfWater;
     let selectedTileAmount = 0;
     let newBoardArray = new Array();
     while (selectedTileAmount < numberOfTiles) {
-      const num = Math.floor(Math.random() * 45) + 1;
+      const num = Math.floor(Math.random() * 60) + 1;
       if (num < 35 && treesLeft > 0) {
         treesLeft--;
         newBoardArray.push({
@@ -52,11 +54,19 @@ function Board({
           image: fireImage,
         });
         selectedTileAmount++;
-      } else if (num > 35 && deadTreesLeft > 0) {
+      } else if (num > 35 && num <= 45 && deadTreesLeft > 0) {
         deadTreesLeft--;
         newBoardArray.push({
           name: "Dead Tree",
           image: deadTreeImage,
+        });
+        selectedTileAmount++;
+      }
+      else if (num > 45 && waterLeft > 0) {
+        waterLeft--;
+        newBoardArray.push({
+          name: "Water",
+          image: waterImage,
         });
         selectedTileAmount++;
       }
@@ -92,7 +102,7 @@ function Board({
     for (let i = 0; i < 100; i++) {
       treeShouldBurn = false;
       for (let m = 0; m < indices.length; m++) {
-        if (indices[m] === i) {
+        if (indices[m] === i && boardArray[i].name !== "Water") {
           treeShouldBurn = true;
         }
       }
