@@ -4,7 +4,7 @@ import viteLogo from "/vite.svg";
 import Board from "../Board/Board";
 import { Link } from "react-router-dom";
 
-function RandomBoard({
+function DeadTreeBoard({
   gameBoard,
   setGameBoard,
   gameStarted,
@@ -14,7 +14,7 @@ function RandomBoard({
 }) {
   return (
     <div>
-      <section className="random-board">
+      <section className="dead-tree-board">
         <Board
           gameBoard={gameBoard}
           setGameBoard={setGameBoard}
@@ -22,8 +22,8 @@ function RandomBoard({
           setGameHasStarted={setGameHasStarted}
           boardArray={boardArray}
           setBoardArray={setBoardArray}
-          numberOfFire={2}
-          numberOfTrees={90}
+          numberOfFire={1}
+          numberOfTrees={91}
           numberOfDeadTrees={8}
         />
       </section>
@@ -34,4 +34,4 @@ function RandomBoard({
   );
 }
 
-export default RandomBoard;
+export default DeadTreeBoard;

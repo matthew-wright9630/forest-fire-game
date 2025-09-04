@@ -5,7 +5,12 @@ import BoardTile from "../BoardTile/BoardTile";
 import "./Board.css";
 import treeImage from "../../assets/Tree.png";
 import fireImage from "../../assets/Fire.png";
-import { getAdjacentIndices } from "../../utils/tileArrayMapping";
+import deadTreeImage from "../../assets/Dead_Tree.png";
+import deadTreeFireImage from "../../assets/Fire_Dead_Tree.png";
+import {
+  getAdjacentIndices,
+  getAdjacentOfDeadTrees,
+} from "../../utils/tileArrayMapping";
 
 function Board({
   gameBoard,
@@ -14,46 +19,44 @@ function Board({
   setGameHasStarted,
   boardArray,
   setBoardArray,
+  numberOfTrees,
+  numberOfFire,
+  numberOfDeadTrees,
+  name,
 }) {
-  let numberOfTiles = 100;
-  let numberOfTrees = 99;
-  let numberOfFire = 1;
-
   function setUpBoard() {
     setGameHasStarted(true);
-    randomizeBoard(numberOfTrees, numberOfFire);
-    // setTimeout(() => {
-    //   console.log(boardArray);
-    // }, 1000);
-    // console.log(boardArray);
-    // setUpTile();
+    randomizeBoard(numberOfTrees, numberOfFire, numberOfDeadTrees);
   }
 
-  function setUpTile() {
-    setGameBoard(boardArray);
-  }
-
-  function randomizeBoard(numberOfTrees, numberOfFire) {
+  function randomizeBoard(numberOfTrees, numberOfFire, numberOfDeadTrees) {
+    let numberOfTiles = 100;
+    let treesLeft = numberOfTrees;
+    let fireLeft = numberOfFire;
+    let deadTreesLeft = numberOfDeadTrees;
     let selectedTileAmount = 0;
     let newBoardArray = new Array();
     while (selectedTileAmount < numberOfTiles) {
-      const num = Math.floor(Math.random() * 35) + 1;
-      if (num < 35 && numberOfTrees > 0) {
-        numberOfTrees--;
-        // setBoardArray([...boardArray, { name: "Tree", image: treeImage }]);
+      const num = Math.floor(Math.random() * 45) + 1;
+      if (num < 35 && treesLeft > 0) {
+        treesLeft--;
         newBoardArray.push({
           name: "Tree",
           image: treeImage,
-          key: newBoardArray.length - 1,
         });
         selectedTileAmount++;
-      } else if (num === 35 && numberOfFire > 0) {
-        numberOfFire--;
-        // setBoardArray([...boardArray, { name: "Fire", image: fireImage }]);
+      } else if (num === 35 && fireLeft > 0) {
+        fireLeft--;
         newBoardArray.push({
           name: "Fire",
           image: fireImage,
-          key: newBoardArray.length - 1,
+        });
+        selectedTileAmount++;
+      } else if (num > 35 && deadTreesLeft > 0) {
+        deadTreesLeft--;
+        newBoardArray.push({
+          name: "Dead Tree",
+          image: deadTreeImage,
         });
         selectedTileAmount++;
       }
@@ -65,38 +68,17 @@ function Board({
     console.log("Game has ended.");
     setGameHasStarted(false);
     setBoardArray([]);
-    numberOfTiles = 100;
-    numberOfTrees = 100;
-    numberOfFire = 1;
   }
-
-  // function generateTileType(overrideNum) {
-  //   let num;
-  //   if (overrideNum) {
-  //     num = overrideNum;
-  //   } else {
-  //     num = Math.floor(Math.random() * 4) + 1;
-  //   }
-  //   if (num === 1) {
-  //     return "tree";
-  //   } else if (num === 2) {
-  //     return "fire";
-  //   } else if (num === 3) {
-  //     return "house";
-  //   } else {
-  //     return "river";
-  //   }
-  // }
-
-  // function testButton() {
-  //   console.log(gameBoard);
-  // }
 
   function nextButton() {
     let adjacentTiles = new Array();
     boardArray.map((tile, index) => {
       if (tile.name === "Fire") {
         const neighbors = getAdjacentIndices(index);
+        adjacentTiles.push(...neighbors);
+      }
+      if (tile.name === "Dead Tree Fire") {
+        const neighbors = getAdjacentOfDeadTrees(index);
         adjacentTiles.push(...neighbors);
       }
     });
@@ -118,21 +100,28 @@ function Board({
         console.log(treeShouldBurn, "This tree should burn");
       }
       if (treeShouldBurn === true) {
-        newArray.push({
-          name: "Fire",
-          image: fireImage,
-          key: newArray.length - 1,
-        });
+        if (
+          boardArray[i].name === "Dead Tree" ||
+          boardArray[i].name === "Dead Tree Fire"
+        ) {
+          newArray.push({
+            name: "Dead Tree Fire",
+            image: deadTreeFireImage,
+          });
+        } else {
+          newArray.push({
+            name: "Fire",
+            image: fireImage,
+          });
+        }
       } else {
         newArray.push(boardArray[i]);
       }
     }
-    console.log(newArray, "New Array");
     setBoardArray(newArray);
   }
 
   useEffect(() => {
-    // console.log("board array has been changed.", boardArray);
     setGameBoard(boardArray);
   }, [boardArray]);
 

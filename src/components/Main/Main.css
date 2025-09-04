@@ -1,0 +1,4 @@
+.main__links {
+    display: flex;
+    justify-content: space-evenly;
+}

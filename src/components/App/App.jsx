@@ -5,6 +5,8 @@ import { Route, Router, Routes } from "react-router-dom";
 import "./App.css";
 import Main from "../Main/Main";
 import RandomBoard from "../RandomBoard/RandomBoard";
+import TreeBoard from "../TreeBoard/TreeBoard";
+import DeadTreeBoard from "../DeadTreeBoard/DeadTreeBoard";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -31,9 +33,33 @@ function App() {
               setBoardArray={setBoardArray}
             />
           }
-        >
-          {/* <RandomBoard /> */}
-        </Route>
+        ></Route>
+        <Route
+          path="/forest-fire-game/tree-board"
+          element={
+            <TreeBoard
+              gameBoard={gameBoard}
+              setGameBoard={setGameBoard}
+              gameStarted={gameStarted}
+              setGameHasStarted={setGameHasStarted}
+              boardArray={boardArray}
+              setBoardArray={setBoardArray}
+            />
+          }
+        ></Route>
+        <Route
+          path="/forest-fire-game/dead-tree-board"
+          element={
+            <DeadTreeBoard
+              gameBoard={gameBoard}
+              setGameBoard={setGameBoard}
+              gameStarted={gameStarted}
+              setGameHasStarted={setGameHasStarted}
+              boardArray={boardArray}
+              setBoardArray={setBoardArray}
+            />
+          }
+        ></Route>
 
         {/* <Route path="*">
                     <Error404 />
