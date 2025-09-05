@@ -1,4 +1,32 @@
 .main__links {
-    display: flex;
-    justify-content: space-evenly;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  /* width: 50%; */
+}
+
+.main__link {
+  /* background-color: aqua; */
+  width: calc(50% - 10px);
+  border: 1px solid black;
+  border-radius: 7%;
+  line-height: 7em;
+  height: 7em;
+  text-align: center;
+  font-size: 25px;
+  color: black;
+  transition: linear .3s;
+}
+
+.main__link:hover {
+    background-color: gray;
+    opacity: 70%;
+}
+
+span {
+  display: inline-block;
+  vertical-align: middle;
+  line-height: normal;
 }
