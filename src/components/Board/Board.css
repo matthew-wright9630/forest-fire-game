@@ -21,3 +21,10 @@
   display: flex;
   background-color: darkgray;
 }
+
+.board__header {
+    text-align: center;
+    padding: 40px;
+    color: #ff4000;
+    background-color: rgba(0,0,0,.5) 
+}

@@ -25,6 +25,7 @@ function HouseBoard({
           numberOfDeadTrees={8}
           numberOfWater={12}
           numberOfHouses={1}
+          title={"House Board"}
         />
       </section>
       <Link className="main__link" to={"/forest-fire-game/"}>

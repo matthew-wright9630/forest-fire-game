@@ -40,6 +40,7 @@ function Board({
   numberOfHouses,
   windDirection,
   numberOfFireFighter,
+  title,
 }) {
   const [houseIsBurning, setHouseIsBurning] = useState(false);
   const [arrowDirection, setArrowDirection] = useState({});
@@ -247,6 +248,7 @@ function Board({
 
   return (
     <div className="board">
+      <h2 className="board__header">Welcome to the {title}!</h2>
       <div className="board__buttons">
         <button onClick={setUpBoard} className="board__start-btn">
           Start

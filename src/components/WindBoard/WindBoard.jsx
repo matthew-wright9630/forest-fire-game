@@ -25,6 +25,7 @@ function WindBoard({
           numberOfWater={12}
           numberOfHouses={1}
           windDirection={4}
+          title={"Wind Board"}
         />
       </section>
       <Link className="main__link" to={"/forest-fire-game/"}>

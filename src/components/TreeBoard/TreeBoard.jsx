@@ -22,6 +22,7 @@ function TreeBoard({
           setBoardArray={setBoardArray}
           numberOfTrees={99}
           numberOfFire={1}
+          title={"Tree Board"}
         />
       </section>
       <Link className="main__link" to={"/forest-fire-game/"}>

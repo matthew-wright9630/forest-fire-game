@@ -26,6 +26,7 @@ function FireFighterBoard({
           numberOfHouses={1}
           windDirection={4}
           numberOfFireFighter={1}
+          title={"Fire Fighter Board"}
         />
       </section>
       <Link className="main__link" to={"/forest-fire-game/"}>

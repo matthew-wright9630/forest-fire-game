@@ -22,6 +22,7 @@ function DeadTreeBoard({
           numberOfFire={1}
           numberOfTrees={91}
           numberOfDeadTrees={8}
+          title={"Dead Tree Board"}
         />
       </section>
       <Link className="main__link" to={"/forest-fire-game/"}>

@@ -1,3 +1,4 @@
+import "../RandomBoard/RandomBoard.css";
 import Board from "../Board/Board";
 import { Link } from "react-router-dom";
 
@@ -26,6 +27,7 @@ function RandomBoard({
           numberOfHouses={1}
           windDirection={4}
           numberOfFireFighter={1}
+          title={"Random Board"}
         />
       </section>
       <Link className="main__link" to={"/forest-fire-game/"}>

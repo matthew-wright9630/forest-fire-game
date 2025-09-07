@@ -24,6 +24,7 @@ function WaterBoard({
           numberOfTrees={79}
           numberOfDeadTrees={8}
           numberOfWater={12}
+          title={"Water Board"}
         />
       </section>
       <Link className="main__link" to={"/forest-fire-game/"}>
