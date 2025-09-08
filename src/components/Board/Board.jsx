@@ -249,66 +249,80 @@ function Board({
 
   return (
     <div className="board">
-      <h2 className="board__header">Welcome to the {title}!</h2>
-      <div className="board__buttons">
-        <button onClick={setUpBoard} className="board__start-btn">
-          Start
-        </button>
-        {!houseIsBurning ? <button onClick={nextButton}>Next</button> : ""}
-      </div>
-      {gameStarted ? (
-        <div className="board__started">
-          {windDirection ? (
-            <div className="board__wind">
-              {/* <img className="board__compass" src={compassImage}></img> */}
-              <img
-                src={arrowDirection.image}
-                alt={arrowDirection.name}
-                className="board__wind__direction"
-              />
-            </div>
+      <div className="board__game-area">
+        <h2 className="board__header">Welcome to the {title}!</h2>
+        <div className="board__buttons">
+          <button
+            onClick={setUpBoard}
+            className="board__button board__start-btn"
+          >
+            Start
+          </button>
+          {!houseIsBurning ? (
+            <button
+              onClick={nextButton}
+              className="board__button board__next-btn"
+            >
+              Next
+            </button>
           ) : (
             ""
           )}
-          <button onClick={endGame} className="board__end-btn">
-            End
-          </button>
-          <div className="board__grid">
-            <div className="board__first-column">
-              <BoardTile title="10" gridRow="10" />
-              <BoardTile title="9" gridRow="9" />
-              <BoardTile title="8" gridRow="8" />
-              <BoardTile title="7" gridRow="7" />
-              <BoardTile title="6" gridRow="6" />
-              <BoardTile title="5" gridRow="5" />
-              <BoardTile title="4" gridRow="4" />
-              <BoardTile title="3" gridRow="3" />
-              <BoardTile title="2" gridRow="2" />
-              <BoardTile title="1" gridRow="1" />
-            </div>
-            <div className="board__game-row">
-              {gameBoard?.map((item, index) => {
-                return <BoardTile gridRow={index} key={index} item={item} />;
-              })}
-            </div>
-          </div>
-          <div className="board__last-row">
-            <BoardTile lastRow="true" />
-            <BoardTile title="A" />
-            <BoardTile title="B" />
-            <BoardTile title="C" />
-            <BoardTile title="D" />
-            <BoardTile title="E" />
-            <BoardTile title="F" />
-            <BoardTile title="G" />
-            <BoardTile title="H" />
-            <BoardTile title="I" />
-            <BoardTile title="J" />
-          </div>
         </div>
-      ) : (
-        ""
-      )}
+        {gameStarted ? (
+          <div className="board__started">
+            {windDirection ? (
+              <div className="board__wind">
+                {/* <img className="board__compass" src={compassImage}></img> */}
+                <img
+                  src={arrowDirection.image}
+                  alt={arrowDirection.name}
+                  className="board__wind__direction"
+                />
+              </div>
+            ) : (
+              ""
+            )}
+            <button onClick={endGame} className="board__button board__end-btn">
+              End
+            </button>
+            <div className="board__grid">
+              <div className="board__first-column">
+                <BoardTile title="10" gridRow="10" />
+                <BoardTile title="9" gridRow="9" />
+                <BoardTile title="8" gridRow="8" />
+                <BoardTile title="7" gridRow="7" />
+                <BoardTile title="6" gridRow="6" />
+                <BoardTile title="5" gridRow="5" />
+                <BoardTile title="4" gridRow="4" />
+                <BoardTile title="3" gridRow="3" />
+                <BoardTile title="2" gridRow="2" />
+                <BoardTile title="1" gridRow="1" />
+              </div>
+              <div className="board__game-row">
+                {gameBoard?.map((item, index) => {
+                  return <BoardTile gridRow={index} key={index} item={item} />;
+                })}
+              </div>
+            </div>
+            <div className="board__last-row">
+              <BoardTile lastRow="true" />
+              <BoardTile title="A" />
+              <BoardTile title="B" />
+              <BoardTile title="C" />
+              <BoardTile title="D" />
+              <BoardTile title="E" />
+              <BoardTile title="F" />
+              <BoardTile title="G" />
+              <BoardTile title="H" />
+              <BoardTile title="I" />
+              <BoardTile title="J" />
+            </div>
+          </div>
+        ) : (
+          ""
+        )}
+      </div>
       <Footer />
     </div>
   );

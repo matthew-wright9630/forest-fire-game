@@ -7,12 +7,6 @@ function Main({}) {
       <section className="main">
         <h1 className="main__header">Welcome! This is the forest fire game.</h1>
         <div className="main__links">
-          <Link
-            className="main__link"
-            to={"/forest-fire-game/random-board/"}
-          >
-            <span className="main__span">Random Board</span>
-          </Link>
           <Link className="main__link" to={"/forest-fire-game/tree-board/"}>
             <span className="main__span">Tree Board</span>
           </Link>
@@ -36,6 +30,12 @@ function Main({}) {
             to={"/forest-fire-game/fire-fighter-board/"}
           >
             <span className="main__span">Fire Fighter Board</span>
+          </Link>
+          <Link
+            className="main__link"
+            to={"/forest-fire-game/random-board/"}
+          >
+            <span className="main__span">Random Board</span>
           </Link>
         </div>
       </section>

@@ -1,5 +1,5 @@
-.page {
-  margin: 0 100px;
+.page__content {
+  padding: 0 100px;
   background-image: url("../../assets/Forest_Image.jpg");
   background-size: cover;
   background-repeat: no-repeat;
