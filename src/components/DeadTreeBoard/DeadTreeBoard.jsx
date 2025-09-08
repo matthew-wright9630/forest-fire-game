@@ -7,6 +7,7 @@ function DeadTreeBoard({
   setGameHasStarted,
   boardArray,
   setBoardArray,
+  setIsGameUpdateModalOpen,
 }) {
   return (
     <div>
@@ -18,9 +19,9 @@ function DeadTreeBoard({
           setGameHasStarted={setGameHasStarted}
           boardArray={boardArray}
           setBoardArray={setBoardArray}
-          numberOfFire={1}
-          numberOfTrees={91}
-          numberOfDeadTrees={8}
+          initialFires={1}
+          initialTrees={91}
+          initialDeadTrees={8}
           title={"Dead Tree Board"}
         />
       </section>

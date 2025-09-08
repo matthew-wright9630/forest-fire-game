@@ -18,11 +18,11 @@ function WindBoard({
           setGameHasStarted={setGameHasStarted}
           boardArray={boardArray}
           setBoardArray={setBoardArray}
-          numberOfFire={2}
-          numberOfTrees={77}
-          numberOfDeadTrees={8}
-          numberOfWater={12}
-          numberOfHouses={1}
+          initialFires={2}
+          initialTrees={77}
+          initialDeadTrees={8}
+          initialWaters={12}
+          initialHouses={1}
           windDirection={4}
           title={"Wind Board"}
         />

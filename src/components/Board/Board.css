@@ -30,10 +30,10 @@
 }
 
 .board__header {
-    text-align: center;
-    padding: 40px;
-    color: #ff4000;
-    background-color: rgba(0,0,0,.5) 
+  text-align: center;
+  padding: 40px;
+  color: #ff4000;
+  background-color: rgba(0, 0, 0, 0.7);
 }
 
 .board__buttons {
@@ -42,21 +42,20 @@
   align-items: center;
   flex-wrap: wrap;
   gap: 20%;
-  /* width: 50%; */
 }
 
 .board__button {
   background-color: lightgray;
-  width: calc(10% - 10px);
+  width: calc(20% - 10px);
   border: 1px solid black;
-  border-radius: 7%;
-  line-height: 3em;
-  height: 3em;
+  border-radius: 5%;
+  line-height: 2em;
+  height: 5em;
   text-align: center;
   font-size: 15px;
   color: black;
   transition: linear 0.3s;
-  margin-top: 15px;
+  /* margin-top: 15px; */
 }
 
 .board__button:hover {
@@ -65,8 +64,13 @@
   cursor: pointer;
 }
 
-span {
-  display: inline-block;
-  vertical-align: middle;
-  line-height: normal;
+.board__update-btn {
+  /* width: calc(50% - 10px); */
+}
+
+.board__game-end {
+  text-align: center;
+  padding: 40px;
+  color: #ff4000;
+  background-color: rgba(0, 0, 0, 0.7);
 }

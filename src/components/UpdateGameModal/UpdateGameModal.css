@@ -1,0 +1,179 @@
+.modal {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: #0000004d;
+  visibility: hidden;
+  opacity: 0;
+  transition: 0.3s linear;
+  color: #000;
+}
+
+.modal_opened {
+  visibility: visible;
+  opacity: 1;
+}
+
+.modal__container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  padding: 28px 28px 36px;
+  width: calc(496px - (28px * 2));
+  border-radius: 10px;
+}
+
+.modal__close-button {
+  padding: 0;
+  margin: 0;
+  position: absolute;
+  top: 20px;
+  right: 28px;
+  width: 20px;
+  height: 20px;
+  background-image: url("../../assets/Cross.svg");
+  background-position: center;
+  background-size: contain;
+  border: none;
+  cursor: pointer;
+  transition: 0.3s linear;
+}
+
+.modal__close-button:hover {
+  opacity: 0.5;
+}
+
+.modal__form {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.modal__title {
+  margin: 0 0 24px;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 1.2;
+}
+
+.modal__label {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 1.2;
+}
+
+.modal__help-text {
+  margin: 0;
+  padding: 0 16px;
+  font-size: 14px;
+  opacity: .8;
+}
+
+.modal__input {
+  border: none;
+  background-color: #f3f3f3;
+  border-bottom: solid #000 1px;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 1.2;
+  color: rgba(0, 0, 0, 0.5);
+  width: 99%;
+}
+
+.modal__fieldset_radio {
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+
+.modal__legend {
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 1.2;
+  margin-bottom: 12px;
+}
+
+.modal__fieldset_radio {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.modal__label_radio {
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 1.2;
+  color: rgba(0, 0, 0, 0.5);
+}
+
+.modal__input_radio {
+  margin-right: 8px;
+  width: 16px;
+  height: 16px;
+  accent-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal__input_radio:checked + .modal__label_radio {
+  color: rgba(0, 0, 0, 1);
+}
+
+.modal__submit-button {
+  width: 124px;
+  height: 36px;
+  border-radius: 4px;
+  background-color: #000;
+  color: #fff;
+  cursor: pointer;
+  opacity: 1;
+  transition: 0.3s linear;
+}
+
+.modal__submit-button:hover {
+  opacity: 0.6;
+}
+
+.modal__submit-button:disabled {
+  opacity: 0.3;
+}
+
+.modal__error {
+  color: red;
+  transition: 0.3s linear;
+}
+
+@media screen and (max-width: 550px) {
+  .modal {
+    margin-bottom: auto;
+  }
+
+  .modal__container {
+    padding: 32px 0;
+    width: calc(100%);
+  }
+
+  .modal__title {
+    font-size: 20px;
+    padding: 0 16px;
+  }
+
+  .modal__label {
+    padding: 0 16px;
+  }
+
+  .modal__fieldset_radio {
+    padding: 0 16px;
+  }
+
+  .modal__submit-button {
+    padding: 0, 16px;
+    width: 100%;
+  }
+}

@@ -19,11 +19,11 @@ function HouseBoard({
           setGameHasStarted={setGameHasStarted}
           boardArray={boardArray}
           setBoardArray={setBoardArray}
-          numberOfFire={1}
-          numberOfTrees={78}
-          numberOfDeadTrees={8}
-          numberOfWater={12}
-          numberOfHouses={1}
+          initialFires={1}
+          initialTrees={78}
+          initialDeadTrees={8}
+          initialWaters={12}
+          initialHouses={1}
           title={"House Board"}
         />
       </section>

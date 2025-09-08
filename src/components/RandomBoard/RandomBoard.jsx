@@ -19,13 +19,13 @@ function RandomBoard({
           setGameHasStarted={setGameHasStarted}
           boardArray={boardArray}
           setBoardArray={setBoardArray}
-          numberOfFire={2}
-          numberOfTrees={76}
-          numberOfDeadTrees={8}
-          numberOfWater={12}
-          numberOfHouses={1}
+          initialFires={2}
+          initialTrees={76}
+          initialDeadTrees={8}
+          initialWaters={12}
+          initialHouses={1}
           windDirection={4}
-          numberOfFireFighter={1}
+          initialFireFighters={1}
           title={"Random Board"}
         />
       </section>

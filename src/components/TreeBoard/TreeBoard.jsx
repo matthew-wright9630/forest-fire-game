@@ -19,8 +19,8 @@ function TreeBoard({
           setGameHasStarted={setGameHasStarted}
           boardArray={boardArray}
           setBoardArray={setBoardArray}
-          numberOfTrees={99}
-          numberOfFire={1}
+          initialTrees={99}
+          initialFires={1}
           title={"Tree Board"}
         />
       </section>

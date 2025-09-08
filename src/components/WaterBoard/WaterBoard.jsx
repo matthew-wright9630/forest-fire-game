@@ -18,10 +18,10 @@ function WaterBoard({
           setGameHasStarted={setGameHasStarted}
           boardArray={boardArray}
           setBoardArray={setBoardArray}
-          numberOfFire={1}
-          numberOfTrees={79}
-          numberOfDeadTrees={8}
-          numberOfWater={12}
+          initialFires={1}
+          initialTrees={79}
+          initialDeadTrees={8}
+          initialWaters={12}
           title={"Water Board"}
         />
       </section>

@@ -9,6 +9,7 @@ import WaterBoard from "../WaterBoard/WaterBoard";
 import HouseBoard from "../HouseBoard/HouseBoard";
 import WindBoard from "../WindBoard/WindBoard";
 import FireFighterBoard from "../FireFighterBoard/FireFighterBoard";
+import UpdateGameModal from "../UpdateGameModal/UpdateGameModal";
 
 function App() {
   const [gameBoard, setGameBoard] = useState([]);
@@ -20,9 +21,7 @@ function App() {
       <div>
         <div className="page__content">
           <Routes>
-            <Route path="/forest-fire-game/" element={<Main />}>
-              {/* <Main /> */}
-            </Route>
+            <Route path="/forest-fire-game/" element={<Main />}></Route>
 
             <Route
               path="/forest-fire-game/random-board"

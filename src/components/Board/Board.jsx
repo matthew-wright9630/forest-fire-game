@@ -26,6 +26,7 @@ import {
   getProtectedTrees,
 } from "../../utils/tileArrayMapping";
 import Footer from "../NavigateToHomepage/NavigateToHomepage";
+import UpdateGameModal from "../UpdateGameModal/UpdateGameModal";
 
 function Board({
   gameBoard,
@@ -34,25 +35,55 @@ function Board({
   setGameHasStarted,
   boardArray,
   setBoardArray,
-  numberOfTrees,
-  numberOfFire,
-  numberOfDeadTrees,
-  numberOfWater,
-  numberOfHouses,
-  windDirection,
-  numberOfFireFighter,
+  initialTrees=0,
+  initialFires=0,
+  initialDeadTrees=0,
+  initialWaters=0,
+  initialHouses=0,
+  windDirection=0,
+  initialFireFighters=0,
   title,
 }) {
   const [houseIsBurning, setHouseIsBurning] = useState(false);
   const [arrowDirection, setArrowDirection] = useState({});
   const [roundNumber, setRoundNumber] = useState(0);
+  const [roundHasStarted, setRoundHasStarted] = useState(false);
+  const [isGameUpdateModalOpen, setIsGameUpdateModalOpen] = useState(false);
+  const [numberOfTrees, setNumberOfTrees] = useState(initialTrees);
+  const [numberOfFires, setNumberOfFires] = useState(initialFires);
+  const [numberOfDeadTrees, setNumberOfDeadTrees] = useState(initialDeadTrees);
+  const [numberOfWater, setNumberOfWaters] = useState(initialWaters);
+  const [numberOfHouses, setNumberOfHouses] = useState(initialHouses);
+  const [numberOfFireFighter, setNumberOfFireFighters] =
+    useState(initialFireFighters);
 
   function setUpBoard() {
     setGameHasStarted(true);
-    determineArrowDirection(windDirection);
+    if (windDirection) {
+      determineArrowDirection(windDirection);
+    }
+    setRoundHasStarted(true);
     randomizeBoard();
     setRoundNumber(0);
   }
+
+  function updateBoard() {
+    if (isGameUpdateModalOpen) {
+      setIsGameUpdateModalOpen(false);
+    } else {
+      setIsGameUpdateModalOpen(true);
+    }
+    console.log(isGameUpdateModalOpen);
+  }
+
+  const handleCloseModal = () => {
+    setIsGameUpdateModalOpen(false);
+  };
+
+  const handleSubmit = (evt) => {
+    evt.preventDefault();
+    handleCloseModal();
+  };
 
   function determineArrowDirection(wind) {
     switch (wind) {
@@ -89,14 +120,19 @@ function Board({
   function randomizeBoard() {
     let numberOfTiles = 100;
     let treesLeft = numberOfTrees;
-    let fireLeft = numberOfFire;
+    let fireLeft = numberOfFires;
     let deadTreesLeft = numberOfDeadTrees;
     let waterLeft = numberOfWater;
     let housesLeft = numberOfHouses;
     let fireFighterLeft = numberOfFireFighter;
     let selectedTileAmount = 0;
     let newBoardArray = new Array();
+    let numberOfIterations = 0;
     while (selectedTileAmount < numberOfTiles) {
+      numberOfIterations++;
+      if (numberOfIterations > 10000) {
+        break;
+      }
       const num = Math.floor(Math.random() * 60) + 1;
       if (num < 30 && treesLeft > 0) {
         treesLeft--;
@@ -177,6 +213,7 @@ function Board({
   function endGame() {
     setGameHasStarted(false);
     setHouseIsBurning(false);
+    setRoundHasStarted(false);
     setArrowDirection({});
     setBoardArray([]);
   }
@@ -226,6 +263,7 @@ function Board({
           boardArray[i].name === "Burning House"
         ) {
           setHouseIsBurning(true);
+          console.log("House is burning");
           newArray.push({
             name: "Burning House",
             image: burningHouseImage,
@@ -252,21 +290,34 @@ function Board({
       <div className="board__game-area">
         <h2 className="board__header">Welcome to the {title}!</h2>
         <div className="board__buttons">
-          <button
-            onClick={setUpBoard}
-            className="board__button board__start-btn"
-          >
-            Start
-          </button>
-          {!houseIsBurning ? (
-            <button
-              onClick={nextButton}
-              className="board__button board__next-btn"
-            >
-              Next
-            </button>
+          {!roundHasStarted ? (
+            <>
+              <button
+                onClick={setUpBoard}
+                className="board__button board__start-btn"
+              >
+                Start
+              </button>
+              <button
+                onClick={updateBoard}
+                className="board__button board__update-btn"
+              >
+                Update Board Conditions
+              </button>
+            </>
           ) : (
-            ""
+            <>
+              {houseIsBurning ? (
+                <div className="board__game-end">House has been burned</div>
+              ) : (
+                <button
+                  onClick={nextButton}
+                  className="board__button board__next-btn"
+                >
+                  Next
+                </button>
+              )}
+            </>
           )}
         </div>
         {gameStarted ? (
@@ -323,6 +374,23 @@ function Board({
           ""
         )}
       </div>
+      <UpdateGameModal
+        isGameUpdateModalOpen={isGameUpdateModalOpen}
+        handleCloseModal={handleCloseModal}
+        handleSubmit={handleSubmit}
+        numberOfTrees={numberOfTrees}
+        setNumberOfTrees={setNumberOfTrees}
+        numberOfFires={numberOfFires}
+        setNumberOfFires={setNumberOfFires}
+        numberOfDeadTrees={numberOfDeadTrees}
+        setNumberOfDeadTrees={setNumberOfDeadTrees}
+        numberOfWater={numberOfWater}
+        setNumberOfWaters={setNumberOfWaters}
+        numberOfHouses={numberOfHouses}
+        setNumberOfHouses={setNumberOfHouses}
+        numberOfFireFighter={numberOfFireFighter}
+        setNumberOfFireFighters={setNumberOfFireFighters}
+      />
       <Footer />
     </div>
   );
