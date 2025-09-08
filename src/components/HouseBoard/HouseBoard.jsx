@@ -1,5 +1,4 @@
 import Board from "../Board/Board";
-import { Link } from "react-router-dom";
 
 function HouseBoard({
   gameBoard,
@@ -28,9 +27,6 @@ function HouseBoard({
           title={"House Board"}
         />
       </section>
-      <Link className="main__link" to={"/forest-fire-game/"}>
-        Return to the homepage
-      </Link>
     </div>
   );
 }

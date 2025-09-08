@@ -1,0 +1,18 @@
+.navigate-to-homepage__link {
+  background-color: lightgray;
+  width: calc(30% - 10px);
+  border: 1px solid black;
+  border-radius: 7%;
+  line-height: 7em;
+  height: 7em;
+  text-align: center;
+  font-size: 25px;
+  color: black;
+  transition: linear .3s;
+  margin-top: 15px;
+}
+
+.navigate-to-homepage__link:hover {
+    background-color: lightgray;
+    opacity: 70%;
+}

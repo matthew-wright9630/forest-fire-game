@@ -25,6 +25,7 @@ import {
   getAdjacentIndices,
   getProtectedTrees,
 } from "../../utils/tileArrayMapping";
+import Footer from "../NavigateToHomepage/NavigateToHomepage";
 
 function Board({
   gameBoard,
@@ -308,6 +309,7 @@ function Board({
       ) : (
         ""
       )}
+      <Footer />
     </div>
   );
 }
