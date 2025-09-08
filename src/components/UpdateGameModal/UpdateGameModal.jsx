@@ -4,7 +4,6 @@ import "./UpdateGameModal.css";
 function UpdateGameModal({
   isGameUpdateModalOpen,
   handleCloseModal,
-  handleSubmit,
   numberOfTrees,
   setNumberOfTrees,
   numberOfFires,
@@ -20,66 +19,83 @@ function UpdateGameModal({
 }) {
   const [error, setError] = useState({});
   const [isError, setIsError] = useState(false);
+  const [trees, setTrees] = useState(numberOfTrees);
+  const [fires, setFires] = useState(numberOfFires);
+  const [deadTrees, setDeadTrees] = useState(numberOfDeadTrees);
+  const [waters, setWaters] = useState(numberOfWater);
+  const [houses, setHouses] = useState(numberOfHouses);
+  const [fireFighters, setFireFighters] = useState(numberOfFireFighter);
 
   const handleChange = (event) => {
     const target = event.target;
     const name = target.name;
     const value = Number(target.value);
     if (target.name === "trees") {
-      setNumberOfTrees(value);
+      setTrees(value);
     } else if (name === "fires") {
-      setNumberOfFires(value);
+      setFires(value);
     } else if (name === "dead trees") {
-      setNumberOfDeadTrees(value);
+      setDeadTrees(value);
     } else if (name === "waters") {
-      setNumberOfWaters(value);
+      setWaters(value);
     } else if (name === "houses") {
-      setNumberOfHouses(value);
+      setHouses(value);
     } else if (name === "fire fighters") {
-      setNumberOfFireFighters(value);
+      setFireFighters(value);
     }
+  };
+
+  const handleSubmit = (evt) => {
+    evt.preventDefault();
+    setNumberOfTrees(trees);
+    setNumberOfFires(fires);
+    setNumberOfDeadTrees(deadTrees);
+    setNumberOfWaters(waters);
+    setNumberOfHouses(houses);
+    setNumberOfFireFighters(fireFighters);
+    handleCloseModal();
   };
 
   useEffect(() => {
     if (
-      Number(numberOfTrees) +
-        Number(numberOfFires) +
-        Number(numberOfDeadTrees) +
-        Number(numberOfWater) +
-        Number(numberOfHouses) +
-        Number(numberOfFireFighter) >
+      Number(trees) +
+        Number(fires) +
+        Number(deadTrees) +
+        Number(waters) +
+        Number(houses) +
+        Number(fireFighters) >
       100
     ) {
       setError({
         name: "Too many tiles",
         message: `There ${
-          numberOfTrees +
-          numberOfFires +
-          numberOfDeadTrees +
-          numberOfWater +
-          numberOfHouses +
-          numberOfFireFighter
+          trees +
+          fires +
+          deadTrees +
+          waters +
+          houses +
+          fireFighters
         } items selected. Please remove some items until there are 100`,
       });
       setIsError(true);
     } else if (
-      Number(numberOfTrees) +
-        Number(numberOfFires) +
-        Number(numberOfDeadTrees) +
-        Number(numberOfWater) +
-        Number(numberOfHouses) +
-        Number(numberOfFireFighter) <
+      Number(trees) +
+        Number(fires) +
+        Number(deadTrees) +
+        Number(waters) +
+        Number(houses) +
+        Number(fireFighters) <
       100
     ) {
       setError({
         name: "Too few tiles",
         message: `There ${
-          numberOfTrees +
-          numberOfFires +
-          numberOfDeadTrees +
-          numberOfWater +
-          numberOfHouses +
-          numberOfFireFighter
+          trees +
+          fires +
+          deadTrees +
+          waters +
+          houses +
+          fireFighters
         } items selected. Please add some items until there are 100`,
       });
       setIsError(true);
@@ -88,12 +104,12 @@ function UpdateGameModal({
       setIsError(false);
     }
   }, [
-    numberOfTrees,
-    numberOfFires,
-    numberOfDeadTrees,
-    numberOfWater,
-    numberOfHouses,
-    numberOfFireFighter,
+    trees,
+    fires,
+    deadTrees,
+    waters,
+    houses,
+    fireFighters,
   ]);
 
   return (
@@ -114,8 +130,8 @@ function UpdateGameModal({
               className="modal__input"
               name="trees"
               id="trees"
-              placeholder={numberOfTrees}
-              value={numberOfTrees || ""}
+              placeholder={trees}
+              value={trees || ""}
             />
           </label>
           <label className="modal__label">
@@ -126,8 +142,8 @@ function UpdateGameModal({
               className="modal__input"
               name="fires"
               id="fires"
-              placeholder={numberOfFires}
-              value={numberOfFires || ""}
+              placeholder={fires}
+              value={fires || ""}
             />
           </label>
           <label className="modal__label">
@@ -138,8 +154,8 @@ function UpdateGameModal({
               className="modal__input"
               name="dead trees"
               id="dead trees"
-              placeholder={numberOfDeadTrees}
-              value={numberOfDeadTrees || ""}
+              placeholder={deadTrees}
+              value={deadTrees || ""}
             />
           </label>
           <label className="modal__label">
@@ -150,8 +166,8 @@ function UpdateGameModal({
               className="modal__input"
               name="waters"
               id="waters"
-              placeholder={numberOfWater}
-              value={numberOfWater || ""}
+              placeholder={waters}
+              value={waters || ""}
             />
           </label>
           <label className="modal__label">
@@ -162,8 +178,8 @@ function UpdateGameModal({
               className="modal__input"
               name="houses"
               id="houses"
-              placeholder={numberOfHouses}
-              value={numberOfHouses || ""}
+              placeholder={houses}
+              value={houses || ""}
             />
           </label>
           <label className="modal__label">
@@ -174,8 +190,8 @@ function UpdateGameModal({
               className="modal__input"
               name="fire fighters"
               id="fire fighters"
-              placeholder={numberOfFireFighter}
-              value={numberOfFireFighter || ""}
+              placeholder={fireFighters}
+              value={fireFighters || ""}
             />
           </label>
           <span className="modal__error">{error.message}</span>

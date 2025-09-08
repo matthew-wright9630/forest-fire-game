@@ -27,6 +27,7 @@ import {
 } from "../../utils/tileArrayMapping";
 import Footer from "../NavigateToHomepage/NavigateToHomepage";
 import UpdateGameModal from "../UpdateGameModal/UpdateGameModal";
+import NavigateToHomepage from "../NavigateToHomepage/NavigateToHomepage";
 
 function Board({
   gameBoard,
@@ -78,11 +79,6 @@ function Board({
 
   const handleCloseModal = () => {
     setIsGameUpdateModalOpen(false);
-  };
-
-  const handleSubmit = (evt) => {
-    evt.preventDefault();
-    handleCloseModal();
   };
 
   function determineArrowDirection(wind) {
@@ -377,7 +373,6 @@ function Board({
       <UpdateGameModal
         isGameUpdateModalOpen={isGameUpdateModalOpen}
         handleCloseModal={handleCloseModal}
-        handleSubmit={handleSubmit}
         numberOfTrees={numberOfTrees}
         setNumberOfTrees={setNumberOfTrees}
         numberOfFires={numberOfFires}
@@ -391,7 +386,7 @@ function Board({
         numberOfFireFighter={numberOfFireFighter}
         setNumberOfFireFighters={setNumberOfFireFighters}
       />
-      <Footer />
+      <NavigateToHomepage endGame={endGame}/>
     </div>
   );
 }
