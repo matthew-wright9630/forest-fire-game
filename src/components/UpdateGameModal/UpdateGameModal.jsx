@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import "./UpdateGameModal.css";
 
 function UpdateGameModal({
@@ -17,31 +18,85 @@ function UpdateGameModal({
   numberOfFireFighter,
   setNumberOfFireFighters,
 }) {
+  const [error, setError] = useState({});
+  const [isError, setIsError] = useState(false);
+
   const handleChange = (event) => {
-    console.log(event.target.value);
     const target = event.target;
     const name = target.name;
-    const value = target.value;
+    const value = Number(target.value);
     if (target.name === "trees") {
-      setNumberOfTrees(target.value);
-    } else if (target.name === "fires") {
-      setNumberOfFires(target.value);
-    } else if (target.name === "dead trees") {
-      setNumberOfDeadTrees(target.value);
-    } else if (target.name === "waters") {
-      setNumberOfWaters(target.value);
-    } else if (target.name === "houses") {
-      setNumberOfHouses(target.value);
-    } else if (target.name === "fire fighters") {
-      setNumberOfFireFighters(target.value);
+      setNumberOfTrees(value);
+    } else if (name === "fires") {
+      setNumberOfFires(value);
+    } else if (name === "dead trees") {
+      setNumberOfDeadTrees(value);
+    } else if (name === "waters") {
+      setNumberOfWaters(value);
+    } else if (name === "houses") {
+      setNumberOfHouses(value);
+    } else if (name === "fire fighters") {
+      setNumberOfFireFighters(value);
     }
-    // setValues({ ...values, [name]: value });
-    // setErrors({ ...errors, [name]: target.validationMessage });
-    // setIsValid(target.closest("form").checkValidity());
   };
 
+  useEffect(() => {
+    if (
+      Number(numberOfTrees) +
+        Number(numberOfFires) +
+        Number(numberOfDeadTrees) +
+        Number(numberOfWater) +
+        Number(numberOfHouses) +
+        Number(numberOfFireFighter) >
+      100
+    ) {
+      setError({
+        name: "Too many tiles",
+        message: `There ${
+          numberOfTrees +
+          numberOfFires +
+          numberOfDeadTrees +
+          numberOfWater +
+          numberOfHouses +
+          numberOfFireFighter
+        } items selected. Please remove some items until there are 100`,
+      });
+      setIsError(true);
+    } else if (
+      Number(numberOfTrees) +
+        Number(numberOfFires) +
+        Number(numberOfDeadTrees) +
+        Number(numberOfWater) +
+        Number(numberOfHouses) +
+        Number(numberOfFireFighter) <
+      100
+    ) {
+      setError({
+        name: "Too few tiles",
+        message: `There ${
+          numberOfTrees +
+          numberOfFires +
+          numberOfDeadTrees +
+          numberOfWater +
+          numberOfHouses +
+          numberOfFireFighter
+        } items selected. Please add some items until there are 100`,
+      });
+      setIsError(true);
+    } else {
+      setError({});
+      setIsError(false);
+    }
+  }, [
+    numberOfTrees,
+    numberOfFires,
+    numberOfDeadTrees,
+    numberOfWater,
+    numberOfHouses,
+    numberOfFireFighter,
+  ]);
+
   return (
-    // <div className="update-game-modal">{isGameUpdateModalOpen ? <div className="update-game-modal">Test</div> : ""}
     <div className={`modal ${isGameUpdateModalOpen ? "modal_opened" : ""}`}>
       <div className="modal__container">
         <h2 className="modal__title">Update Game Board</h2>
@@ -55,7 +110,7 @@ function UpdateGameModal({
             Initial number of trees
             <input
               onChange={handleChange}
-              type="text"
+              type="integer"
               className="modal__input"
               name="trees"
               id="trees"
@@ -67,7 +122,7 @@ function UpdateGameModal({
             Initial number of fires
             <input
               onChange={handleChange}
-              type="text"
+              type="integer"
               className="modal__input"
               name="fires"
               id="fires"
@@ -79,7 +134,7 @@ function UpdateGameModal({
             Initial number of dead trees
             <input
               onChange={handleChange}
-              type="text"
+              type="integer"
               className="modal__input"
               name="dead trees"
               id="dead trees"
@@ -91,7 +146,7 @@ function UpdateGameModal({
             Initial number of waters
             <input
               onChange={handleChange}
-              type="text"
+              type="integer"
               className="modal__input"
               name="waters"
               id="waters"
@@ -103,7 +158,7 @@ function UpdateGameModal({
             Initial number of houses
             <input
               onChange={handleChange}
-              type="text"
+              type="integer"
               className="modal__input"
               name="houses"
               id="houses"
@@ -115,18 +170,18 @@ function UpdateGameModal({
             Initial number of fire fighter
             <input
               onChange={handleChange}
-              type="text"
+              type="integer"
               className="modal__input"
-              name="fire fighter"
-              id="fire fighter"
+              name="fire fighters"
+              id="fire fighters"
               placeholder={numberOfFireFighter}
               value={numberOfFireFighter || ""}
             />
           </label>
-          {/* <span className="modal__error">{errors.email}</span> */}
+          <span className="modal__error">{error.message}</span>
           <button
             type="submit"
-            // disabled={isDisabled}
+            disabled={isError}
             className={`modal__submit-button`}
           >
             {"Submit"}
