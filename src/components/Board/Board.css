@@ -5,6 +5,8 @@
   min-height: 100vh;
 }
 
+
+
 .board__grid {
   display: flex;
   /* width: 100%; */
@@ -70,6 +72,10 @@
 
 .board__update-btn {
   /* width: calc(50% - 10px); */
+}
+
+.board__end-btn {
+  margin-bottom: 10px;
 }
 
 .board__game-end {

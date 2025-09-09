@@ -211,10 +211,12 @@ function Board({
   }
 
   function checkFireFighters() {
-    if (!fireFighterPresent) {
-      setFireFighterPresent(true);
-    } else {
-      setFireFighterPresent(false);
+    if (numberOfFireFighter !== 0) {
+      if (!fireFighterPresent) {
+        setFireFighterPresent(true);
+      } else {
+        setFireFighterPresent(false);
+      }
     }
   }
 
