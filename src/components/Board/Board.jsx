@@ -36,13 +36,13 @@ function Board({
   setGameHasStarted,
   boardArray,
   setBoardArray,
-  initialTrees=0,
-  initialFires=0,
-  initialDeadTrees=0,
-  initialWaters=0,
-  initialHouses=0,
-  windDirection=0,
-  initialFireFighters=0,
+  initialTrees = 0,
+  initialFires = 0,
+  initialDeadTrees = 0,
+  initialWaters = 0,
+  initialHouses = 0,
+  windDirection = 0,
+  initialFireFighters = 0,
   title,
 }) {
   const [houseIsBurning, setHouseIsBurning] = useState(false);
@@ -57,6 +57,7 @@ function Board({
   const [numberOfHouses, setNumberOfHouses] = useState(initialHouses);
   const [numberOfFireFighter, setNumberOfFireFighters] =
     useState(initialFireFighters);
+  const [fireFighterPresent, setFireFighterPresent] = useState(false);
 
   function setUpBoard() {
     setGameHasStarted(true);
@@ -65,6 +66,7 @@ function Board({
     }
     setRoundHasStarted(true);
     randomizeBoard();
+    checkFireFighters();
     setRoundNumber(0);
   }
 
@@ -74,7 +76,6 @@ function Board({
     } else {
       setIsGameUpdateModalOpen(true);
     }
-    console.log(isGameUpdateModalOpen);
   }
 
   const handleCloseModal = () => {
@@ -113,9 +114,26 @@ function Board({
     }
   }
 
+  function overrideBoard(item) {
+    let newArray = new Array();
+    for (let i = 0; i < 100; i++) {
+      if (item.index === i) {
+        newArray.push({
+          name: "Fire Fighter",
+          image: fireFighterImage,
+          description:
+            "The Fire Fighter will protect their square and the four squares directly to each side of the fire fighter.",
+        });
+      } else {
+        newArray.push(boardArray[i]);
+      }
+    }
+    setBoardArray(newArray);
+  }
+
   function randomizeBoard() {
     let numberOfTiles = 100;
-    let treesLeft = numberOfTrees;
+    let treesLeft = numberOfTrees + numberOfFireFighter;
     let fireLeft = numberOfFires;
     let deadTreesLeft = numberOfDeadTrees;
     let waterLeft = numberOfWater;
@@ -135,6 +153,9 @@ function Board({
         newBoardArray.push({
           name: "Tree",
           image: treeImage,
+          description:
+            "One part of a forest. When burned, it will burn in all eight directions around it.",
+          index: selectedTileAmount,
         });
         selectedTileAmount++;
       } else if (num === 35 && fireLeft > 0) {
@@ -142,20 +163,28 @@ function Board({
         newBoardArray.push({
           name: "Fire",
           image: fireImage,
+          description:
+            "Burns trees and other fuel. Normally burns in all eight directions around it.",
+          index: selectedTileAmount,
         });
         selectedTileAmount++;
-      } else if (num >= 30 && num < 35 && fireFighterLeft > 0) {
-        fireFighterLeft--;
-        newBoardArray.push({
-          name: "Fire Fighter",
-          image: fireFighterImage,
-        });
-        selectedTileAmount++;
+        // } else if (num >= 30 && num < 35 && fireFighterLeft > 0) {
+        //   fireFighterLeft--;
+        //   newBoardArray.push({
+        //     name: "Fire Fighter",
+        //     image: fireFighterImage,
+        //     description:
+        //       "The Fire Fighter will protect their square and the four squares directly to each side of the fire fighter.",
+        //   });
+        // selectedTileAmount++;
       } else if (num > 30 && num <= 45 && deadTreesLeft > 0) {
         deadTreesLeft--;
         newBoardArray.push({
           name: "Dead Tree",
           image: deadTreeImage,
+          description:
+            "These squares are volatile. They burn two squares on each flat side and one diagonally.",
+          index: selectedTileAmount,
         });
         selectedTileAmount++;
       } else if (num < 60 && waterLeft > 0) {
@@ -163,6 +192,8 @@ function Board({
         newBoardArray.push({
           name: "Water",
           image: waterImage,
+          description: "Squares with water will not burn.",
+          index: selectedTileAmount,
         });
         selectedTileAmount++;
       } else if (num === 60 && housesLeft > 0) {
@@ -170,11 +201,39 @@ function Board({
         newBoardArray.push({
           name: "House",
           image: houseImage,
+          description: "The house burns like a tree. You want to protect this.",
+          index: selectedTileAmount,
         });
         selectedTileAmount++;
       }
     }
     setBoardArray(newBoardArray);
+  }
+
+  function checkFireFighters() {
+    if (!fireFighterPresent) {
+      setFireFighterPresent(true);
+    } else {
+      setFireFighterPresent(false);
+    }
+  }
+
+  function addFireFighter(item) {
+    let fireFighterLeft = numberOfFireFighter;
+    let numberOfIterations = 0;
+    while (fireFighterLeft > 0) {
+      numberOfIterations++;
+      if (numberOfIterations > 10000) {
+        break;
+      }
+      if (item.name === "Tree" || item.name === "Dead Tree") {
+        overrideBoard(item);
+        fireFighterLeft--;
+      }
+    }
+    if (fireFighterLeft === 0) {
+      checkFireFighters();
+    }
   }
 
   function protectTrees() {
@@ -198,7 +257,12 @@ function Board({
         }
       }
       if (treeIsProtected === true) {
-        newArray.push({ name: "Protected Tree", image: protectedTreeImage });
+        newArray.push({
+          name: "Protected Tree",
+          image: protectedTreeImage,
+          description: "This tree is protected and cannot be burned.",
+          index: i,
+        });
       } else {
         newArray.push(boardArray[i]);
       }
@@ -210,6 +274,7 @@ function Board({
     setGameHasStarted(false);
     setHouseIsBurning(false);
     setRoundHasStarted(false);
+    setFireFighterPresent(false);
     setArrowDirection({});
     setBoardArray([]);
   }
@@ -253,21 +318,28 @@ function Board({
           newArray.push({
             name: "Dead Tree Fire",
             image: deadTreeFireImage,
+            description:
+              "These squares are volatile. They burn two squares on each flat side and one diagonally.",
+            index: i,
           });
         } else if (
           boardArray[i].name === "House" ||
           boardArray[i].name === "Burning House"
         ) {
           setHouseIsBurning(true);
-          console.log("House is burning");
           newArray.push({
             name: "Burning House",
             image: burningHouseImage,
+            description: "The house has burned, and the game is over now.",
+            index: i,
           });
         } else {
           newArray.push({
             name: "Fire",
             image: fireImage,
+            description:
+              "Burns trees and other fuel. Normally burns in all eight directions around it.",
+            index: i,
           });
         }
       } else {
@@ -285,7 +357,11 @@ function Board({
     <div className="board">
       <div className="board__game-area">
         <h2 className="board__header">Welcome to the {title}!</h2>
-        <div className="board__buttons">
+        <div
+          className={`board__buttons ${
+            fireFighterPresent ? "board__firefighter_div" : ""
+          }`}
+        >
           {!roundHasStarted ? (
             <>
               <button
@@ -303,7 +379,18 @@ function Board({
             </>
           ) : (
             <>
-              {houseIsBurning ? (
+              {fireFighterPresent ? (
+                <div className="board__firefighter">
+                  <img
+                    src={fireFighterImage}
+                    alt="Fire Fighter"
+                    className="board__firefighter__image"
+                  />
+                  <p className="board__firefighter__description">
+                    Number of fire fighters left to place: {numberOfFireFighter}
+                  </p>
+                </div>
+              ) : houseIsBurning ? (
                 <div className="board__game-end">House has been burned</div>
               ) : (
                 <button
@@ -348,7 +435,17 @@ function Board({
               </div>
               <div className="board__game-row">
                 {gameBoard?.map((item, index) => {
-                  return <BoardTile gridRow={index} key={index} item={item} />;
+                  return (
+                    <BoardTile
+                      gridRow={index}
+                      key={index}
+                      item={item}
+                      fireFighterPresent={fireFighterPresent}
+                      numberOfFireFighter={numberOfFireFighter}
+                      setNumberOfFireFighters={setNumberOfFireFighters}
+                      handleAddFireFighter={addFireFighter}
+                    />
+                  );
                 })}
               </div>
             </div>
@@ -386,7 +483,7 @@ function Board({
         numberOfFireFighter={numberOfFireFighter}
         setNumberOfFireFighters={setNumberOfFireFighters}
       />
-      <NavigateToHomepage endGame={endGame}/>
+      <NavigateToHomepage endGame={endGame} />
     </div>
   );
 }

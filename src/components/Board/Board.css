@@ -44,6 +44,10 @@
   gap: 20%;
 }
 
+.board__firefighter_div {
+  justify-content: flex-end;
+}
+
 .board__button {
   background-color: lightgray;
   width: calc(20% - 10px);
@@ -73,4 +77,20 @@
   padding: 40px;
   color: #ff4000;
   background-color: rgba(0, 0, 0, 0.7);
+}
+
+.board__firefighter {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.board__firefighter__image {
+  width: 20%;
+}
+
+.board__firefighter__description {
+  color: white;
+  background-color: rgba(0, 0, 0, 0.5);
+  width: 40%;
 }
