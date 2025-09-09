@@ -9,6 +9,11 @@
   align-items: center;
 }
 
+.board-tile__button {
+  width: 100%;
+  height: 100%;
+}
+
 .board-tile__image {
     width: 100%;
     height: 100%;
