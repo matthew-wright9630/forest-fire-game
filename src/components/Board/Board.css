@@ -3,10 +3,12 @@
   flex-direction: column;
   justify-content: space-between;
   min-height: 100vh;
+  max-width: 1447px;
+  margin: 0 auto;
 }
 
 .board__started {
-  width: 90%
+  width: 90%;
 }
 
 .board__game-area {
@@ -60,7 +62,8 @@
 }
 
 .board__wind__description {
-  color: white
+  color: white;
+  background-color: rgba(0, 0, 0, 0.5);
 }
 
 .board__button-area {
@@ -96,7 +99,6 @@
   font-size: 15px;
   color: black;
   transition: linear 0.3s;
-  /* margin-top: 15px; */
 }
 
 .board__button:hover {
@@ -109,10 +111,6 @@
   font-size: 25px;
 }
 
-.board__update-btn {
-  /* width: calc(50% - 10px); */
-}
-
 .board__end-btn {
   margin-bottom: 10px;
 }
@@ -120,7 +118,6 @@
 .board__game-end {
   text-align: center;
   width: 100%;
-  /* padding: 40px; */
   color: #ff4000;
   background-color: rgba(0, 0, 0, 0.7);
 }
