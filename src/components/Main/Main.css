@@ -38,3 +38,17 @@ span {
   vertical-align: middle;
   line-height: normal;
 }
+
+.main__description {
+  color: #ff4000;
+  text-align: center;
+  padding: 10px 0;
+  margin: 0;
+  margin-top: 20px;
+  background-color: rgba(0, 0, 0, 0.7);
+  font-size: 20px;
+}
+
+.main__description__link {
+  color: lightblue;
+}

@@ -31,12 +31,22 @@ function Main({}) {
           >
             <span className="main__span">Fire Fighter Board</span>
           </Link>
-          <Link
-            className="main__link"
-            to={"/forest-fire-game/random-board/"}
-          >
+          <Link className="main__link" to={"/forest-fire-game/random-board/"}>
             <span className="main__span">Random Board</span>
           </Link>
+        </div>
+        <div className="main__description">
+          <p className="main__description__paragraph">
+            This game was developed to show how a wildfire may spread through a
+            forest.
+          </p>
+          <p className="main__description__paragraph">
+            Inspired by curricula from{" "}
+            <a className="main__description__link" href="https://outreach.gi.alaska.edu/curricula?field_project_target_id=148&grade=All&field_discipline_target_id=All">
+              University of Alaska Outreach GI
+            </a>
+            .
+          </p>
         </div>
       </section>
     </main>
