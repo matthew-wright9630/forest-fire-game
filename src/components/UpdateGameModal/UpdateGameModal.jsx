@@ -17,8 +17,11 @@ function UpdateGameModal({
   numberOfFireFighter,
   setNumberOfFireFighters,
   setOriginalFireFighters,
+  windDirection,
+  setWindDirection,
 }) {
   const [error, setError] = useState({});
+  const [windDirectionError, setWindDirectionError] = useState({});
   const [isError, setIsError] = useState(false);
   const [trees, setTrees] = useState(numberOfTrees);
   const [fires, setFires] = useState(numberOfFires);
@@ -43,6 +46,25 @@ function UpdateGameModal({
       setHouses(value);
     } else if (name === "fire fighters") {
       setFireFighters(value);
+    } else if (name === "wind direction") {
+      console.log(value, Number.isInteger(value));
+      if (value < 0 || value > 8) {
+        setIsError(true);
+        setWindDirectionError({
+          name: "Number outside of range",
+          message: "Number must be bewteen 0 and 8.",
+        });
+      } else if (!Number.isInteger(value)) {
+        setIsError(true);
+        setWindDirectionError({
+          name: "Number is not an integer",
+          message: "Number must be an integer",
+        });
+      } else {
+        setWindDirectionError({});
+        setIsError(false);
+      }
+      setWindDirection(value);
     }
   };
 
@@ -178,6 +200,28 @@ function UpdateGameModal({
               placeholder={fireFighters}
               value={fireFighters || ""}
             />
+          </label>
+          <label className="modal__label">
+            Current wind direction
+            <input
+              onChange={handleChange}
+              type="number"
+              className="modal__input"
+              name="wind direction"
+              id="wind direction"
+              placeholder={windDirection}
+              value={windDirection || ""}
+              min={0}
+              max={8}
+              step={1}
+            />
+            <span className="modal__help-text">
+              0 = no wind, 1 = North, 2 = Northeast, 3 = East, 4 = Southeast
+            </span>
+            <span className="modal__help-text">
+              5 = South, 6 = Southwest, 7 = West, 8 = Northwest
+            </span>
+            <span className="modal__error">{windDirectionError.message}</span>
           </label>
           <span className="modal__error">{error.message}</span>
           <button

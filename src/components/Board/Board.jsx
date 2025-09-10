@@ -10,18 +10,11 @@ import deadTreeFireImage from "../../assets/Fire_Dead_Tree.png";
 import waterImage from "../../assets/Water.png";
 import houseImage from "../../assets/House.png";
 import compassImage from "../../assets/Compass.png";
-import northArrow from "../../assets/North_Arrow.png";
-import northEastArrow from "../../assets/North_East_Arrow.png";
-import eastArrow from "../../assets/East_Arrow.png";
-import southEastArrow from "../../assets/South_East_Arrow.png";
-import southArrow from "../../assets/South_Arrow.png";
-import southWestArrow from "../../assets/South_West_Arrow.png";
-import westArrow from "../../assets/West_Arrow.png";
-import northWestArrow from "../../assets/North_West_Arrow.png";
 import burningHouseImage from "../../assets/Burning-House.png";
 import protectedTreeImage from "../../assets/Protected_Tree.png";
 import fireFighterImage from "../../assets/Fire_Fighter.png";
 import {
+  determineArrowDirection,
   getAdjacentIndices,
   getProtectedTrees,
 } from "../../utils/tileArrayMapping";
@@ -41,7 +34,7 @@ function Board({
   initialDeadTrees = 0,
   initialWaters = 0,
   initialHouses = 0,
-  windDirection = 0,
+  wind = 0,
   initialFireFighters = 0,
   title,
 }) {
@@ -58,12 +51,14 @@ function Board({
   const [numberOfFireFighter, setNumberOfFireFighters] =
     useState(initialFireFighters);
   const [fireFighterPresent, setFireFighterPresent] = useState(false);
-  const [originalFireFighters, setOriginalFireFighters] = useState(initialFireFighters);
+  const [originalFireFighters, setOriginalFireFighters] =
+    useState(initialFireFighters);
+  const [windDirection, setWindDirection] = useState(wind);
 
   function setUpBoard() {
     setGameHasStarted(true);
     if (windDirection) {
-      determineArrowDirection(windDirection);
+      setArrowDirection(determineArrowDirection(windDirection));
     }
     setRoundHasStarted(true);
     randomizeBoard();
@@ -82,38 +77,6 @@ function Board({
   const handleCloseModal = () => {
     setIsGameUpdateModalOpen(false);
   };
-
-  function determineArrowDirection(wind) {
-    switch (wind) {
-      case 1:
-        setArrowDirection({ name: "North", image: northArrow });
-        break;
-      case 2:
-        setArrowDirection({ name: "North East", image: northEastArrow });
-        break;
-      case 3:
-        setArrowDirection({ name: "East", image: eastArrow });
-        break;
-      case 4:
-        setArrowDirection({ name: "South East", image: southEastArrow });
-        break;
-      case 5:
-        setArrowDirection({ name: "South", image: southArrow });
-        break;
-      case 6:
-        setArrowDirection({ name: "South West", image: southWestArrow });
-        break;
-      case 7:
-        setArrowDirection({ name: "West", image: westArrow });
-        break;
-      case 8:
-        setArrowDirection({ name: "North West", image: northWestArrow });
-        break;
-      default:
-        console.log("Error: incorrect direction");
-        break;
-    }
-  }
 
   function overrideBoard(item) {
     setBoardArray((prevBoard) =>
@@ -138,7 +101,6 @@ function Board({
     let deadTreesLeft = numberOfDeadTrees;
     let waterLeft = numberOfWater;
     let housesLeft = numberOfHouses;
-    let fireFighterLeft = numberOfFireFighter;
     let selectedTileAmount = 0;
     let newBoardArray = new Array();
     let numberOfIterations = 0;
@@ -168,15 +130,6 @@ function Board({
           index: selectedTileAmount,
         });
         selectedTileAmount++;
-        // } else if (num >= 30 && num < 35 && fireFighterLeft > 0) {
-        //   fireFighterLeft--;
-        //   newBoardArray.push({
-        //     name: "Fire Fighter",
-        //     image: fireFighterImage,
-        //     description:
-        //       "The Fire Fighter will protect their square and the four squares directly to each side of the fire fighter.",
-        //   });
-        // selectedTileAmount++;
       } else if (num > 30 && num <= 45 && deadTreesLeft > 0) {
         deadTreesLeft--;
         newBoardArray.push({
@@ -225,10 +178,6 @@ function Board({
     ) {
       overrideBoard(item);
       setNumberOfFireFighters(numberOfFireFighter - 1);
-      // console.log(numberOfFireFighter);
-      // if (numberOfFireFighter === 0) {
-      //   checkFireFighters();
-      // }
     }
   }
 
@@ -272,7 +221,6 @@ function Board({
     setRoundHasStarted(false);
     setFireFighterPresent(false);
     setNumberOfFireFighters(originalFireFighters);
-    console.log(originalFireFighters, numberOfFireFighter);
     setArrowDirection({});
     setBoardArray([]);
   }
@@ -353,7 +301,7 @@ function Board({
 
   useEffect(() => {
     checkFireFighters();
-  }, [numberOfFireFighter])
+  }, [numberOfFireFighter]);
 
   return (
     <div className="board">
@@ -505,6 +453,8 @@ function Board({
         numberOfFireFighter={numberOfFireFighter}
         setNumberOfFireFighters={setNumberOfFireFighters}
         setOriginalFireFighters={setOriginalFireFighters}
+        windDirection={windDirection}
+        setWindDirection={setWindDirection}
       />
     </div>
   );

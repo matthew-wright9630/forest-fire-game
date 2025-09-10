@@ -24,7 +24,7 @@ function RandomBoard({
           initialDeadTrees={8}
           initialWaters={12}
           initialHouses={1}
-          windDirection={4}
+          wind={4}
           initialFireFighters={1}
           title={"Random Board"}
         />
