@@ -6,19 +6,25 @@
   display: flex;
   background-color: lightgray;
   text-decoration: none;
-  width: calc(30% - 10px);
+  width: calc(100%);
   border: 1px solid black;
   border-radius: 7%;
-  line-height: 3em;
-  height: 3em;
-  font-size: 20px;
+  line-height: 3.55em;
+  height: 3.55em;
+  font-size: 15px;
   color: black;
   transition: linear .3s;
   justify-content: center;
-  margin: 10px auto 0;
+  /* margin: 10px auto 0; */
+  text-align: center;
 }
 
 .navigate-to-homepage__link:hover {
     background-color: lightgray;
     opacity: 70%;
+}
+
+.navigate-to-homepage__link_large {
+  font-size: 25px;
+  line-height: 3.55em;
 }

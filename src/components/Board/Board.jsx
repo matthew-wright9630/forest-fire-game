@@ -58,6 +58,7 @@ function Board({
   const [numberOfFireFighter, setNumberOfFireFighters] =
     useState(initialFireFighters);
   const [fireFighterPresent, setFireFighterPresent] = useState(false);
+  const [originalFireFighters, setOriginalFireFighters] = useState(initialFireFighters);
 
   function setUpBoard() {
     setGameHasStarted(true);
@@ -115,20 +116,19 @@ function Board({
   }
 
   function overrideBoard(item) {
-    let newArray = new Array();
-    for (let i = 0; i < 100; i++) {
-      if (item.index === i) {
-        newArray.push({
-          name: "Fire Fighter",
-          image: fireFighterImage,
-          description:
-            "The Fire Fighter will protect their square and the four squares directly to each side of the fire fighter.",
-        });
-      } else {
-        newArray.push(boardArray[i]);
-      }
-    }
-    setBoardArray(newArray);
+    setBoardArray((prevBoard) =>
+      prevBoard.map((tile, i) => {
+        if (i === item.index) {
+          return {
+            name: "Fire Fighter",
+            image: fireFighterImage,
+            description:
+              "The Fire Fighter will protect their square and the four squares directly to each side of the fire fighter.",
+          };
+        }
+        return tile;
+      })
+    );
   }
 
   function randomizeBoard() {
@@ -211,30 +211,24 @@ function Board({
   }
 
   function checkFireFighters() {
-    if (numberOfFireFighter !== 0) {
-      if (!fireFighterPresent) {
-        setFireFighterPresent(true);
-      } else {
-        setFireFighterPresent(false);
-      }
+    if (numberOfFireFighter === 0) {
+      setFireFighterPresent(false);
+    } else {
+      setFireFighterPresent(true);
     }
   }
 
   function addFireFighter(item) {
-    let fireFighterLeft = numberOfFireFighter;
-    let numberOfIterations = 0;
-    while (fireFighterLeft > 0) {
-      numberOfIterations++;
-      if (numberOfIterations > 10000) {
-        break;
-      }
-      if (item.name === "Tree" || item.name === "Dead Tree") {
-        overrideBoard(item);
-        fireFighterLeft--;
-      }
-    }
-    if (fireFighterLeft === 0) {
-      checkFireFighters();
+    if (
+      numberOfFireFighter > 0 &&
+      (item.name === "Tree" || item.name === "Dead Tree")
+    ) {
+      overrideBoard(item);
+      setNumberOfFireFighters(numberOfFireFighter - 1);
+      // console.log(numberOfFireFighter);
+      // if (numberOfFireFighter === 0) {
+      //   checkFireFighters();
+      // }
     }
   }
 
@@ -277,12 +271,14 @@ function Board({
     setHouseIsBurning(false);
     setRoundHasStarted(false);
     setFireFighterPresent(false);
+    setNumberOfFireFighters(originalFireFighters);
+    console.log(originalFireFighters, numberOfFireFighter);
     setArrowDirection({});
     setBoardArray([]);
   }
 
   function nextButton() {
-    if (roundNumber === 0 && numberOfFireFighter) {
+    if (roundNumber === 0 && originalFireFighters) {
       protectTrees();
     } else {
       let adjacentTiles = new Array();
@@ -355,85 +351,109 @@ function Board({
     setGameBoard(boardArray);
   }, [boardArray]);
 
+  useEffect(() => {
+    checkFireFighters();
+  }, [numberOfFireFighter])
+
   return (
     <div className="board">
+      <h2 className="board__header">Welcome to the {title}!</h2>
       <div className="board__game-area">
-        <h2 className="board__header">Welcome to the {title}!</h2>
         <div
-          className={`board__buttons ${
-            fireFighterPresent ? "board__firefighter_div" : ""
+          className={`board__button-area ${
+            gameStarted ? "board__button-area_small" : ""
           }`}
         >
-          {!roundHasStarted ? (
-            <>
-              <button
-                onClick={setUpBoard}
-                className="board__button board__start-btn"
-              >
-                Start
-              </button>
-              <button
-                onClick={updateBoard}
-                className="board__button board__update-btn"
-              >
-                Update Board Conditions
-              </button>
-            </>
-          ) : (
-            <>
-              {fireFighterPresent ? (
-                <div className="board__firefighter">
-                  <img
-                    src={fireFighterImage}
-                    alt="Fire Fighter"
-                    className="board__firefighter__image"
-                  />
-                  <p className="board__firefighter__description">
-                    Number of fire fighters left to place: {numberOfFireFighter}
-                  </p>
-                </div>
-              ) : houseIsBurning ? (
-                <div className="board__game-end">House has been burned</div>
-              ) : (
+          <div className={`board__buttons`}>
+            {!roundHasStarted ? (
+              <>
                 <button
-                  onClick={nextButton}
-                  className="board__button board__next-btn"
+                  onClick={setUpBoard}
+                  className={`board__button board__start-btn ${
+                    !gameStarted ? "board__button_large" : ""
+                  }`}
                 >
-                  Next
+                  Start Game
                 </button>
-              )}
-            </>
-          )}
-        </div>
-        {gameStarted ? (
-          <div className="board__started">
-            {windDirection ? (
-              <div className="board__wind">
-                {/* <img className="board__compass" src={compassImage}></img> */}
-                <img
-                  src={arrowDirection.image}
-                  alt={arrowDirection.name}
-                  className="board__wind__direction"
-                />
-              </div>
+                <button
+                  onClick={updateBoard}
+                  className={`board__button board__update-btn ${
+                    !gameStarted ? "board__button_large" : ""
+                  }`}
+                >
+                  Update Board Conditions
+                </button>
+              </>
+            ) : (
+              <>
+                {windDirection ? (
+                  <div className="board__wind">
+                    {/* <img className="board__compass" src={compassImage}></img> */}
+                    <p className="board__wind__description">
+                      Wind direction: {arrowDirection.name}
+                    </p>
+                    <img
+                      src={arrowDirection.image}
+                      alt={arrowDirection.name}
+                      className="board__wind__direction"
+                    />
+                  </div>
+                ) : (
+                  ""
+                )}
+                {fireFighterPresent ? (
+                  <div className="board__firefighter">
+                    <img
+                      src={fireFighterImage}
+                      alt="Fire Fighter"
+                      className="board__firefighter__image"
+                    />
+                    <p className="board__firefighter__description">
+                      Number of fire fighters left to place:{" "}
+                      {numberOfFireFighter}
+                    </p>
+                  </div>
+                ) : houseIsBurning ? (
+                  <div className="board__game-end">House has been burned</div>
+                ) : (
+                  <button
+                    onClick={nextButton}
+                    className="board__button board__next-btn"
+                  >
+                    Next
+                  </button>
+                )}
+              </>
+            )}
+            {gameStarted ? (
+              <button
+                onClick={endGame}
+                className="board__button board__end-btn"
+              >
+                End
+              </button>
             ) : (
               ""
             )}
-            <button onClick={endGame} className="board__button board__end-btn">
-              End
-            </button>
+            <NavigateToHomepage endGame={endGame} gameStarted={gameStarted} />
+          </div>
+        </div>
+        {gameStarted ? (
+          <div className="board__started">
             <div className="board__grid">
-              <div className="board__first-column">
-                <BoardTile title="10" gridRow="10" />
-                <BoardTile title="9" gridRow="9" />
-                <BoardTile title="8" gridRow="8" />
-                <BoardTile title="7" gridRow="7" />
-                <BoardTile title="6" gridRow="6" />
-                <BoardTile title="5" gridRow="5" />
-                <BoardTile title="4" gridRow="4" />
-                <BoardTile title="3" gridRow="3" />
-                <BoardTile title="2" gridRow="2" />
-                <BoardTile title="1" gridRow="1" />
+              <div className="board__first-column_background">
+                <div className="board__first-column">
+                  <BoardTile title="10" gridRow="10" />
+                  <BoardTile title="9" gridRow="9" />
+                  <BoardTile title="8" gridRow="8" />
+                  <BoardTile title="7" gridRow="7" />
+                  <BoardTile title="6" gridRow="6" />
+                  <BoardTile title="5" gridRow="5" />
+                  <BoardTile title="4" gridRow="4" />
+                  <BoardTile title="3" gridRow="3" />
+                  <BoardTile title="2" gridRow="2" />
+                  <BoardTile title="1" gridRow="1" />
+                </div>
               </div>
               <div className="board__game-row">
                 {gameBoard?.map((item, index) => {
@@ -484,8 +504,8 @@ function Board({
         setNumberOfHouses={setNumberOfHouses}
         numberOfFireFighter={numberOfFireFighter}
         setNumberOfFireFighters={setNumberOfFireFighters}
+        setOriginalFireFighters={setOriginalFireFighters}
       />
-      <NavigateToHomepage endGame={endGame} />
     </div>
   );
 }

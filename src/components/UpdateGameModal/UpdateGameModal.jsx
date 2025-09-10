@@ -16,6 +16,7 @@ function UpdateGameModal({
   setNumberOfHouses,
   numberOfFireFighter,
   setNumberOfFireFighters,
+  setOriginalFireFighters,
 }) {
   const [error, setError] = useState({});
   const [isError, setIsError] = useState(false);
@@ -53,6 +54,7 @@ function UpdateGameModal({
     setNumberOfWaters(waters);
     setNumberOfHouses(houses);
     setNumberOfFireFighters(fireFighters);
+    setOriginalFireFighters(fireFighters);
     handleCloseModal();
   };
 
@@ -69,12 +71,7 @@ function UpdateGameModal({
       setError({
         name: "Too many tiles",
         message: `There ${
-          trees +
-          fires +
-          deadTrees +
-          waters +
-          houses +
-          fireFighters
+          trees + fires + deadTrees + waters + houses + fireFighters
         } items selected. Please remove some items until there are 100`,
       });
       setIsError(true);
@@ -90,12 +87,7 @@ function UpdateGameModal({
       setError({
         name: "Too few tiles",
         message: `There ${
-          trees +
-          fires +
-          deadTrees +
-          waters +
-          houses +
-          fireFighters
+          trees + fires + deadTrees + waters + houses + fireFighters
         } items selected. Please add some items until there are 100`,
       });
       setIsError(true);
@@ -103,14 +95,7 @@ function UpdateGameModal({
       setError({});
       setIsError(false);
     }
-  }, [
-    trees,
-    fires,
-    deadTrees,
-    waters,
-    houses,
-    fireFighters,
-  ]);
+  }, [trees, fires, deadTrees, waters, houses, fireFighters]);
 
   return (
     <div className={`modal ${isGameUpdateModalOpen ? "modal_opened" : ""}`}>
