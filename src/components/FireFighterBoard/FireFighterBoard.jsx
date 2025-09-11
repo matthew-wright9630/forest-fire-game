@@ -23,7 +23,7 @@ function FireFighterBoard({
           initialDeadTrees={8}
           initialWaters={12}
           initialHouses={1}
-          windDirection={4}
+          wind={7}
           initialFireFighters={1}
           title={"Fire Fighter Board"}
         />
