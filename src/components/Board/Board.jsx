@@ -54,6 +54,8 @@ function Board({
   const [originalFireFighters, setOriginalFireFighters] =
     useState(initialFireFighters);
   const [windDirection, setWindDirection] = useState(wind);
+  const [originalFires, setOriginalFies] = useState(initialFires);
+  const [firesPresent, setFiresPresent] = useState(true);
 
   function setUpBoard() {
     setGameHasStarted(true);
@@ -63,6 +65,7 @@ function Board({
     setRoundHasStarted(true);
     randomizeBoard();
     checkFireFighters();
+    checkFires();
     setRoundNumber(0);
   }
 
@@ -78,16 +81,12 @@ function Board({
     setIsGameUpdateModalOpen(false);
   };
 
-  function overrideBoard(item) {
+  function overrideBoard(item, obj) {
+    console.log(item);
     setBoardArray((prevBoard) =>
       prevBoard.map((tile, i) => {
         if (i === item.index) {
-          return {
-            name: "Fire Fighter",
-            image: fireFighterImage,
-            description:
-              "The Fire Fighter will protect their square and the four squares directly to each side of the fire fighter.",
-          };
+          return obj;
         }
         return tile;
       })
@@ -96,7 +95,7 @@ function Board({
 
   function randomizeBoard() {
     let numberOfTiles = 100;
-    let treesLeft = numberOfTrees + numberOfFireFighter;
+    let treesLeft = numberOfTrees + numberOfFireFighter + numberOfFires;
     let fireLeft = numberOfFires;
     let deadTreesLeft = numberOfDeadTrees;
     let waterLeft = numberOfWater;
@@ -120,16 +119,16 @@ function Board({
           index: selectedTileAmount,
         });
         selectedTileAmount++;
-      } else if (num === 35 && fireLeft > 0) {
-        fireLeft--;
-        newBoardArray.push({
-          name: "Fire",
-          image: fireImage,
-          description:
-            "Burns trees and other fuel. Normally burns in all eight directions around it.",
-          index: selectedTileAmount,
-        });
-        selectedTileAmount++;
+        // } else if (num === 35 && fireLeft > 0) {
+        //   fireLeft--;
+        //   newBoardArray.push({
+        //     name: "Fire",
+        //     image: fireImage,
+        //     description:
+        //       "Burns trees and other fuel. Normally burns in all eight directions around it.",
+        //     index: selectedTileAmount,
+        //   });
+        // selectedTileAmount++;
       } else if (num > 30 && num <= 45 && deadTreesLeft > 0) {
         deadTreesLeft--;
         newBoardArray.push({
@@ -172,12 +171,43 @@ function Board({
   }
 
   function addFireFighter(item) {
+    const fireFighterObject = {
+      name: "Fire Fighter",
+      image: fireFighterImage,
+      description:
+        "The Fire Fighter will protect their square and the four squares directly to each side of the fire fighter.",
+    };
     if (
       numberOfFireFighter > 0 &&
       (item.name === "Tree" || item.name === "Dead Tree")
     ) {
-      overrideBoard(item);
+      overrideBoard(item, fireFighterObject);
       setNumberOfFireFighters(numberOfFireFighter - 1);
+    }
+  }
+
+  function checkFires() {
+    if (numberOfFires === 0) {
+      setFiresPresent(false);
+    } else {
+      setFiresPresent(true);
+    }
+  }
+
+  function addFires() {
+    const fireObject = {
+      name: "Fire",
+      image: fireImage,
+      description:
+        "Burns trees and other fuel. Normally burns in all eight directions around it.",
+    };
+    const num = Math.floor(Math.random() * 60) + 1;
+    if (
+      numberOfFires > 0 &&
+      (boardArray[num].name === "Tree" || boardArray[num].name === "Dead Tree")
+    ) {
+      overrideBoard(boardArray[num], fireObject);
+      setNumberOfFires(numberOfFires - 1);
     }
   }
 
@@ -221,6 +251,7 @@ function Board({
     setRoundHasStarted(false);
     setFireFighterPresent(false);
     setNumberOfFireFighters(originalFireFighters);
+    setNumberOfFires(originalFires);
     setArrowDirection({});
     setBoardArray([]);
   }
@@ -228,6 +259,10 @@ function Board({
   function nextButton() {
     if (roundNumber === 0 && originalFireFighters) {
       protectTrees();
+      setRoundNumber(roundNumber + 1);
+    } else if (firesPresent) {
+      addFires();
+      checkFires();
     } else {
       let adjacentTiles = new Array();
       boardArray.map((tile, index) => {
@@ -237,8 +272,8 @@ function Board({
         }
       });
       spreadFire(adjacentTiles);
+      setRoundNumber(roundNumber + 1);
     }
-    setRoundNumber(roundNumber + 1);
   }
 
   function spreadFire(indices) {
