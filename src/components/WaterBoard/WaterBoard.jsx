@@ -22,7 +22,7 @@ function WaterBoard({
           initialTrees={79}
           initialDeadTrees={8}
           initialWaters={12}
-          title={"Water Board"}
+          title={"River Board"}
         />
       </section>
     </div>

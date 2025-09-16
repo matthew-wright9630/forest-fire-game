@@ -56,6 +56,7 @@ function Board({
   const [windDirection, setWindDirection] = useState(wind);
   const [originalFires, setOriginalFies] = useState(initialFires);
   const [firesPresent, setFiresPresent] = useState(true);
+  const [processing, setProcessing] = useState(false);
 
   function setUpBoard() {
     setGameHasStarted(true);
@@ -82,7 +83,6 @@ function Board({
   };
 
   function overrideBoard(item, obj) {
-    console.log(item);
     setBoardArray((prevBoard) =>
       prevBoard.map((tile, i) => {
         if (i === item.index) {
@@ -187,7 +187,7 @@ function Board({
   }
 
   function checkFires() {
-    if (numberOfFires === 0) {
+    if (numberOfFires === 0 && processing === false) {
       setFiresPresent(false);
     } else {
       setFiresPresent(true);
@@ -208,6 +208,8 @@ function Board({
     ) {
       overrideBoard(boardArray[num], fireObject);
       setNumberOfFires(numberOfFires - 1);
+    } else {
+      nextButton();
     }
   }
 
@@ -262,7 +264,6 @@ function Board({
       setRoundNumber(roundNumber + 1);
     } else if (firesPresent) {
       addFires();
-      checkFires();
     } else {
       let adjacentTiles = new Array();
       boardArray.map((tile, index) => {
@@ -274,6 +275,7 @@ function Board({
       spreadFire(adjacentTiles);
       setRoundNumber(roundNumber + 1);
     }
+    setProcessing(false);
   }
 
   function spreadFire(indices) {
@@ -337,6 +339,10 @@ function Board({
   useEffect(() => {
     checkFireFighters();
   }, [numberOfFireFighter]);
+
+  useEffect(() => {
+    checkFires();
+  }, [numberOfFires]);
 
   return (
     <div className="board">
