@@ -10,21 +10,23 @@ import northWestArrow from "../assets/North_West_Arrow.png";
 export function getAdjacentIndices(index, name, windDirection, gridSize = 10) {
   const row = Math.floor(index / gridSize);
   const col = index % gridSize;
-
-  const directions = [
-    [-1, -1],
-    [-1, 0],
-    [-1, 1],
-    [0, -1],
-    [0, 1],
-    [1, -1],
-    [1, 0],
-    [1, 1],
-  ];
-
-  if (name === "Dead Tree Fire") {
-    directions.push([2, 0], [-2, 0], [0, 2], [0, -2]);
+  const directions = [];
+  if (windDirection === 0) {
+    directions.push(
+      [-1, -1],
+      [-1, 0],
+      [-1, 1],
+      [0, -1],
+      [0, 1],
+      [1, -1],
+      [1, 0],
+      [1, 1]
+    );
+    if (name === "Dead Tree Fire") {
+      directions.push([2, 0], [-2, 0], [0, 2], [0, -2]);
+    }
   }
+
   if (windDirection !== 0) {
     switch (windDirection) {
       case 1:

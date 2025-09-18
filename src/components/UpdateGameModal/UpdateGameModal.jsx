@@ -81,6 +81,30 @@ function UpdateGameModal({
   };
 
   useEffect(() => {
+    if (!isGameUpdateModalOpen) return;
+
+    const handleEscPress = (evt) => {
+      if (evt.key === "Escape") {
+        handleCloseModal();
+      }
+    };
+
+    function handleOverlayClick(evt) {
+      if (evt.target.classList.contains("modal_opened")) {
+        handleCloseModal();
+      }
+    }
+
+    document.addEventListener("keydown", handleEscPress);
+    document.addEventListener("mousedown", handleOverlayClick);
+
+    return () => {
+      document.removeEventListener("keydown", handleEscPress);
+      document.removeEventListener("mousedown", handleOverlayClick);
+    };
+  }, [isGameUpdateModalOpen]);
+
+  useEffect(() => {
     if (
       Number(trees) +
         Number(fires) +

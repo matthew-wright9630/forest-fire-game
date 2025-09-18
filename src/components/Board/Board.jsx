@@ -119,16 +119,6 @@ function Board({
           index: selectedTileAmount,
         });
         selectedTileAmount++;
-        // } else if (num === 35 && fireLeft > 0) {
-        //   fireLeft--;
-        //   newBoardArray.push({
-        //     name: "Fire",
-        //     image: fireImage,
-        //     description:
-        //       "Burns trees and other fuel. Normally burns in all eight directions around it.",
-        //     index: selectedTileAmount,
-        //   });
-        // selectedTileAmount++;
       } else if (num > 30 && num <= 45 && deadTreesLeft > 0) {
         deadTreesLeft--;
         newBoardArray.push({
@@ -377,7 +367,6 @@ function Board({
               <>
                 {windDirection ? (
                   <div className="board__wind">
-                    {/* <img className="board__compass" src={compassImage}></img> */}
                     <p className="board__wind__description">
                       Wind direction: {arrowDirection.name}
                     </p>

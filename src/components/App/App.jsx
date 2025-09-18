@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import Main from "../Main/Main";
@@ -10,18 +10,56 @@ import HouseBoard from "../HouseBoard/HouseBoard";
 import WindBoard from "../WindBoard/WindBoard";
 import FireFighterBoard from "../FireFighterBoard/FireFighterBoard";
 import UpdateGameModal from "../UpdateGameModal/UpdateGameModal";
+import InstructionPopup from "../InstructionPopup/InstructionPopup";
 
 function App() {
   const [gameBoard, setGameBoard] = useState([]);
   const [gameStarted, setGameHasStarted] = useState(false);
   const [boardArray, setBoardArray] = useState([]);
+  const [instructionPopupIsOpen, setInstructionPopupIsOpen] = useState(false);
+
+  const handleCloseModal = () => {
+    setInstructionPopupIsOpen(false);
+  };
+
+  useEffect(() => {
+    if (!instructionPopupIsOpen) return;
+
+    const handleEscPress = (evt) => {
+      if (evt.key === "Escape") {
+        handleCloseModal();
+      }
+    };
+
+    function handleOverlayClick(evt) {
+      if (evt.target.classList.contains("modal_opened")) {
+        handleCloseModal();
+      }
+    }
+
+    document.addEventListener("keydown", handleEscPress);
+    document.addEventListener("mousedown", handleOverlayClick);
+
+    return () => {
+      document.removeEventListener("keydown", handleEscPress);
+      document.removeEventListener("mousedown", handleOverlayClick);
+    };
+  }, [instructionPopupIsOpen]);
 
   return (
     <div className="page">
       <div>
         <div className="page__content">
           <Routes>
-            <Route path="/forest-fire-game/" element={<Main />}></Route>
+            <Route
+              path="/forest-fire-game/"
+              element={
+                <Main
+                  instructionPopupIsOpen={instructionPopupIsOpen}
+                  setInstructionPopupIsOpen={setInstructionPopupIsOpen}
+                />
+              }
+            ></Route>
 
             <Route
               path="/forest-fire-game/random-board"
@@ -120,6 +158,11 @@ function App() {
                     </Route> */}
           </Routes>
         </div>
+        <InstructionPopup
+          isPopupOpen={instructionPopupIsOpen}
+          handleCloseModal={handleCloseModal}
+          name="Element Details"
+        />
       </div>
     </div>
   );

@@ -1,9 +1,37 @@
 .main__header {
   color: #ff4000;
   text-align: center;
+  font-size: 40px;
   padding: 20px 0;
   margin: 0;
   background-color: rgba(0, 0, 0, 0.7);
+}
+
+.main__description {
+  color: #ff4000;
+  text-align: center;
+  padding: 10px 0;
+  margin: 0;
+  margin-top: 20px;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.main__description__paragraph {
+  font-size: 20px;
+}
+
+.main__button {
+  color: orange;
+  /* background-color: rgba(0, 0, 0, 0.7); */
+  background: transparent;
+  border: none;
+  transition: .3s linear;
+  padding: 0;
+}
+
+.main__button:hover {
+  cursor: pointer;
+  color: white;
 }
 
 .main__links {
@@ -39,16 +67,12 @@ span {
   line-height: normal;
 }
 
-.main__description {
-  color: #ff4000;
-  text-align: center;
-  padding: 10px 0;
-  margin: 0;
-  margin-top: 20px;
-  background-color: rgba(0, 0, 0, 0.7);
-  font-size: 20px;
+.main__description__link {
+  color: cyan;
+  transition: .3s linear;
 }
 
-.main__description__link {
+.main__description__link:hover {
   color: lightblue;
+  cursor: pointer;
 }

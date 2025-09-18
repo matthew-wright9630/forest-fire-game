@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./BoardTile.css";
 import InformationPopup from "../InformationPopup/InformationPopup";
 
@@ -23,6 +23,30 @@ function BoardTile({
   function handleCloseModal() {
     setIsPopupOpen(false);
   }
+
+  useEffect(() => {
+    if (!isPopupOpen) return;
+
+    const handleEscPress = (evt) => {
+      if (evt.key === "Escape") {
+        handleCloseModal();
+      }
+    };
+
+    function handleOverlayClick(evt) {
+      if (evt.target.classList.contains("modal_opened")) {
+        handleCloseModal();
+      }
+    }
+
+    document.addEventListener("keydown", handleEscPress);
+    document.addEventListener("mousedown", handleOverlayClick);
+
+    return () => {
+      document.removeEventListener("keydown", handleEscPress);
+      document.removeEventListener("mousedown", handleOverlayClick);
+    };
+  }, [isPopupOpen]);
 
   return (
     <div
