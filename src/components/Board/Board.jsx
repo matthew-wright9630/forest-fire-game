@@ -54,7 +54,7 @@ function Board({
   const [originalFireFighters, setOriginalFireFighters] =
     useState(initialFireFighters);
   const [windDirection, setWindDirection] = useState(wind);
-  const [originalFires, setOriginalFies] = useState(initialFires);
+  const [originalFires, setOriginalFires] = useState(initialFires);
   const [firesPresent, setFiresPresent] = useState(true);
   const [processing, setProcessing] = useState(false);
 
@@ -474,6 +474,7 @@ function Board({
         setNumberOfTrees={setNumberOfTrees}
         numberOfFires={numberOfFires}
         setNumberOfFires={setNumberOfFires}
+        setOriginalFires={setOriginalFires}
         numberOfDeadTrees={numberOfDeadTrees}
         setNumberOfDeadTrees={setNumberOfDeadTrees}
         numberOfWater={numberOfWater}

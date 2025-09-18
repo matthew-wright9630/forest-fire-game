@@ -8,6 +8,7 @@ function UpdateGameModal({
   setNumberOfTrees,
   numberOfFires,
   setNumberOfFires,
+  setOriginalFires,
   numberOfDeadTrees,
   setNumberOfDeadTrees,
   numberOfWater,
@@ -72,6 +73,7 @@ function UpdateGameModal({
     evt.preventDefault();
     setNumberOfTrees(trees);
     setNumberOfFires(fires);
+    setOriginalFires(fires);
     setNumberOfDeadTrees(deadTrees);
     setNumberOfWaters(waters);
     setNumberOfHouses(houses);

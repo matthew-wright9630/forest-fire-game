@@ -29,50 +29,50 @@ export function getAdjacentIndices(index, name, windDirection, gridSize = 10) {
 
   if (windDirection !== 0) {
     switch (windDirection) {
-      case 1:
-        directions.push([-2, 0]);
+      case 1: // North
+        directions.push([-1, 0], [-2, 0], [-1, 1], [-1, -1]);
         if (name === "Dead Tree Fire") {
           directions.push([-3, 0]);
         }
         break;
-      case 2:
-        directions.push([-2, 2]);
+      case 2: // North-East
+        directions.push([-1, 1], [-2, 2], [-1, 0], [0, 1]);
         if (name === "Dead Tree Fire") {
           directions.push([-3, 3]);
         }
         break;
-      case 3:
-        directions.push([0, 2]);
+      case 3: // East
+        directions.push([0, 1], [0, 2], [-1, 1], [1, 1]);
         if (name === "Dead Tree Fire") {
           directions.push([0, 3]);
         }
         break;
-      case 4:
-        directions.push([2, 2]);
+      case 4: // South-East
+        directions.push([1, 1], [2, 2], [0, 1], [1, 0]);
         if (name === "Dead Tree Fire") {
           directions.push([3, 3]);
         }
         break;
-      case 5:
-        directions.push([2, 0]);
+      case 5: // South
+        directions.push([1, 0], [2, 0], [1, 1], [1, -1]);
         if (name === "Dead Tree Fire") {
           directions.push([3, 0]);
         }
         break;
-      case 6:
-        directions.push([2, -2]);
+      case 6: // South-West
+        directions.push([1, -1], [2, -2], [1, 0], [0, -1]);
         if (name === "Dead Tree Fire") {
           directions.push([3, -3]);
         }
         break;
-      case 7:
-        directions.push([0, -2]);
+      case 7: // West
+        directions.push([0, -1], [0, -2], [-1, -1], [1, -1]);
         if (name === "Dead Tree Fire") {
           directions.push([0, -3]);
         }
         break;
-      case 8:
-        directions.push([-2, -2]);
+      case 8: // North-West
+        directions.push([-1, -1], [-2, -2], [-1, 0], [0, -1]);
         if (name === "Dead Tree Fire") {
           directions.push([-3, -3]);
         }
