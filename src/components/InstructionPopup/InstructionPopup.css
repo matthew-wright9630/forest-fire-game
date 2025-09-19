@@ -1,5 +1,6 @@
 .modal__instruction-container {
   width: calc(100% - 200px);
+  max-width: 900px;
   height: 85vh;
   overflow: auto;
   transition: 0.3s linear;
@@ -32,6 +33,7 @@
 
 .modal__element-image {
   width: 90%;
+  max-width: 200px;
   height: 50%;
 }
 
