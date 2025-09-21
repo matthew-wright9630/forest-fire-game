@@ -1,10 +1,7 @@
 import "./Main.css";
 import { Link } from "react-router-dom";
 
-function Main({ instructionPopupIsOpen, setInstructionPopupIsOpen }) {
-  function handleInstructionButtonClicked() {
-    setInstructionPopupIsOpen(true);
-  }
+function Main({ handleInstructionButtonClicked }) {
   return (
     <main>
       <section className="main">
@@ -18,6 +15,11 @@ function Main({ instructionPopupIsOpen, setInstructionPopupIsOpen }) {
             To see instructions and how to play, select the "How to Play"
             button.
           </p> */}
+          <p className="main__description__paragraph">
+            Each new board introduces a new element to the game. They can be
+            played in any order, but its recommended to follow along the first
+            time.
+          </p>
           <p className="main__description__paragraph">
             To see a description of the game elements, you can click{" "}
             <button
@@ -33,31 +35,31 @@ function Main({ instructionPopupIsOpen, setInstructionPopupIsOpen }) {
             <span className="main__span">How to Play</span>
           </Link> */}
           <Link className="main__link" to={"/forest-fire-game/tree-board/"}>
-            <span className="main__span">Tree Board</span>
+            <span className="main__span">Board 1: Trees</span>
           </Link>
           <Link
             className="main__link"
             to={"/forest-fire-game/dead-tree-board/"}
           >
-            <span className="main__span">Dead Tree Board</span>
+            <span className="main__span">Board 2: Dead Trees</span>
           </Link>
           <Link className="main__link" to={"/forest-fire-game/water-board/"}>
-            <span className="main__span">Water Board</span>
+            <span className="main__span">Board 3: River</span>
           </Link>
           <Link className="main__link" to={"/forest-fire-game/house-board/"}>
-            <span className="main__span">House Board</span>
+            <span className="main__span">Board 4: House</span>
           </Link>
           <Link className="main__link" to={"/forest-fire-game/wind-board/"}>
-            <span className="main__span">Wind Board</span>
+            <span className="main__span">Board 5: Wind</span>
           </Link>
           <Link
             className="main__link"
             to={"/forest-fire-game/fire-fighter-board/"}
           >
-            <span className="main__span">Fire Fighter Board</span>
+            <span className="main__span">Board 6: Firefighters</span>
           </Link>
           <Link className="main__link" to={"/forest-fire-game/random-board/"}>
-            <span className="main__span">Random Board</span>
+            <span className="main__span">Board 7: Random</span>
           </Link>
         </div>
         <div className="main__description">

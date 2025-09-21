@@ -7,8 +7,8 @@ function HouseBoard({
   setGameHasStarted,
   boardArray,
   setBoardArray,
+  handleInstructionButtonClicked,
 }) {
-
   return (
     <div>
       <section className="house-board">
@@ -25,6 +25,10 @@ function HouseBoard({
           initialWaters={12}
           initialHouses={1}
           title={"House Board"}
+          boardDescription={
+            "The house burns like other trees. It should be protected"
+          }
+          handleInstructionButtonClicked={handleInstructionButtonClicked}
         />
       </section>
     </div>

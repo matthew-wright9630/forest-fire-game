@@ -11,6 +11,32 @@
   width: 90%;
 }
 
+.board__header {
+  text-align: center;
+  /* padding: 40px; */
+  color: #ff4000;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.board__header-title {
+  margin: 0;
+  padding: 40px 0;
+  font-size: 32px;
+  /* text-align: center;
+  padding: 40px;
+  color: #ff4000;
+  background-color: rgba(0, 0, 0, 0.7); */
+}
+
+.board__description {
+  padding: 10px 0;
+  margin: 0;
+  font-size: 20px;
+  /* color: #ff4000; */
+  /* background-color: rgba(0, 0, 0, 0.7); */
+  /* text-align: center; */
+}
+
 .board__game-area {
   display: flex;
   flex-direction: row-reverse;
@@ -52,13 +78,6 @@
   background-color: darkgray;
   width: 100%;
   height: calc(65vh / 10);
-}
-
-.board__header {
-  text-align: center;
-  padding: 40px;
-  color: #ff4000;
-  background-color: rgba(0, 0, 0, 0.7);
 }
 
 .board__wind__description {

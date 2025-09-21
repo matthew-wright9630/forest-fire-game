@@ -7,6 +7,7 @@ function WaterBoard({
   setGameHasStarted,
   boardArray,
   setBoardArray,
+  handleInstructionButtonClicked,
 }) {
   return (
     <div>
@@ -23,6 +24,10 @@ function WaterBoard({
           initialDeadTrees={8}
           initialWaters={12}
           title={"River Board"}
+          boardDescription={
+            "River tiles do not burn, but fire can jump over if conditions are correct"
+          }
+          handleInstructionButtonClicked={handleInstructionButtonClicked}
         />
       </section>
     </div>

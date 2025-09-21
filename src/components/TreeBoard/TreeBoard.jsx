@@ -7,8 +7,8 @@ function TreeBoard({
   setGameHasStarted,
   boardArray,
   setBoardArray,
+  handleInstructionButtonClicked,
 }) {
-
   return (
     <div>
       <section className="tree-board">
@@ -22,6 +22,8 @@ function TreeBoard({
           initialTrees={99}
           initialFires={1}
           title={"Tree Board"}
+          boardDescription={"Trees burn and spread in all 8 directions"}
+          handleInstructionButtonClicked={handleInstructionButtonClicked}
         />
       </section>
     </div>

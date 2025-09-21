@@ -7,6 +7,7 @@ function FireFighterBoard({
   setGameHasStarted,
   boardArray,
   setBoardArray,
+  handleInstructionButtonClicked,
 }) {
   return (
     <div>
@@ -26,6 +27,10 @@ function FireFighterBoard({
           wind={7}
           initialFireFighters={1}
           title={"Fire Fighter Board"}
+          boardDescription={
+            "The firefighter can be placed on a tree and protects the tile they are on, as well as the 4 tiles on either side of it."
+          }
+          handleInstructionButtonClicked={handleInstructionButtonClicked}
         />
       </section>
     </div>

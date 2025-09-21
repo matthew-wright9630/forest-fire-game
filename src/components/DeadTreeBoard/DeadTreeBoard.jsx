@@ -7,7 +7,7 @@ function DeadTreeBoard({
   setGameHasStarted,
   boardArray,
   setBoardArray,
-  setIsGameUpdateModalOpen,
+  handleInstructionButtonClicked,
 }) {
   return (
     <div>
@@ -23,6 +23,10 @@ function DeadTreeBoard({
           initialTrees={91}
           initialDeadTrees={8}
           title={"Dead Tree Board"}
+          boardDescription={
+            "Dead trees burn like other trees, but also spread 1 more in cardinal directions"
+          }
+          handleInstructionButtonClicked={handleInstructionButtonClicked}
         />
       </section>
     </div>

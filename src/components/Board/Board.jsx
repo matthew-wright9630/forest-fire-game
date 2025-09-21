@@ -37,6 +37,8 @@ function Board({
   wind = 0,
   initialFireFighters = 0,
   title,
+  boardDescription,
+  handleInstructionButtonClicked,
 }) {
   const [houseIsBurning, setHouseIsBurning] = useState(false);
   const [arrowDirection, setArrowDirection] = useState({});
@@ -56,7 +58,6 @@ function Board({
   const [windDirection, setWindDirection] = useState(wind);
   const [originalFires, setOriginalFires] = useState(initialFires);
   const [firesPresent, setFiresPresent] = useState(true);
-  const [processing, setProcessing] = useState(false);
 
   function setUpBoard() {
     setGameHasStarted(true);
@@ -177,7 +178,7 @@ function Board({
   }
 
   function checkFires() {
-    if (numberOfFires === 0 && processing === false) {
+    if (numberOfFires === 0) {
       setFiresPresent(false);
     } else {
       setFiresPresent(true);
@@ -265,7 +266,6 @@ function Board({
       spreadFire(adjacentTiles);
       setRoundNumber(roundNumber + 1);
     }
-    setProcessing(false);
   }
 
   function spreadFire(indices) {
@@ -336,8 +336,30 @@ function Board({
 
   return (
     <div className="board">
-      <h2 className="board__header">Welcome to the {title}!</h2>
-      <div className="board__game-area">
+      <div className="board__header">
+        <h2 className="board__header-title">Welcome to the {title}!</h2>
+        <div className="board__description-area">
+          <p className="board__description">
+            How to play: Click the "Start" button to create the board. Next,
+            click the "Generate Fire" button to randomly place the fire. Next,
+            click the "Spread Fire" button to see how the fire would spread
+            through a forest. To see a description of the game elements, you can
+            click{" "}
+            <button
+              onClick={handleInstructionButtonClicked}
+              className="main__button"
+            >
+              here
+            </button>
+          </p>
+          {boardDescription ? (
+            <p className="board__description">{`New board rules: ${boardDescription}`}</p>
+          ) : (
+            ""
+          )}
+        </div>
+      </div>
+      <div className={`board__game-area`}>
         <div
           className={`board__button-area ${
             gameStarted ? "board__button-area_small" : ""
@@ -398,7 +420,7 @@ function Board({
                     onClick={nextButton}
                     className="board__button board__next-btn"
                   >
-                    Next
+                    {firesPresent ? "Generate Fire" : "Spread Fire"}
                   </button>
                 )}
               </>

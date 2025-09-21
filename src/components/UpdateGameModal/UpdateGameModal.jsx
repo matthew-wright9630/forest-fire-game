@@ -48,18 +48,18 @@ function UpdateGameModal({
     } else if (name === "fire fighters") {
       setFireFighters(value);
     } else if (name === "wind direction") {
-      console.log(value, Number.isInteger(value));
+      console.log(value, Number.isnumber(value));
       if (value < 0 || value > 8) {
         setIsError(true);
         setWindDirectionError({
           name: "Number outside of range",
           message: "Number must be bewteen 0 and 8.",
         });
-      } else if (!Number.isInteger(value)) {
+      } else if (!Number.isnumber(value)) {
         setIsError(true);
         setWindDirectionError({
-          name: "Number is not an integer",
-          message: "Number must be an integer",
+          name: "Number is not an number",
+          message: "Number must be an number",
         });
       } else {
         setWindDirectionError({});
@@ -149,6 +149,7 @@ function UpdateGameModal({
     <div className={`modal ${isGameUpdateModalOpen ? "modal_opened" : ""}`}>
       <div className="modal__container">
         <h2 className="modal__title">Update Game Board</h2>
+        <p className="modal__description">Select the number of game pieces for each type. There must be a total of 100 game pieces.</p>
         <button
           onClick={handleCloseModal}
           type="button"
@@ -159,7 +160,7 @@ function UpdateGameModal({
             Initial number of trees
             <input
               onChange={handleChange}
-              type="integer"
+              type="number"
               className="modal__input"
               name="trees"
               id="trees"
@@ -168,14 +169,15 @@ function UpdateGameModal({
             />
           </label>
           <label className="modal__label">
-            Initial number of fires
+            Initial number of fires. There must be at least 1 fire.
             <input
               onChange={handleChange}
-              type="integer"
+              type="number"
               className="modal__input"
               name="fires"
               id="fires"
               placeholder={fires}
+              min={1}
               value={fires || ""}
             />
           </label>
@@ -183,7 +185,7 @@ function UpdateGameModal({
             Initial number of dead trees
             <input
               onChange={handleChange}
-              type="integer"
+              type="number"
               className="modal__input"
               name="dead trees"
               id="dead trees"
@@ -195,7 +197,7 @@ function UpdateGameModal({
             Initial number of waters
             <input
               onChange={handleChange}
-              type="integer"
+              type="number"
               className="modal__input"
               name="waters"
               id="waters"
@@ -207,7 +209,7 @@ function UpdateGameModal({
             Initial number of houses
             <input
               onChange={handleChange}
-              type="integer"
+              type="number"
               className="modal__input"
               name="houses"
               id="houses"
@@ -219,7 +221,7 @@ function UpdateGameModal({
             Initial number of fire fighter
             <input
               onChange={handleChange}
-              type="integer"
+              type="number"
               className="modal__input"
               name="fire fighters"
               id="fire fighters"

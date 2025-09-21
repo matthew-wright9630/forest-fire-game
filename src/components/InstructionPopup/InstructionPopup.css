@@ -15,10 +15,6 @@
 .modal__element {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  /* grid-auto-rows: calc((75vh / 3)); */
-  /* flex-direction: column; */
-  /* justify-content: space-between; */
-  /* align-items: center; */
 }
 
 .modal__element-section {
@@ -27,8 +23,6 @@
   align-items: center;
   justify-content: center;
   border: 1px solid black;
-  /* width: 33%;
-  height: 100%; */
 }
 
 .modal__element-image {
@@ -51,7 +45,6 @@
 @media screen and (max-width: 750px) {
   .modal__element {
     grid-template-columns: repeat(2, 1fr);
-    /* grid-auto-rows: calc((75vh / 5)); */
   }
 }
 

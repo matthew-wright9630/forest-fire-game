@@ -7,6 +7,7 @@ function WindBoard({
   setGameHasStarted,
   boardArray,
   setBoardArray,
+  handleInstructionButtonClicked,
 }) {
   return (
     <div>
@@ -25,6 +26,10 @@ function WindBoard({
           initialHouses={1}
           wind={4}
           title={"Wind Board"}
+          boardDescription={
+            "Wind changes how fire spreads. It spreads 2 tiles in the direction of wind (3 if the tree is dead), then 1 in the directions on either side. Fire does not spread in other directions"
+          }
+          handleInstructionButtonClicked={handleInstructionButtonClicked}
         />
       </section>
     </div>

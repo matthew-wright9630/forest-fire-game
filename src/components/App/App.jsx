@@ -22,6 +22,10 @@ function App() {
     setInstructionPopupIsOpen(false);
   };
 
+  function handleInstructionButtonClicked() {
+    setInstructionPopupIsOpen(true);
+  }
+
   useEffect(() => {
     if (!instructionPopupIsOpen) return;
 
@@ -55,8 +59,9 @@ function App() {
               path="/forest-fire-game/"
               element={
                 <Main
-                  instructionPopupIsOpen={instructionPopupIsOpen}
-                  setInstructionPopupIsOpen={setInstructionPopupIsOpen}
+                  handleInstructionButtonClicked={
+                    handleInstructionButtonClicked
+                  }
                 />
               }
             ></Route>
@@ -71,6 +76,9 @@ function App() {
                   setGameHasStarted={setGameHasStarted}
                   boardArray={boardArray}
                   setBoardArray={setBoardArray}
+                  handleInstructionButtonClicked={
+                    handleInstructionButtonClicked
+                  }
                 />
               }
             ></Route>
@@ -84,6 +92,9 @@ function App() {
                   setGameHasStarted={setGameHasStarted}
                   boardArray={boardArray}
                   setBoardArray={setBoardArray}
+                  handleInstructionButtonClicked={
+                    handleInstructionButtonClicked
+                  }
                 />
               }
             ></Route>
@@ -97,6 +108,9 @@ function App() {
                   setGameHasStarted={setGameHasStarted}
                   boardArray={boardArray}
                   setBoardArray={setBoardArray}
+                  handleInstructionButtonClicked={
+                    handleInstructionButtonClicked
+                  }
                 />
               }
             ></Route>
@@ -110,6 +124,9 @@ function App() {
                   setGameHasStarted={setGameHasStarted}
                   boardArray={boardArray}
                   setBoardArray={setBoardArray}
+                  handleInstructionButtonClicked={
+                    handleInstructionButtonClicked
+                  }
                 />
               }
             ></Route>
@@ -123,6 +140,9 @@ function App() {
                   setGameHasStarted={setGameHasStarted}
                   boardArray={boardArray}
                   setBoardArray={setBoardArray}
+                  handleInstructionButtonClicked={
+                    handleInstructionButtonClicked
+                  }
                 />
               }
             ></Route>
@@ -136,6 +156,9 @@ function App() {
                   setGameHasStarted={setGameHasStarted}
                   boardArray={boardArray}
                   setBoardArray={setBoardArray}
+                  handleInstructionButtonClicked={
+                    handleInstructionButtonClicked
+                  }
                 />
               }
             ></Route>
@@ -149,6 +172,9 @@ function App() {
                   setGameHasStarted={setGameHasStarted}
                   boardArray={boardArray}
                   setBoardArray={setBoardArray}
+                  handleInstructionButtonClicked={
+                    handleInstructionButtonClicked
+                  }
                 />
               }
             ></Route>
