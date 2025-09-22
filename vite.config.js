@@ -6,6 +6,6 @@ export default defineConfig({
   base: "/forest-fire-game/",
   plugins: [react()],
   server: {
-    port: 3000,
+    port: 3001,
   },
 });

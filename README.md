@@ -35,7 +35,7 @@ Option 2:
    ```
 2. npm install
 3. npm run dev
-4. visit the app at: http://localhost:3000
+4. visit the app at: http://localhost:3001
 
 ## Usage
 

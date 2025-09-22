@@ -5,11 +5,11 @@ function Main({ handleInstructionButtonClicked }) {
   return (
     <main>
       <section className="main">
-        <h1 className="main__header">Welcome! This is the forest fire game.</h1>
+        <h1 className="main__header">Welcome! This is the wildfire game.</h1>
         <div className="main__description">
           <p className="main__description__paragraph">
             This game was developed to show how a wildfire may spread through a
-            forest.
+            forest under different conditions.
           </p>
           {/* <p className="main__description__paragraph">
             To see instructions and how to play, select the "How to Play"

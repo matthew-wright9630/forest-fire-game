@@ -82,7 +82,7 @@ function InformationPopup({
             />
             <p className="modal__element-title">Dead Tree</p>
             <p className="modal__element-description">
-              These squared are very volitile. They burn two squares on each
+              These trees are very volitile. They burn two squares on each
               flat side and one diagonally.
             </p>
           </div>

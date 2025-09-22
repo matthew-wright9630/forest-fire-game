@@ -2,7 +2,7 @@
   width: 100%;
   height: 100%;
   border: 1px solid black;
-  /* background-color: aqua; */
+  background-color: lightgray;
   box-sizing: border-box;
   display: flex;
   justify-content: center;
@@ -18,4 +18,14 @@
 .board-tile__image {
     width: 100%;
     height: 100%;
+}
+
+@media screen and (max-width: 650px) {
+  .board__tile {
+    /* height: 60%; */
+  }
+
+  .board-tile__name {
+    margin: 0;
+  }
 }

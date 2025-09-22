@@ -358,8 +358,10 @@ function Board({
             How to play: Click the "Start" button to create the board. Next,
             click the "Generate Fire" button to randomly place the fire. Next,
             click the "Spread Fire" button to see how the fire would spread
-            through a forest. To see a description of the game elements, you can
-            click{" "}
+            through a forest.
+          </p>
+          <p className="board__description">
+            To see a description of the game elements, you can click{" "}
             <button
               onClick={handleInstructionButtonClicked}
               className="main__button"
@@ -473,19 +475,17 @@ function Board({
         {gameStarted ? (
           <div className="board__started">
             <div className="board__grid">
-              <div className="board__first-column_background">
-                <div className="board__first-column">
-                  <BoardTile title="10" gridRow="10" />
-                  <BoardTile title="9" gridRow="9" />
-                  <BoardTile title="8" gridRow="8" />
-                  <BoardTile title="7" gridRow="7" />
-                  <BoardTile title="6" gridRow="6" />
-                  <BoardTile title="5" gridRow="5" />
-                  <BoardTile title="4" gridRow="4" />
-                  <BoardTile title="3" gridRow="3" />
-                  <BoardTile title="2" gridRow="2" />
-                  <BoardTile title="1" gridRow="1" />
-                </div>
+              <div className="board__first-column">
+                <BoardTile title="10" gridRow="10" />
+                <BoardTile title="9" gridRow="9" />
+                <BoardTile title="8" gridRow="8" />
+                <BoardTile title="7" gridRow="7" />
+                <BoardTile title="6" gridRow="6" />
+                <BoardTile title="5" gridRow="5" />
+                <BoardTile title="4" gridRow="4" />
+                <BoardTile title="3" gridRow="3" />
+                <BoardTile title="2" gridRow="2" />
+                <BoardTile title="1" gridRow="1" />
               </div>
               <div className="board__game-row">
                 {gameBoard?.map((item, index) => {
