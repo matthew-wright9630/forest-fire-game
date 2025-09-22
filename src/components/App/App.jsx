@@ -163,7 +163,7 @@ function App() {
               }
             ></Route>
             <Route
-              path="/fire-fighter-board"
+              path="/forest-fire-game/fire-fighter-board"
               element={
                 <FireFighterBoard
                   gameBoard={gameBoard}
