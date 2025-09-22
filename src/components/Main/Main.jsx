@@ -34,31 +34,31 @@ function Main({ handleInstructionButtonClicked }) {
           {/* <Link className="main__link" to={"/forest-fire-game/how-to-play/"}>
             <span className="main__span">How to Play</span>
           </Link> */}
-          <Link className="main__link" to={"/tree-board/"}>
+          <Link className="main__link" to={"/forest-fire-game/tree-board/"}>
             <span className="main__span">Board 1: Trees</span>
           </Link>
           <Link
             className="main__link"
-            to={"/dead-tree-board/"}
+            to={"/forest-fire-game/dead-tree-board/"}
           >
             <span className="main__span">Board 2: Dead Trees</span>
           </Link>
-          <Link className="main__link" to={"/water-board/"}>
+          <Link className="main__link" to={"/forest-fire-game/water-board/"}>
             <span className="main__span">Board 3: River</span>
           </Link>
-          <Link className="main__link" to={"/house-board/"}>
+          <Link className="main__link" to={"/forest-fire-game/house-board/"}>
             <span className="main__span">Board 4: House</span>
           </Link>
-          <Link className="main__link" to={"/wind-board/"}>
+          <Link className="main__link" to={"/forest-fire-game/wind-board/"}>
             <span className="main__span">Board 5: Wind</span>
           </Link>
           <Link
             className="main__link"
-            to={"/fire-fighter-board/"}
+            to={"/forest-fire-game/fire-fighter-board/"}
           >
             <span className="main__span">Board 6: Firefighters</span>
           </Link>
-          <Link className="main__link" to={"/random-board/"}>
+          <Link className="main__link" to={"/forest-fire-game/random-board/"}>
             <span className="main__span">Board 7: Random</span>
           </Link>
         </div>
