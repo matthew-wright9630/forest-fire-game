@@ -31,9 +31,6 @@ function Main({ handleInstructionButtonClicked }) {
           </p>
         </div>
         <div className="main__links">
-          {/* <Link className="main__link" to={"/forest-fire-game/how-to-play/"}>
-            <span className="main__span">How to Play</span>
-          </Link> */}
           <Link className="main__link" to={"/forest-fire-game/tree-board/"}>
             <span className="main__span">Board 1: Trees</span>
           </Link>

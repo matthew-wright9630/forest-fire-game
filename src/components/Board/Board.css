@@ -1,7 +1,4 @@
 .board {
-  /* display: flex;
-  flex-direction: column;
-  justify-content: space-between; */
   min-height: 100vh;
   max-width: 1447px;
   margin: 0 auto;
@@ -9,13 +6,11 @@
 
 .board__started {
   width: 90%;
-  max-width: 750px;
   max-height: 90vh;
 }
 
 .board__header {
   text-align: center;
-  /* padding: 40px; */
   color: #ff4000;
   background-color: rgba(0, 0, 0, 0.7);
   margin-bottom: 50px;
@@ -25,10 +20,6 @@
   margin: 0;
   padding: 40px 0 10px;
   font-size: 32px;
-  /* text-align: center;
-  padding: 40px;
-  color: #ff4000;
-  background-color: rgba(0, 0, 0, 0.7); */
 }
 
 .board__description {
@@ -36,8 +27,6 @@
   margin: 0;
   font-size: 20px;
   color: #fff;
-  /* background-color: rgba(0, 0, 0, 0.7); */
-  /* text-align: center; */
 }
 
 .board__game-area {
@@ -118,16 +107,6 @@
   height: 30%;
 }
 
-/* .board__buttons {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-  flex-wrap: wrap;
-  width: 100%;
-  height: 100%;
-  gap: 10px;
-} */
-
 .board__start-buttons {
   display: flex;
   flex-direction: column;
@@ -186,7 +165,6 @@
 .board__firefighter {
   display: flex;
   align-items: center;
-  /* gap: 15px; */
   flex-direction: column;
   padding-top: 30px;
 }
@@ -202,16 +180,6 @@
   margin: 0;
 }
 
-@media screen and (max-width: 950px) {
-  .board__game-area {
-    /* height: 100% */
-  }
-
-  .board__grid {
-    /* height: 100%; */
-  }
-}
-
 @media screen and (max-width: 600px) {
 
   .board {
@@ -221,10 +189,6 @@
   .board__started {
     width: 100%;
     height: 70vh;
-  }
-
-  .board__grid {
-    /* max-height: 60%; */
   }
 
   .board__first-column {
@@ -263,7 +227,6 @@
   .board__button-area_small {
     width: 100%;
     height: 10%;
-    /* flex-direction: row; */
   }
 
   .board__buttons {
@@ -271,7 +234,6 @@
     flex-direction: row;
     align-items: center;
     justify-content: space-around;
-    /* gap: 30px; */
   }
 
   .board__button {
@@ -303,7 +265,6 @@
   .board__wind {
     flex-direction: column-reverse;
     width: 40%;
-    /* align-items: center; */
     justify-content: flex-end;
     align-items: center;
     margin: 0 auto;
@@ -316,7 +277,6 @@
   .board__wind__direction {
     width: 150px;
     height: 50px;
-    /* margin: 0 auto; */
   }
 
   .board__firefighter {
