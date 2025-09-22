@@ -179,9 +179,16 @@ function App() {
               }
             ></Route>
 
-            {/* <Route path="*">
-                    <Error404 />
-                    </Route> */}
+            <Route
+              path="/forest-fire-game/"
+              element={
+                <Main
+                  handleInstructionButtonClicked={
+                    handleInstructionButtonClicked
+                  }
+                />
+              }
+            ></Route>
           </Routes>
         </div>
         <InstructionPopup
