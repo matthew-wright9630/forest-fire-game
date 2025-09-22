@@ -25,6 +25,7 @@
   padding: 28px 28px 36px;
   width: calc(496px - (28px * 2));
   border-radius: 10px;
+  overflow: auto;
 }
 
 .modal__close-button {
@@ -154,14 +155,15 @@
   transition: 0.3s linear;
 }
 
-@media screen and (max-width: 550px) {
+@media screen and (max-width: 600px) {
   .modal {
     margin-bottom: auto;
   }
 
   .modal__container {
     padding: 32px 0;
-    width: calc(100%);
+    width: calc(100% - 20px);
+    height: 85vh;
   }
 
   .modal__title {
@@ -178,7 +180,7 @@
   }
 
   .modal__submit-button {
-    padding: 0, 16px;
-    width: 100%;
+    margin: 0 16px;
+    width: calc(100% - 32px);
   }
 }

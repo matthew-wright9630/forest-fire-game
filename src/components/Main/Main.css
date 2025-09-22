@@ -44,7 +44,7 @@
 
 .main__link {
   background-color: lightgray;
-  width: calc(30% - 10px);
+  width: calc(40% - 10px);
   border: 1px solid black;
   border-radius: 7%;
   line-height: 5em;
@@ -75,4 +75,10 @@ span {
 .main__description__link:hover {
   color: lightblue;
   cursor: pointer;
+}
+
+@media screen and (max-width: 600px) {
+  .main__link {
+    font-size: 20px;
+  }
 }

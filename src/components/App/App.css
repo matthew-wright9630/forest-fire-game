@@ -5,3 +5,16 @@
   background-repeat: no-repeat;
   min-height: 100vh;
 }
+
+@media screen and (max-width: 950px) {
+  .page__content {
+    padding: 0 50px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+
+  .page__content {
+    padding: 0 25px;
+  }
+}

@@ -1,7 +1,7 @@
 .board {
-  display: flex;
+  /* display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: space-between; */
   min-height: 100vh;
   max-width: 1447px;
   margin: 0 auto;
@@ -16,11 +16,12 @@
   /* padding: 40px; */
   color: #ff4000;
   background-color: rgba(0, 0, 0, 0.7);
+  margin-bottom: 50px;
 }
 
 .board__header-title {
   margin: 0;
-  padding: 40px 0;
+  padding: 40px 0 10px;
   font-size: 32px;
   /* text-align: center;
   padding: 40px;
@@ -41,14 +42,14 @@
   display: flex;
   flex-direction: row-reverse;
   gap: 10px;
-  height: 75vh;
+  height: 70vh;
   justify-content: center;
 }
 
 .board__grid {
   display: flex;
   width: 100%;
-  height: 65vh;
+  height: 60vh;
 }
 
 .board__first-column {
@@ -62,7 +63,7 @@
 
 .board__first-column_background {
   width: 10%;
-  height: 65vh;
+  height: 60vh;
   background-color: lightgray;
 }
 
@@ -70,14 +71,21 @@
   width: 100%;
   display: grid;
   grid-template-columns: repeat(10, 1fr);
-  grid-auto-rows: calc(65vh / 10);
+  grid-auto-rows: calc(60vh / 10);
 }
 
 .board__last-row {
   display: flex;
   background-color: darkgray;
   width: 100%;
-  height: calc(65vh / 10);
+  height: calc(60vh / 10);
+}
+
+.board__wind {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-bottom: 25px;
 }
 
 .board__wind__description {
@@ -85,35 +93,66 @@
   background-color: rgba(0, 0, 0, 0.5);
 }
 
+.board__wind__direction {
+  width: 100%;
+  height: 100%;
+}
+
 .board__button-area {
   width: 60%;
-  height: 100%;
+  height: 95%;
   display: flex;
   flex-direction: column;
-  /* justify-content: space-between; */
+  justify-content: space-between;
+  gap: 50px;
 }
 
 .board__button-area_small {
   width: 10%;
 }
 
-.board__buttons {
+.board__game-buttons {
+  width: 100%;
+  height: 30%;
+}
+
+/* .board__buttons {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: space-evenly;
   flex-wrap: wrap;
   width: 100%;
   height: 100%;
   gap: 10px;
+} */
+
+.board__start-buttons {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  height: 50%;
+  width: 100%;
+}
+
+.board__start-btn {
+  margin-bottom: 50px;
+}
+
+.board__end-buttons {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 40%;
 }
 
 .board__button {
   background-color: lightgray;
   width: calc(100%);
+  min-width: 65px;
   border: 1px solid black;
   border-radius: 5%;
   line-height: 2em;
-  height: 15%;
+  height: 50%;
   text-align: center;
   font-size: 15px;
   color: black;
@@ -132,6 +171,7 @@
 
 .board__end-btn {
   margin-bottom: 10px;
+  height: 30%;
 }
 
 .board__game-end {
@@ -146,6 +186,7 @@
   align-items: center;
   /* gap: 15px; */
   flex-direction: column;
+  padding-top: 30px;
 }
 
 .board__firefighter__image {
@@ -157,4 +198,107 @@
   background-color: rgba(0, 0, 0, 0.5);
   width: 100%;
   margin: 0;
+}
+
+@media screen and (max-width: 600px) {
+  .board__game-area {
+  }
+
+  .board__started {
+    width: 100%;
+  }
+
+  .board__game-area {
+    flex-direction: column-reverse;
+    align-items: center;
+    height: 100%;
+    min-height: 45vh;
+    padding: 0 0 25px;
+    flex-grow: 2;
+  }
+
+  .board__button-area {
+    height: 45vh;
+    justify-content: space-around;
+  }
+
+  .board__button-area_small {
+    width: 100%;
+    height: 100%;
+    /* flex-direction: row; */
+  }
+
+  .board__buttons {
+    width: calc(100%);
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    /* gap: 30px; */
+  }
+
+  .board__button {
+    line-height: 1em;
+  }
+
+  .board__start-buttons {
+    width: 100%;
+    flex-grow: 2;
+  }
+
+  .board__button_large {
+    height: 30%;
+    font-size: 20px;
+  }
+
+  .board__element {
+    width: calc(100% / 2.5);
+    height: 30%;
+  }
+
+  .board__game-buttons {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 20px 0;
+    width: 100%;
+  }
+
+  .board__wind {
+    flex-direction: column-reverse;
+    width: 40%;
+    height: 75px;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .board__wind__description {
+    margin: 0;
+  }
+
+  .board__wind__direction {
+    height: 75%;
+  }
+
+  .board__firefighter {
+    padding: 0;
+    flex-direction: column;
+    width: 40%;
+  }
+
+  .board__next-btn {
+    width: 50%;
+    height: 75px;
+    align-self: flex-start;
+  }
+
+  .board__end-buttons {
+    flex-direction: row;
+    justify-content: space-between;
+    height: 33%;
+  }
+
+  .board__end-btn {
+    margin: 0;
+    height: 75px;
+  }
 }

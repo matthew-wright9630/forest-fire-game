@@ -48,14 +48,14 @@ function UpdateGameModal({
     } else if (name === "fire fighters") {
       setFireFighters(value);
     } else if (name === "wind direction") {
-      console.log(value, Number.isnumber(value));
+      console.log(value, Number.isInteger(value));
       if (value < 0 || value > 8) {
         setIsError(true);
         setWindDirectionError({
           name: "Number outside of range",
           message: "Number must be bewteen 0 and 8.",
         });
-      } else if (!Number.isnumber(value)) {
+      } else if (!Number.isInteger(value)) {
         setIsError(true);
         setWindDirectionError({
           name: "Number is not an number",

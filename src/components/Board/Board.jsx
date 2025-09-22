@@ -58,6 +58,7 @@ function Board({
   const [windDirection, setWindDirection] = useState(wind);
   const [originalFires, setOriginalFires] = useState(initialFires);
   const [firesPresent, setFiresPresent] = useState(true);
+  const [forestIsProtected, setForestIsProtected] = useState(true);
 
   function setUpBoard() {
     setGameHasStarted(true);
@@ -158,6 +159,7 @@ function Board({
       setFireFighterPresent(false);
     } else {
       setFireFighterPresent(true);
+      setForestIsProtected(false);
     }
   }
 
@@ -204,6 +206,14 @@ function Board({
     }
   }
 
+  function checkForestProtection() {
+    if (roundNumber === 0 && originalFireFighters) {
+      setForestIsProtected(false);
+    } else {
+      setForestIsProtected(true);
+    }
+  }
+
   function protectTrees() {
     let adjacentTiles = new Array();
     boardArray.map((tile, index) => {
@@ -245,6 +255,7 @@ function Board({
     setFireFighterPresent(false);
     setNumberOfFireFighters(originalFireFighters);
     setNumberOfFires(originalFires);
+    setForestIsProtected(true);
     setArrowDirection({});
     setBoardArray([]);
   }
@@ -334,6 +345,10 @@ function Board({
     checkFires();
   }, [numberOfFires]);
 
+  useEffect(() => {
+    checkForestProtection();
+  }, [roundNumber]);
+
   return (
     <div className="board">
       <div className="board__header">
@@ -365,9 +380,10 @@ function Board({
             gameStarted ? "board__button-area_small" : ""
           }`}
         >
-          <div className={`board__buttons`}>
+          <>
             {!roundHasStarted ? (
-              <>
+              // <div className={`board__buttons`}>
+              <div className="board__start-buttons">
                 <button
                   onClick={setUpBoard}
                   className={`board__button board__start-btn ${
@@ -384,59 +400,75 @@ function Board({
                 >
                   Update Board Conditions
                 </button>
-              </>
+              </div>
             ) : (
-              <>
+              // </div>
+              <div className="board__game-buttons">
                 {windDirection ? (
-                  <div className="board__wind">
-                    <p className="board__wind__description">
+                  <div className="board__wind ">
+                    <p className="board__wind__description ">
                       Wind direction: {arrowDirection.name}
                     </p>
                     <img
                       src={arrowDirection.image}
                       alt={arrowDirection.name}
-                      className="board__wind__direction"
+                      className="board__wind__direction "
                     />
                   </div>
                 ) : (
                   ""
                 )}
                 {fireFighterPresent ? (
-                  <div className="board__firefighter">
+                  <div className="board__firefighter ">
                     <img
                       src={fireFighterImage}
                       alt="Fire Fighter"
-                      className="board__firefighter__image"
+                      className="board__firefighter__image "
                     />
-                    <p className="board__firefighter__description">
+                    <p className="board__firefighter__description ">
                       Number of fire fighters left to place:{" "}
                       {numberOfFireFighter}
                     </p>
                   </div>
                 ) : houseIsBurning ? (
-                  <div className="board__game-end">House has been burned</div>
+                  <div className="board__game-end board__element">
+                    House has been burned
+                  </div>
                 ) : (
-                  <button
-                    onClick={nextButton}
-                    className="board__button board__next-btn"
-                  >
-                    {firesPresent ? "Generate Fire" : "Spread Fire"}
-                  </button>
+                  <>
+                    {!forestIsProtected ? (
+                      <button
+                        onClick={nextButton}
+                        className="board__button board__next-btn"
+                      >
+                        Protect Forest
+                      </button>
+                    ) : (
+                      <button
+                        onClick={nextButton}
+                        className="board__button board__next-btn"
+                      >
+                        {firesPresent ? "Generate Fire" : "Spread Fire"}
+                      </button>
+                    )}
+                  </>
                 )}
-              </>
+              </div>
             )}
-            {gameStarted ? (
-              <button
-                onClick={endGame}
-                className="board__button board__end-btn"
-              >
-                End
-              </button>
-            ) : (
-              ""
-            )}
-            <NavigateToHomepage endGame={endGame} gameStarted={gameStarted} />
-          </div>
+            <div className="board__end-buttons">
+              {gameStarted ? (
+                <button
+                  onClick={endGame}
+                  className="board__button board__element board__end-btn"
+                >
+                  End
+                </button>
+              ) : (
+                ""
+              )}
+              <NavigateToHomepage endGame={endGame} gameStarted={gameStarted} />
+            </div>
+          </>
         </div>
         {gameStarted ? (
           <div className="board__started">

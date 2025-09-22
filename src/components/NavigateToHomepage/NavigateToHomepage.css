@@ -1,25 +1,77 @@
+.navigate-to-homepage {
+  height: 33.3%;
+  display: flex;
+  align-items: center;
+}
+
 .navigate-to-homepage__link {
+  position: relative;
   display: flex;
   background-color: lightgray;
   text-decoration: none;
   width: calc(100%);
   border: 1px solid black;
   border-radius: 7%;
-  line-height: 1.7em;
-  height: 3.55em;
-  font-size: 15px;
+  font-size: 18px;
   color: black;
-  transition: linear .3s;
+  transition: linear 0.3s;
   justify-content: center;
   text-align: center;
+  height: 75%;
 }
 
 .navigate-to-homepage__link:hover {
-    background-color: lightgray;
-    opacity: 70%;
+  background-color: lightgray;
+  opacity: 70%;
 }
 
 .navigate-to-homepage__link_large {
+  height: 100%;
+  line-height: 3.5em;
   font-size: 25px;
-  line-height: 3.55em;
+}
+
+.navigate-to-homepage_small {
+  line-height: 1em;
+}
+
+.navigate-to-homepage__title {
+  margin: auto;
+}
+
+@media screen and (max-width: 950px) {
+  .navigate-to-homepage__link {
+    font-size: 12px;
+  }
+
+  .navigate-to-homepage__link_large {
+    height: 100%;
+    line-height: 2.5em;
+    font-size: 25px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .navigate-to-homepage {
+    height: 50%;
+    width: 100%;
+  }
+
+  .navigate-to-homepage_small {
+    width: calc(100% / 2.5);
+    align-items: center;
+    height: 75px;
+  }
+
+  .navigate-to-homepage__link {
+    /* height: 50%; */
+    height: 75px;
+    font-size: 20px;
+  }
+
+  .navigate-to-homepage__link_large {
+    height: 100%;
+    line-height: 1em;
+    font-size: 25px;
+  }
 }
