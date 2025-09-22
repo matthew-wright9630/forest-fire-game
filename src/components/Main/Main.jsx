@@ -49,7 +49,7 @@ function Main({ handleInstructionButtonClicked }) {
           <Link className="main__link" to={"/house-board/"}>
             <span className="main__span">Board 4: House</span>
           </Link>
-          <Link className="main__link" to={"/forest-fire-game/wind-board/"}>
+          <Link className="main__link" to={"/wind-board/"}>
             <span className="main__span">Board 5: Wind</span>
           </Link>
           <Link
