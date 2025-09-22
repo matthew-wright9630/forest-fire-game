@@ -56,7 +56,7 @@ function App() {
         <div className="page__content">
           <Routes>
             <Route
-              path="/forest-fire-game/"
+              path="/"
               element={
                 <Main
                   handleInstructionButtonClicked={
@@ -67,7 +67,7 @@ function App() {
             ></Route>
 
             <Route
-              path="/forest-fire-game/random-board"
+              path="/random-board"
               element={
                 <RandomBoard
                   gameBoard={gameBoard}
@@ -83,7 +83,7 @@ function App() {
               }
             ></Route>
             <Route
-              path="/forest-fire-game/tree-board"
+              path="/tree-board"
               element={
                 <TreeBoard
                   gameBoard={gameBoard}
@@ -99,7 +99,7 @@ function App() {
               }
             ></Route>
             <Route
-              path="/forest-fire-game/dead-tree-board"
+              path="/dead-tree-board"
               element={
                 <DeadTreeBoard
                   gameBoard={gameBoard}
@@ -115,7 +115,7 @@ function App() {
               }
             ></Route>
             <Route
-              path="/forest-fire-game/water-board"
+              path="/water-board"
               element={
                 <WaterBoard
                   gameBoard={gameBoard}
@@ -131,7 +131,7 @@ function App() {
               }
             ></Route>
             <Route
-              path="/forest-fire-game/house-board"
+              path="/house-board"
               element={
                 <HouseBoard
                   gameBoard={gameBoard}
@@ -147,7 +147,7 @@ function App() {
               }
             ></Route>
             <Route
-              path="/forest-fire-game/wind-board"
+              path="/wind-board"
               element={
                 <WindBoard
                   gameBoard={gameBoard}
@@ -163,7 +163,7 @@ function App() {
               }
             ></Route>
             <Route
-              path="/forest-fire-game/fire-fighter-board"
+              path="/fire-fighter-board"
               element={
                 <FireFighterBoard
                   gameBoard={gameBoard}
@@ -180,7 +180,7 @@ function App() {
             ></Route>
 
             <Route
-              path="/forest-fire-game/*"
+              path="/*"
               element={
                 <Main
                   handleInstructionButtonClicked={
