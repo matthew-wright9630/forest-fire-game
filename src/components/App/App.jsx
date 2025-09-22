@@ -180,7 +180,7 @@ function App() {
             ></Route>
 
             <Route
-              path="/forest-fire-game/"
+              path="/forest-fire-game/*"
               element={
                 <Main
                   handleInstructionButtonClicked={
