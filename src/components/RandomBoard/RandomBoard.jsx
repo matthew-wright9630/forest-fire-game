@@ -26,7 +26,8 @@ function RandomBoard({
           initialHouses={1}
           wind={4}
           initialFireFighters={1}
-          title={"Random Board"}
+          title={"Main Game"}
+          gameCanBeUpdated={true}
         />
       </section>
     </div>

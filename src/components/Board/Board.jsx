@@ -40,6 +40,7 @@ function Board({
   title,
   boardDescription,
   handleInstructionButtonClicked,
+  gameCanBeUpdated = false,
 }) {
   const [houseIsBurning, setHouseIsBurning] = useState(false);
   const [arrowDirection, setArrowDirection] = useState({});
@@ -162,7 +163,7 @@ function Board({
 
   function randomizeWind() {
     const num = Math.floor(Math.random() * 9);
-    setWindDirection(4);
+    setWindDirection(num);
     if (num === 0) {
       setArrowDirectionIsSet(true);
     }
@@ -467,25 +468,29 @@ function Board({
                 >
                   Start Game
                 </button>
-                <button
-                  onClick={updateBoard}
-                  className={`board__button board__update-btn ${
-                    !gameStarted ? "board__button_large" : ""
-                  }`}
-                >
-                  Update Board Conditions
-                </button>
+                {gameCanBeUpdated ? (
+                  <button
+                    onClick={updateBoard}
+                    className={`board__button board__update-btn ${
+                      !gameStarted ? "board__button_large" : ""
+                    }`}
+                  >
+                    Update Board Conditions
+                  </button>
+                ) : (
+                  ""
+                )}
               </div>
             ) : (
               <div className="board__game-buttons">
                 {windIsInEffect && arrowDirectionIsSet && !processing ? (
                   <div className="board__wind ">
                     <p className="board__wind__description ">
-                      Wind direction: {arrowDirection.name}
+                      Wind direction: {arrowDirection?.name}
                     </p>
                     <img
-                      src={arrowDirection.image}
-                      alt={arrowDirection.name}
+                      src={arrowDirection?.image}
+                      alt={arrowDirection?.name}
                       className="board__wind__direction "
                     />
                   </div>
@@ -619,7 +624,6 @@ function Board({
         numberOfFireFighter={numberOfFireFighter}
         setNumberOfFireFighters={setNumberOfFireFighters}
         setOriginalFireFighters={setOriginalFireFighters}
-        windDirection={windDirection}
       />
     </div>
   );

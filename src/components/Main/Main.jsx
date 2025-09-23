@@ -56,7 +56,7 @@ function Main({ handleInstructionButtonClicked }) {
             <span className="main__span">Board 6: Firefighters</span>
           </Link>
           <Link className="main__link" to={"/forest-fire-game/random-board/"}>
-            <span className="main__span">Board 7: Random</span>
+            <span className="main__span">Board 7: Main Game</span>
           </Link>
         </div>
         <div className="main__description">

@@ -1,5 +1,5 @@
 .navigate-to-homepage {
-  height: 50%;
+  height: 100%;
   display: flex;
   align-items: center;
 }
@@ -17,7 +17,7 @@
   transition: linear 0.3s;
   justify-content: center;
   text-align: center;
-  height: 75%;
+  height: 40%;
 }
 
 .navigate-to-homepage__link:hover {
@@ -29,7 +29,7 @@
   height: 100%;
   line-height: 2.5em;
   font-size: 25px;
-  height: 54px;
+  /* height: 54px; */
 }
 
 .navigate-to-homepage_small {
@@ -40,9 +40,15 @@
   margin: auto;
 }
 
+@media screen and (max-width: 950px) {
+  .navigate-to-homepage__title {
+    font-size: 16px;
+  }
+}
+
 @media screen and (max-width: 600px) {
   .navigate-to-homepage {
-    height: 50%;
+    height: 75%;
     width: 100%;
   }
 
@@ -53,7 +59,7 @@
   }
 
   .navigate-to-homepage__link {
-    height: 45px;
+    height: 100%;
   }
 
   .navigate-to-homepage__link_large {
