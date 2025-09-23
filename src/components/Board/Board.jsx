@@ -19,7 +19,6 @@ import {
   getAdjacentIndices,
   getProtectedTrees,
 } from "../../utils/tileArrayMapping";
-import Footer from "../NavigateToHomepage/NavigateToHomepage";
 import UpdateGameModal from "../UpdateGameModal/UpdateGameModal";
 import NavigateToHomepage from "../NavigateToHomepage/NavigateToHomepage";
 
@@ -104,62 +103,53 @@ function Board({
   }
 
   function randomizeBoard() {
-    let numberOfTiles = 100;
-    let treesLeft = numberOfTrees + numberOfFireFighter + numberOfFires;
-    let fireLeft = numberOfFires;
-    let deadTreesLeft = numberOfDeadTrees;
-    let waterLeft = numberOfWater;
-    let housesLeft = numberOfHouses;
-    let selectedTileAmount = 0;
-    let newBoardArray = new Array();
-    let numberOfIterations = 0;
-    while (selectedTileAmount < numberOfTiles) {
-      numberOfIterations++;
-      if (numberOfIterations > 10000) {
-        break;
-      }
-      const num = Math.floor(Math.random() * 60) + 1;
-      if (num < 50 && treesLeft > 0) {
-        treesLeft--;
-        newBoardArray.push({
-          name: "Tree",
-          image: treeImage,
-          description:
-            "One part of a forest. When burned, it will burn in all eight directions around it.",
-          index: selectedTileAmount,
-        });
-        selectedTileAmount++;
-      } else if (num > 50 && num <= 55 && deadTreesLeft > 0) {
-        deadTreesLeft--;
-        newBoardArray.push({
-          name: "Dead Tree",
-          image: deadTreeImage,
-          description:
-            "These squares are volatile. They burn two squares on each flat side and one diagonally.",
-          index: selectedTileAmount,
-        });
-        selectedTileAmount++;
-      } else if (num < 60 && waterLeft > 0) {
-        waterLeft--;
-        newBoardArray.push({
-          name: "Water",
-          image: waterImage,
-          description: "Squares with water will not burn.",
-          index: selectedTileAmount,
-        });
-        selectedTileAmount++;
-      } else if (num === 60 && housesLeft > 0) {
-        housesLeft--;
-        newBoardArray.push({
-          name: "House",
-          image: houseImage,
-          description: "The house burns like a tree. You want to protect this.",
-          index: selectedTileAmount,
-        });
-        selectedTileAmount++;
-      }
+    let tiles = [];
+    for (
+      let i = 0;
+      i < numberOfTrees + numberOfFireFighter + numberOfFires;
+      i++
+    ) {
+      tiles.push({
+        name: "Tree",
+        image: treeImage,
+        description:
+          "One part of a forest. When burned, it will burn in all eight directions around it.",
+      });
     }
-    setBoardArray(newBoardArray);
+
+    for (let i = 0; i < numberOfDeadTrees; i++) {
+      tiles.push({
+        name: "Dead Tree",
+        image: deadTreeImage,
+        description:
+          "These squares are volatile. They burn two squares on each flat side and one diagonally.",
+      });
+    }
+
+    for (let i = 0; i < numberOfWater; i++) {
+      tiles.push({
+        name: "Water",
+        image: waterImage,
+        description: "Squares with water will not burn.",
+      });
+    }
+
+    for (let i = 0; i < numberOfHouses; i++) {
+      tiles.push({
+        name: "House",
+        image: houseImage,
+        description: "The house burns like a tree. You want to protect this.",
+      });
+    }
+    for (let i = tiles.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [tiles[i], tiles[j]] = [tiles[j], tiles[i]];
+    }
+    tiles = tiles.map((tile, idx) => ({
+      ...tile,
+      index: idx,
+    }));
+    setBoardArray(tiles);
   }
 
   function randomizeWind() {
