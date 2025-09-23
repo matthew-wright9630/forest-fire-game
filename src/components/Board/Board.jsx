@@ -111,7 +111,7 @@ function Board({
         break;
       }
       const num = Math.floor(Math.random() * 60) + 1;
-      if (num < 30 && treesLeft > 0) {
+      if (num < 50 && treesLeft > 0) {
         treesLeft--;
         newBoardArray.push({
           name: "Tree",
@@ -121,7 +121,7 @@ function Board({
           index: selectedTileAmount,
         });
         selectedTileAmount++;
-      } else if (num > 30 && num <= 45 && deadTreesLeft > 0) {
+      } else if (num > 50 && num <= 55 && deadTreesLeft > 0) {
         deadTreesLeft--;
         newBoardArray.push({
           name: "Dead Tree",
