@@ -2,6 +2,34 @@
   min-height: 100vh;
   max-width: 1447px;
   margin: 0 auto;
+  position: relative;
+}
+
+.board__compass-div {
+  width: 50%;
+  height: 50vh;
+  visibility: hidden;
+  position: absolute;
+  top: 40%;
+  left: 20%;
+}
+
+.board__compass {
+  width: 100%;
+  height: 100%;
+}
+
+.board__compass-arrow {
+  width: 30%;
+  height: 30%;
+  top: 35%;
+  left: 36%;
+  position: absolute;
+  /* rotate: -45deg */
+}
+
+.board__animation {
+  visibility: visible;
 }
 
 .board__started {
@@ -78,6 +106,7 @@
   flex-direction: column;
   width: 100%;
   margin-bottom: 70px;
+  height: 30%;
 }
 
 .board__wind__description {
@@ -103,8 +132,11 @@
 }
 
 .board__game-buttons {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
   width: 100%;
-  height: 30%;
+  height: 50%;
 }
 
 .board__start-buttons {
@@ -133,7 +165,7 @@
   border: 1px solid black;
   border-radius: 5%;
   line-height: 2em;
-  height: 50%;
+  height: 30%;
   text-align: center;
   font-size: 15px;
   color: black;
@@ -180,11 +212,35 @@
   margin: 0;
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 650px) {
+  .board__compass {
+  }
 
+  /* .board__compass-arrow {
+    rotate: 12deg;
+  } */
+
+  .board__compass-arrow_rotate-neg {
+    rotate: -12deg;
+  }
+}
+
+@media screen and (max-width: 600px) {
   .board {
     min-height: 100%;
   }
+
+  /* .board__compass {
+    width: 75%;
+    left: 13%;
+  }
+
+  .board__compass-arrow {
+    width: 15%;
+    height: 15vh;
+    left: 43.5%;
+    top: 51.8%;
+  } */
 
   .board__started {
     width: 100%;
@@ -204,11 +260,11 @@
   }
 
   .board__last-row {
-  display: flex;
-  background-color: darkgray;
-  width: 100%;
-  height: calc(90% / 9);
-}
+    display: flex;
+    background-color: darkgray;
+    width: 100%;
+    height: calc(90% / 9);
+  }
 
   .board__game-area {
     flex-direction: column-reverse;
@@ -256,7 +312,8 @@
   }
 
   .board__game-buttons {
-    display: flex;
+    margin-top: 30px;
+    flex-direction: row;
     justify-content: space-around;
     align-items: center;
     width: 100%;
@@ -289,6 +346,11 @@
     height: 50px;
     height: 50px;
   }
+
+  .board__animate-wind-btn {
+    width: 75%;
+    height: 45px;
+}
 
   .board__next-btn {
     width: 50%;

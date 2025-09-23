@@ -10,6 +10,7 @@ import deadTreeFireImage from "../../assets/Fire_Dead_Tree.png";
 import waterImage from "../../assets/Water.png";
 import houseImage from "../../assets/House.png";
 import compassImage from "../../assets/Compass.png";
+import compassArrow from "../../assets/Compass-Arrow-Solid.png";
 import burningHouseImage from "../../assets/Burning-House.png";
 import protectedTreeImage from "../../assets/Protected_Tree.png";
 import fireFighterImage from "../../assets/Fire_Fighter.png";
@@ -34,7 +35,7 @@ function Board({
   initialDeadTrees = 0,
   initialWaters = 0,
   initialHouses = 0,
-  wind = 0,
+  windIsInEffect = false,
   initialFireFighters = 0,
   title,
   boardDescription,
@@ -55,16 +56,21 @@ function Board({
   const [fireFighterPresent, setFireFighterPresent] = useState(false);
   const [originalFireFighters, setOriginalFireFighters] =
     useState(initialFireFighters);
-  const [windDirection, setWindDirection] = useState(wind);
+  const [windDirection, setWindDirection] = useState(0);
   const [originalFires, setOriginalFires] = useState(initialFires);
   const [firesPresent, setFiresPresent] = useState(true);
   const [forestIsProtected, setForestIsProtected] = useState(true);
+  const [arrowDirectionIsSet, setArrowDirectionIsSet] = useState(false);
+  const [processing, setProcessing] = useState(false);
 
   function setUpBoard() {
     setGameHasStarted(true);
-    if (windDirection) {
-      setArrowDirection(determineArrowDirection(windDirection));
+    if (windIsInEffect) {
+      randomizeWind();
     }
+    // if (windDirection) {
+    //   setArrowDirection(determineArrowDirection(windDirection));
+    // }
     setRoundHasStarted(true);
     randomizeBoard();
     checkFireFighters();
@@ -152,6 +158,53 @@ function Board({
       }
     }
     setBoardArray(newBoardArray);
+  }
+
+  function randomizeWind() {
+    const num = Math.floor(Math.random() * 9);
+    setWindDirection(4);
+    if (num === 0) {
+      setArrowDirectionIsSet(true);
+    }
+  }
+
+  function animateArrowDirection(windDirection) {
+    const elementToRotate = document.querySelector(".board__compass-arrow");
+    let degRotated = 360 * 5 + windDirection * 45 - 45;
+    if (window.matchMedia("(max-width: 650px)").matches) {
+      if (windDirection === 2 || windDirection === 6) {
+        degRotated -= 12;
+      }
+      if (windDirection === 4 || windDirection === 8) {
+        degRotated += 12;
+      }
+    }
+    console.log(degRotated);
+    const animation = elementToRotate.animate(
+      [
+        { transform: "rotate(0deg)" },
+        { transform: `rotate(${degRotated}deg)` },
+      ],
+      {
+        duration: 2000,
+        iterations: 1,
+        easing: "linear",
+        fill: "forwards",
+      }
+    );
+    animation.finished.then(() => {
+      setTimeout(() => {
+        setProcessing(false);
+      }, 1000);
+    });
+  }
+
+  function arrowDirectionButtonClicked() {
+    setProcessing(true);
+    setArrowDirectionIsSet(true);
+    setTimeout(() => {
+      animateArrowDirection(windDirection);
+    }, 500);
   }
 
   function checkFireFighters() {
@@ -256,6 +309,7 @@ function Board({
     setNumberOfFireFighters(originalFireFighters);
     setNumberOfFires(originalFires);
     setForestIsProtected(true);
+    setArrowDirectionIsSet(false);
     setArrowDirection({});
     setBoardArray([]);
   }
@@ -349,8 +403,28 @@ function Board({
     checkForestProtection();
   }, [roundNumber]);
 
+  useEffect(() => {
+    setArrowDirection(determineArrowDirection(windDirection));
+  }, [windDirection, processing]);
+
   return (
     <div className="board">
+      <div className="board__compass-div">
+        <img
+          src={compassImage}
+          alt="Compass"
+          className={`board__compass ${
+            arrowDirectionIsSet && processing ? "board__animation" : ""
+          }`}
+        />
+        <img
+          src={compassArrow}
+          alt="Compass Arrow"
+          className={`board__compass-arrow ${
+            arrowDirectionIsSet && processing ? "board__animation" : ""
+          }`}
+        />
+      </div>
       <div className="board__header">
         <h2 className="board__header-title">Welcome to the {title}!</h2>
         <div className="board__description-area">
@@ -384,7 +458,6 @@ function Board({
         >
           <>
             {!roundHasStarted ? (
-              // <div className={`board__buttons`}>
               <div className="board__start-buttons">
                 <button
                   onClick={setUpBoard}
@@ -404,9 +477,8 @@ function Board({
                 </button>
               </div>
             ) : (
-              // </div>
               <div className="board__game-buttons">
-                {windDirection ? (
+                {windIsInEffect && arrowDirectionIsSet && !processing ? (
                   <div className="board__wind ">
                     <p className="board__wind__description ">
                       Wind direction: {arrowDirection.name}
@@ -438,7 +510,16 @@ function Board({
                   </div>
                 ) : (
                   <>
-                    {!forestIsProtected ? (
+                    {arrowDirection && !arrowDirectionIsSet ? (
+                      <button
+                        onClick={arrowDirectionButtonClicked}
+                        className="board__button board__animate-wind-btn"
+                      >
+                        Determine Wind Direction
+                      </button>
+                    ) : processing ? (
+                      ""
+                    ) : !forestIsProtected ? (
                       <button
                         onClick={nextButton}
                         className="board__button board__next-btn"
@@ -539,7 +620,6 @@ function Board({
         setNumberOfFireFighters={setNumberOfFireFighters}
         setOriginalFireFighters={setOriginalFireFighters}
         windDirection={windDirection}
-        setWindDirection={setWindDirection}
       />
     </div>
   );
