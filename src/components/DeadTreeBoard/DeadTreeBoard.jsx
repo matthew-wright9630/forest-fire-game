@@ -8,6 +8,7 @@ function DeadTreeBoard({
   boardArray,
   setBoardArray,
   handleInstructionButtonClicked,
+  handleHowToPlayButtonClicked,
 }) {
   return (
     <div>
@@ -27,6 +28,7 @@ function DeadTreeBoard({
             "Dead trees burn like other trees, but also spread 1 more in cardinal directions"
           }
           handleInstructionButtonClicked={handleInstructionButtonClicked}
+          handleHowToPlayButtonClicked={handleHowToPlayButtonClicked}
         />
       </section>
     </div>

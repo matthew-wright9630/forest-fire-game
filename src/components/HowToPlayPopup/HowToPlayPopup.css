@@ -1,0 +1,21 @@
+.modal__how-to-play-element {
+    display: flex;
+    flex-direction: column;
+    /* grid-template-columns: repeat(1,1fr); */
+    /* align-items: center; */
+    height: 70vh;
+    justify-content: space-between;
+}
+
+.modal__how-to-play-section {
+    flex-direction: row;
+    gap: 15px;
+}
+
+.modal__how-to-play-description {
+    /* border: solid black 1px; */
+}
+
+.modal__how-to-play-image {
+    height: 100%;
+}

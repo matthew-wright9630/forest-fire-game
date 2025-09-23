@@ -8,6 +8,7 @@ function WindBoard({
   boardArray,
   setBoardArray,
   handleInstructionButtonClicked,
+  handleHowToPlayButtonClicked,
 }) {
   return (
     <div>
@@ -30,6 +31,7 @@ function WindBoard({
             "Wind changes how fire spreads. It spreads 2 tiles in the direction of wind (3 if the tree is dead), then 1 in the directions on either side. Fire does not spread in other directions"
           }
           handleInstructionButtonClicked={handleInstructionButtonClicked}
+          handleHowToPlayButtonClicked={handleHowToPlayButtonClicked}
         />
       </section>
     </div>

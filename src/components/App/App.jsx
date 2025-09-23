@@ -11,19 +11,26 @@ import WindBoard from "../WindBoard/WindBoard";
 import FireFighterBoard from "../FireFighterBoard/FireFighterBoard";
 import UpdateGameModal from "../UpdateGameModal/UpdateGameModal";
 import InstructionPopup from "../InstructionPopup/InstructionPopup";
+import HowToPlayPopupIsOpen from "../HowToPlayPopup/HowToPlayPopup";
 
 function App() {
   const [gameBoard, setGameBoard] = useState([]);
   const [gameStarted, setGameHasStarted] = useState(false);
   const [boardArray, setBoardArray] = useState([]);
   const [instructionPopupIsOpen, setInstructionPopupIsOpen] = useState(false);
+  const [howToPlayPopupIsOpen, setHowToPlayPopupIsOpen] = useState(false);
 
   const handleCloseModal = () => {
     setInstructionPopupIsOpen(false);
+    setHowToPlayPopupIsOpen(false);
   };
 
   function handleInstructionButtonClicked() {
     setInstructionPopupIsOpen(true);
+  }
+
+  function handleHowToPlayButtonClicked() {
+    setHowToPlayPopupIsOpen(true);
   }
 
   useEffect(() => {
@@ -50,6 +57,30 @@ function App() {
     };
   }, [instructionPopupIsOpen]);
 
+  useEffect(() => {
+    if (!howToPlayPopupIsOpen) return;
+
+    const handleEscPress = (evt) => {
+      if (evt.key === "Escape") {
+        handleCloseModal();
+      }
+    };
+
+    function handleOverlayClick(evt) {
+      if (evt.target.classList.contains("modal_opened")) {
+        handleCloseModal();
+      }
+    }
+
+    document.addEventListener("keydown", handleEscPress);
+    document.addEventListener("mousedown", handleOverlayClick);
+
+    return () => {
+      document.removeEventListener("keydown", handleEscPress);
+      document.removeEventListener("mousedown", handleOverlayClick);
+    };
+  }, [howToPlayPopupIsOpen]);
+
   return (
     <div className="page">
       <div>
@@ -62,6 +93,7 @@ function App() {
                   handleInstructionButtonClicked={
                     handleInstructionButtonClicked
                   }
+                  handleHowToPlayButtonClicked={handleHowToPlayButtonClicked}
                 />
               }
             ></Route>
@@ -79,6 +111,7 @@ function App() {
                   handleInstructionButtonClicked={
                     handleInstructionButtonClicked
                   }
+                  handleHowToPlayButtonClicked={handleHowToPlayButtonClicked}
                 />
               }
             ></Route>
@@ -95,6 +128,7 @@ function App() {
                   handleInstructionButtonClicked={
                     handleInstructionButtonClicked
                   }
+                  handleHowToPlayButtonClicked={handleHowToPlayButtonClicked}
                 />
               }
             ></Route>
@@ -111,6 +145,7 @@ function App() {
                   handleInstructionButtonClicked={
                     handleInstructionButtonClicked
                   }
+                  handleHowToPlayButtonClicked={handleHowToPlayButtonClicked}
                 />
               }
             ></Route>
@@ -127,6 +162,7 @@ function App() {
                   handleInstructionButtonClicked={
                     handleInstructionButtonClicked
                   }
+                  handleHowToPlayButtonClicked={handleHowToPlayButtonClicked}
                 />
               }
             ></Route>
@@ -143,6 +179,7 @@ function App() {
                   handleInstructionButtonClicked={
                     handleInstructionButtonClicked
                   }
+                  handleHowToPlayButtonClicked={handleHowToPlayButtonClicked}
                 />
               }
             ></Route>
@@ -159,6 +196,7 @@ function App() {
                   handleInstructionButtonClicked={
                     handleInstructionButtonClicked
                   }
+                  handleHowToPlayButtonClicked={handleHowToPlayButtonClicked}
                 />
               }
             ></Route>
@@ -175,10 +213,11 @@ function App() {
                   handleInstructionButtonClicked={
                     handleInstructionButtonClicked
                   }
+                  handleHowToPlayButtonClicked={handleHowToPlayButtonClicked}
                 />
               }
             ></Route>
-{/* 
+            {/* 
             <Route
               path="/forest-fire-game/*"
               element={
@@ -195,6 +234,11 @@ function App() {
           isPopupOpen={instructionPopupIsOpen}
           handleCloseModal={handleCloseModal}
           name="Element Details"
+        />
+        <HowToPlayPopupIsOpen
+          isPopupOpen={howToPlayPopupIsOpen}
+          handleCloseModal={handleCloseModal}
+          name="How to Play"
         />
       </div>
     </div>

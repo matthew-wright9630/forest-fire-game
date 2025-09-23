@@ -10,7 +10,7 @@ function InformationPopup({
 }) {
   return (
     <div className={`modal ${isPopupOpen ? "modal_opened" : ""}`}>
-      <div className="modal__container">
+      <div className="modal__container__information">
         <h2 className="modal__title">{name}</h2>
         <button
           onClick={handleCloseModal}
@@ -20,7 +20,7 @@ function InformationPopup({
         <div className="modal__section">
 
         <img src={image} alt={name} className="modal__image" />
-        <p className="modal__description">{description}</p>
+        <p className="modal__element-description">{description}</p>
         </div>
       </div>
     </div>

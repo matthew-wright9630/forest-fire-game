@@ -1,3 +1,15 @@
+.modal__container__information {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    padding: 28px 28px 36px;
+    width: calc(496px - (28px * 2));
+    border-radius: 10px;
+    overflow: auto;
+}
+
 .modal__section {
     display: flex;
     justify-content: space-around;
@@ -12,4 +24,11 @@
 .modal__description {
     font-size: 1.5em;
     text-align: center;
+}
+
+@media screen and (max-width: 600px) {
+    .modal__container__information {
+        width: calc(100% - 200px);
+        height: 30%;
+    }
 }

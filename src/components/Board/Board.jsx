@@ -40,6 +40,7 @@ function Board({
   title,
   boardDescription,
   handleInstructionButtonClicked,
+  handleHowToPlayButtonClicked,
   gameCanBeUpdated = false,
 }) {
   const [houseIsBurning, setHouseIsBurning] = useState(false);
@@ -426,10 +427,13 @@ function Board({
         <h2 className="board__header-title">Welcome to the {title}!</h2>
         <div className="board__description-area">
           <p className="board__description">
-            How to play: Click the "Start" button to create the board. Next,
-            click the "Generate Fire" button to randomly place the fire. Next,
-            click the "Spread Fire" button to see how the fire would spread
-            through a forest.
+            To see how to play, click{" "}
+            <button
+              onClick={handleHowToPlayButtonClicked}
+              className="main__button"
+            >
+              here
+            </button>
           </p>
           <p className="board__description">
             To see a description of the game elements, you can click{" "}
@@ -537,7 +541,7 @@ function Board({
                       </button>
                     ) : (
                       <button
-                      //Displays the Generate Fire or Spread Fire, depending on if all fires are generated on the board.
+                        //Displays the Generate Fire or Spread Fire, depending on if all fires are generated on the board.
                         onClick={nextButton}
                         className="board__button board__next-btn"
                       >

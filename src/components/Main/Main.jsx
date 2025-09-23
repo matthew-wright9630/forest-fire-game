@@ -1,7 +1,10 @@
 import "./Main.css";
 import { Link } from "react-router-dom";
 
-function Main({ handleInstructionButtonClicked }) {
+function Main({
+  handleInstructionButtonClicked,
+  handleHowToPlayButtonClicked,
+}) {
   return (
     <main>
       <section className="main">
@@ -30,10 +33,13 @@ function Main({ handleInstructionButtonClicked }) {
             </button>
           </p>
           <p className="main__description__paragraph">
-            How to play: Click the "Start" button to create the board. Next,
-            click the "Generate Fire" button to randomly place the fire. Next,
-            click the "Spread Fire" button to see how the fire would spread
-            through a forest.
+            To see how to play, click{" "}
+            <button
+              onClick={handleHowToPlayButtonClicked}
+              className="main__button"
+            >
+              here
+            </button>
           </p>
         </div>
         <div className="main__links">

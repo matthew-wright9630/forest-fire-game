@@ -8,6 +8,8 @@ function RandomBoard({
   setGameHasStarted,
   boardArray,
   setBoardArray,
+  handleInstructionButtonClicked,
+  handleHowToPlayButtonClicked,
 }) {
   return (
     <div>
@@ -29,6 +31,8 @@ function RandomBoard({
           title={"Main Game"}
           windIsInEffect={true}
           gameCanBeUpdated={true}
+          handleInstructionButtonClicked={handleInstructionButtonClicked}
+          handleHowToPlayButtonClicked={handleHowToPlayButtonClicked}
         />
       </section>
     </div>

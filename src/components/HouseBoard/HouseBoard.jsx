@@ -8,6 +8,7 @@ function HouseBoard({
   boardArray,
   setBoardArray,
   handleInstructionButtonClicked,
+  handleHowToPlayButtonClicked,
 }) {
   return (
     <div>
@@ -29,6 +30,7 @@ function HouseBoard({
             "The house burns like other trees. It should be protected"
           }
           handleInstructionButtonClicked={handleInstructionButtonClicked}
+          handleHowToPlayButtonClicked={handleHowToPlayButtonClicked}
         />
       </section>
     </div>

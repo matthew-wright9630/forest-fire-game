@@ -8,6 +8,7 @@ function TreeBoard({
   boardArray,
   setBoardArray,
   handleInstructionButtonClicked,
+  handleHowToPlayButtonClicked,
 }) {
   return (
     <div>
@@ -24,6 +25,7 @@ function TreeBoard({
           title={"Tree Board"}
           boardDescription={"Trees burn and spread in all 8 directions"}
           handleInstructionButtonClicked={handleInstructionButtonClicked}
+          handleHowToPlayButtonClicked={handleHowToPlayButtonClicked}
         />
       </section>
     </div>

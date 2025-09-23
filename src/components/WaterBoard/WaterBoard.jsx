@@ -8,6 +8,7 @@ function WaterBoard({
   boardArray,
   setBoardArray,
   handleInstructionButtonClicked,
+  handleHowToPlayButtonClicked,
 }) {
   return (
     <div>
@@ -28,6 +29,7 @@ function WaterBoard({
             "River tiles do not burn, but fire can jump over if conditions are correct"
           }
           handleInstructionButtonClicked={handleInstructionButtonClicked}
+          handleHowToPlayButtonClicked={handleHowToPlayButtonClicked}
         />
       </section>
     </div>

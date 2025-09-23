@@ -8,6 +8,7 @@ function FireFighterBoard({
   boardArray,
   setBoardArray,
   handleInstructionButtonClicked,
+  handleHowToPlayButtonClicked,
 }) {
   return (
     <div>
@@ -31,6 +32,7 @@ function FireFighterBoard({
             "The firefighter can be placed on a tree or dead tree tile and protects the tile they are on, as well as the 4 tiles on either side of it."
           }
           handleInstructionButtonClicked={handleInstructionButtonClicked}
+          handleHowToPlayButtonClicked={handleHowToPlayButtonClicked}
         />
       </section>
     </div>
