@@ -29,6 +29,12 @@ function Main({ handleInstructionButtonClicked }) {
               here
             </button>
           </p>
+          <p className="main__description__paragraph">
+            How to play: Click the "Start" button to create the board. Next,
+            click the "Generate Fire" button to randomly place the fire. Next,
+            click the "Spread Fire" button to see how the fire would spread
+            through a forest.
+          </p>
         </div>
         <div className="main__links">
           <Link className="main__link" to={"/forest-fire-game/tree-board/"}>

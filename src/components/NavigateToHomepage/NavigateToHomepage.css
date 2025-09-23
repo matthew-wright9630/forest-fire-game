@@ -41,7 +41,7 @@
 }
 
 @media screen and (max-width: 950px) {
-  .navigate-to-homepage__title {
+  .navigate-to-homepage__title_small {
     font-size: 16px;
   }
 }

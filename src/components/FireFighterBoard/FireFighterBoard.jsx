@@ -24,7 +24,7 @@ function FireFighterBoard({
           initialDeadTrees={8}
           initialWaters={12}
           initialHouses={1}
-          wind={7}
+          windIsInEffect={true}
           initialFireFighters={1}
           title={"Fire Fighter Board"}
           boardDescription={

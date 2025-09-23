@@ -164,9 +164,6 @@ function Board({
   function randomizeWind() {
     const num = Math.floor(Math.random() * 9);
     setWindDirection(num);
-    if (num === 0) {
-      setArrowDirectionIsSet(true);
-    }
   }
 
   function animateArrowDirection(windDirection) {
@@ -180,7 +177,6 @@ function Board({
         degRotated += 12;
       }
     }
-    console.log(degRotated);
     const animation = elementToRotate.animate(
       [
         { transform: "rotate(0deg)" },
@@ -458,7 +454,7 @@ function Board({
           }`}
         >
           <>
-            {!roundHasStarted ? (
+            {!roundHasStarted ? ( //Section contains the Start and Update Buttons (if applicable)
               <div className="board__start-buttons">
                 <button
                   onClick={setUpBoard}
@@ -482,8 +478,10 @@ function Board({
                 )}
               </div>
             ) : (
+              //This section contains all the game elements
               <div className="board__game-buttons">
                 {windIsInEffect && arrowDirectionIsSet && !processing ? (
+                  //Determines if the gameboard should display the wind image
                   <div className="board__wind ">
                     <p className="board__wind__description ">
                       Wind direction: {arrowDirection?.name}
@@ -497,7 +495,17 @@ function Board({
                 ) : (
                   ""
                 )}
-                {fireFighterPresent ? (
+
+                {windIsInEffect && !arrowDirectionIsSet ? (
+                  //If wind is in effect and the wind direction is not displayed, the Determine Wind Button plays an animation and displays the direction of wind.
+                  <button
+                    onClick={arrowDirectionButtonClicked}
+                    className="board__button board__animate-wind-btn"
+                  >
+                    Determine Wind Direction
+                  </button>
+                ) : fireFighterPresent && !processing ? (
+                  //Determines if there are firefighters that need to be displayed.
                   <div className="board__firefighter ">
                     <img
                       src={fireFighterImage}
@@ -510,21 +518,17 @@ function Board({
                     </p>
                   </div>
                 ) : houseIsBurning ? (
+                  //If the house is burning, the game stops. Otherwise, the Next button should appear.
                   <div className="board__game-end board__element">
                     House has been burned
                   </div>
                 ) : (
                   <>
-                    {arrowDirection && !arrowDirectionIsSet ? (
-                      <button
-                        onClick={arrowDirectionButtonClicked}
-                        className="board__button board__animate-wind-btn"
-                      >
-                        Determine Wind Direction
-                      </button>
-                    ) : processing ? (
+                    {processing ? (
+                      //Protect Forest and Generate/Spread fire will not be displayed until processing is completed.
                       ""
                     ) : !forestIsProtected ? (
+                      //If firefighters are present and the trees not protected, button will be displayed.
                       <button
                         onClick={nextButton}
                         className="board__button board__next-btn"
@@ -533,6 +537,7 @@ function Board({
                       </button>
                     ) : (
                       <button
+                      //Displays the Generate Fire or Spread Fire, depending on if all fires are generated on the board.
                         onClick={nextButton}
                         className="board__button board__next-btn"
                       >

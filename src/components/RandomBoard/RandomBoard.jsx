@@ -27,6 +27,7 @@ function RandomBoard({
           wind={4}
           initialFireFighters={1}
           title={"Main Game"}
+          windIsInEffect={true}
           gameCanBeUpdated={true}
         />
       </section>

@@ -8,7 +8,7 @@
 }
 
 .main__description {
-  color: #ff4000;
+  color: lightblue;
   text-align: center;
   padding: 10px 0;
   margin: 0;
@@ -68,12 +68,12 @@ span {
 }
 
 .main__description__link {
-  color: cyan;
+  color: orange;
   transition: .3s linear;
 }
 
 .main__description__link:hover {
-  color: lightblue;
+  color: cyan;
   cursor: pointer;
 }
 
