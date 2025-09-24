@@ -391,7 +391,9 @@ function Board({
 
   return (
     <div className="board">
-      <div className="board__compass-div">
+      <div className={`board__compass-div ${
+            arrowDirectionIsSet && processing ? "active" : ""
+          }`}>
         <img
           src={compassImage}
           alt="Compass"
