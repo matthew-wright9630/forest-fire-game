@@ -207,6 +207,9 @@ function Board({
   }
 
   function addFireFighter(item) {
+    if (!arrowDirectionIsSet) {
+      return;
+    }
     if (
       numberOfFireFighter > 0 &&
       (item.name === "Tree" || item.name === "Dead Tree")
@@ -217,11 +220,14 @@ function Board({
         description:
           "The Fire Fighter will protect their square and the four squares directly to each side of the fire fighter.",
         index: item.index,
+        numberOfTreesProtected: 0,
       };
       overrideBoard(item, fireFighterObject);
       setNumberOfFireFighters(numberOfFireFighter - 1);
     }
   }
+
+  function protectTrees() {}
 
   function protectForest(item) {
     if (item.name !== "Tree" && item.name !== "Dead Tree") {
@@ -232,22 +238,63 @@ function Board({
       name: "Protected Tree",
       image: protectedTreeImage,
       description: "This tree is protected and cannot be burned.",
+      index: item.index,
     };
     const neighbors = getAdjacentIndices(item.index, item.name, 0);
+    let fireFighterObj = {};
 
     for (let i = 0; i < neighbors.length; i++) {
-      if (boardArray[neighbors[i]].name === "Fire Fighter") {
+      if (
+        boardArray[neighbors[i]].name === "Fire Fighter" &&
+        boardArray[neighbors[i]].numberOfTreesProtected < 4
+      ) {
         nextToFirefighter = true;
+        fireFighterObj = boardArray[neighbors[i]];
       }
     }
     if (nextToFirefighter) {
+      if (fireFighterObj.numberOfTreesProtected < 4) {
+        fireFighterObj.numberOfTreesProtected =
+          fireFighterObj.numberOfTreesProtected + 1;
+      } else {
+        return;
+      }
       setNumberOfTreesToProtect(numberOfTreesToProtect - 1);
       overrideBoard(item, protectedTreeObject);
+      overrideBoard;
     }
   }
 
   function overrideForestProtection() {
     setNumberOfTreesToProtect(0);
+  }
+
+  function resetForestProtection() {
+    const newBoardArray = [];
+    for (let i = 0; i < 100; i++) {
+      if (boardArray[i].name === "Protected Tree") {
+        newBoardArray.push({
+          name: "Tree",
+          image: treeImage,
+          description:
+            "One part of a forest. When burned, it will burn in all eight directions around it.",
+          index: boardArray[i].index,
+        });
+      } else if (boardArray[i].name === "Fire Fighter") {
+        newBoardArray.push({
+          name: "Fire Fighter",
+          image: fireFighterImage,
+          description:
+            "The Fire Fighter will protect their square and the four squares directly to each side of the fire fighter.",
+          index: boardArray[i].index,
+          numberOfTreesProtected: 0,
+        });
+      } else {
+        newBoardArray.push(boardArray[i]);
+      }
+    }
+    setNumberOfTreesToProtect(originalFireFighters * 4);
+    setBoardArray(newBoardArray);
   }
 
   function checkFires() {
@@ -391,9 +438,11 @@ function Board({
 
   return (
     <div className="board">
-      <div className={`board__compass-div ${
-            arrowDirectionIsSet && processing ? "active" : ""
-          }`}>
+      <div
+        className={`board__compass-div ${
+          arrowDirectionIsSet && processing ? "active" : ""
+        }`}
+      >
         <img
           src={compassImage}
           alt="Compass"
@@ -543,6 +592,12 @@ function Board({
                           className="board__button board__protection-btn"
                         >
                           No more trees to protect
+                        </button>
+                        <button
+                          onClick={resetForestProtection}
+                          className="board__button board__protection-btn"
+                        >
+                          Reset Forest Protection
                         </button>
                       </div>
                     ) : (

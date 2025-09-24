@@ -16,7 +16,6 @@
   top: 40%;
   left: 20%;
   transition: 0.3s linear;
-
 }
 
 .board__compass-div.active {
@@ -131,7 +130,6 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  gap: 50px;
 }
 
 .board__button-area_small {
@@ -230,8 +228,16 @@
 }
 
 @media screen and (max-width: 950px) {
+  .board__button-area {
+    gap: 50px;
+  }
+
   .board__end-buttons {
     height: 30%;
+  }
+
+  .board__protection-btn {
+    line-height: 1em;
   }
 }
 
@@ -334,7 +340,7 @@
     width: 40%;
     justify-content: flex-end;
     align-items: center;
-    margin: 0 auto;
+    margin: 0;
   }
 
   .board__wind__description {
@@ -363,6 +369,10 @@
     height: 45px;
   }
 
+  .board__protection-btn {
+    line-height: 2em;
+  }
+
   .board__next-btn {
     width: 50%;
     height: 45px;
@@ -371,7 +381,7 @@
 
   .board__end-buttons {
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: space-around;
     height: 33%;
   }
 
