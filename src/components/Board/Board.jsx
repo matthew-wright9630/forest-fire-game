@@ -180,6 +180,9 @@ function Board({
       }
     );
     animation.finished.then(() => {
+      if (windDirection === 0) {
+        elementToRotate.style.visibility = "hidden";
+      }
       setTimeout(() => {
         setProcessing(false);
       }, 1000);
@@ -474,7 +477,9 @@ function Board({
                     <img
                       src={arrowDirection?.image}
                       alt={arrowDirection?.name}
-                      style={{ transform: `rotate(${arrowDirection.rotation})` }}
+                      style={{
+                        transform: `rotate(${arrowDirection.rotation})`,
+                      }}
                       className="board__wind__direction "
                     />
                   </div>

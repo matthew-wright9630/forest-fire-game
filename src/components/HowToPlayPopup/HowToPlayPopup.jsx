@@ -1,7 +1,5 @@
 import { useEffect, useState } from "react";
 import "./HowToPlayPopup.css";
-import tree from "../../assets/Tree.png";
-import startScreenshot from "../../assets/Wildfire-Start-Button.png";
 
 function HowToPlayPopupIsOpen({
   name,
