@@ -181,11 +181,21 @@ function Board({
     );
     animation.finished.then(() => {
       if (windDirection === 0) {
-        elementToRotate.style.visibility = "hidden";
+        elementToRotate.animate(
+        [
+          { transform: `rotate(${degRotated}deg) translate(0, 0)`, opacity: 1 },
+          { transform: `rotate(${degRotated + 30}deg) translate(120px, 120px)`, opacity: 0 },
+        ],
+        {
+          duration: 1200,
+          iterations: 1,
+          easing: "ease-out",
+        }
+      );
       }
       setTimeout(() => {
         setProcessing(false);
-      }, 1000);
+      }, 1100);
     });
   }
 
@@ -226,8 +236,6 @@ function Board({
       setNumberOfFireFighters(numberOfFireFighter - 1);
     }
   }
-
-  function protectTrees() {}
 
   function protectForest(item) {
     if (item.name !== "Tree" && item.name !== "Dead Tree") {
