@@ -1,11 +1,13 @@
-import northArrow from "../assets/North_Arrow.png";
-import northEastArrow from "../assets/North_East_Arrow.png";
+import northArrow from "../assets/Compass-Arrow-Solid.png";
+import northEastArrow from "../assets/Compass-Arrow-Solid.png";
 import eastArrow from "../assets/East_Arrow.png";
 import southEastArrow from "../assets/South_East_Arrow.png";
 import southArrow from "../assets/South_Arrow.png";
 import southWestArrow from "../assets/South_West_Arrow.png";
 import westArrow from "../assets/West_Arrow.png";
 import northWestArrow from "../assets/North_West_Arrow.png";
+
+import compassArrow from "../assets/Compass-Arrow-Solid.png";
 
 export function getAdjacentIndices(index, name, windDirection, gridSize = 10) {
   const row = Math.floor(index / gridSize);
@@ -126,20 +128,27 @@ export function determineArrowDirection(wind) {
     case 0:
       return;
     case 1:
-      return { name: "North", image: northArrow };
+      return { name: "North", image: compassArrow, rotation: "0deg" };
     case 2:
-      return { name: "North East", image: northEastArrow };
+      return { name: "North East", image: compassArrow, rotation: "45deg" };
+      return { name: "North East", image: northArrow.style(rotate("45deg")) };
     case 3:
+      return { name: "East", image: compassArrow, rotation: "90deg" };
       return { name: "East", image: eastArrow };
     case 4:
+      return { name: "South East", image: compassArrow, rotation: "135deg" };
       return { name: "South East", image: southEastArrow };
     case 5:
+      return { name: "South", image: compassArrow, rotation: "180deg" };
       return { name: "South", image: southArrow };
     case 6:
+      return { name: "South West", image: compassArrow, rotation: "225deg" };
       return { name: "South West", image: southWestArrow };
     case 7:
+      return { name: "West", image: compassArrow, rotation: "270deg" };
       return { name: "West", image: westArrow };
     case 8:
+      return { name: "North West", image: compassArrow, rotation: "315deg" };
       return { name: "North West", image: northWestArrow };
     default:
       console.log("Error: incorrect direction");

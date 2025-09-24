@@ -9,12 +9,16 @@ function BoardTile({
   item,
   fireFighterPresent,
   handleAddFireFighter,
+  handleProtectTrees,
+  forestIsProtected,
 }) {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
 
   function buttonClicked() {
     if (fireFighterPresent) {
       handleAddFireFighter(item);
+    } else if (!forestIsProtected) {
+      handleProtectTrees(item);
     } else {
       setIsPopupOpen(true);
     }
