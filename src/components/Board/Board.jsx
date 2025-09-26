@@ -14,6 +14,7 @@ import compassArrow from "../../assets/Compass-Arrow-Solid.png";
 import burningHouseImage from "../../assets/Burning-House.png";
 import protectedTreeImage from "../../assets/Protected_Tree.png";
 import fireFighterImage from "../../assets/Fire_Fighter.png";
+import fireFighterProtection from "../../assets/Fire_Fighter_Protection.png";
 import {
   determineArrowDirection,
   getAdjacentIndices,
@@ -57,6 +58,8 @@ function Board({
   const [fireFighterPresent, setFireFighterPresent] = useState(false);
   const [originalFireFighters, setOriginalFireFighters] =
     useState(initialFireFighters);
+  const [firefighterPlaced, setFirefighterPlaced] = useState(false);
+  const [protectedTiles, setProtectedTiles] = useState(new Set());
   const [numberOfTreesToProtect, setNumberOfTreesToProtect] = useState(0);
   const [windDirection, setWindDirection] = useState(0);
   const [originalFires, setOriginalFires] = useState(initialFires);
@@ -70,7 +73,6 @@ function Board({
     if (windIsInEffect) {
       randomizeWind();
     }
-    setNumberOfTreesToProtect(numberOfFireFighter * 4);
     setRoundHasStarted(true);
     randomizeBoard();
     checkFireFighters();
@@ -91,6 +93,7 @@ function Board({
   };
 
   function overrideBoard(item, obj) {
+    obj.id = item.id;
     setBoardArray((prevBoard) =>
       prevBoard.map((tile, i) => {
         if (i === item.index) {
@@ -109,6 +112,7 @@ function Board({
       i++
     ) {
       tiles.push({
+        id: i,
         name: "Tree",
         image: treeImage,
         description:
@@ -118,6 +122,7 @@ function Board({
 
     for (let i = 0; i < numberOfDeadTrees; i++) {
       tiles.push({
+        id: i,
         name: "Dead Tree",
         image: deadTreeImage,
         description:
@@ -127,6 +132,7 @@ function Board({
 
     for (let i = 0; i < numberOfWater; i++) {
       tiles.push({
+        id: i,
         name: "Water",
         image: waterImage,
         description: "Squares with water will not burn.",
@@ -135,6 +141,7 @@ function Board({
 
     for (let i = 0; i < numberOfHouses; i++) {
       tiles.push({
+        id: i,
         name: "House",
         image: houseImage,
         description: "The house burns like a tree. You want to protect this.",
@@ -153,7 +160,7 @@ function Board({
 
   function randomizeWind() {
     const num = Math.floor(Math.random() * 9);
-    setWindDirection(num);  
+    setWindDirection(num);
   }
 
   function animateArrowDirection(windDirection) {
@@ -182,16 +189,24 @@ function Board({
     animation.finished.then(() => {
       if (windDirection === 0) {
         elementToRotate.animate(
-        [
-          { transform: `rotate(${degRotated}deg) translate(0, 0)`, opacity: 1 },
-          { transform: `rotate(${degRotated + 30}deg) translate(120px, 120px)`, opacity: 0 },
-        ],
-        {
-          duration: 1200,
-          iterations: 1,
-          easing: "ease-out",
-        }
-      );
+          [
+            {
+              transform: `rotate(${degRotated}deg) translate(0, 0)`,
+              opacity: 1,
+            },
+            {
+              transform: `rotate(${
+                degRotated + 30
+              }deg) translate(120px, 120px)`,
+              opacity: 0,
+            },
+          ],
+          {
+            duration: 1200,
+            iterations: 1,
+            easing: "ease-out",
+          }
+        );
       }
       setTimeout(() => {
         setProcessing(false);
@@ -232,9 +247,28 @@ function Board({
         index: item.index,
         numberOfTreesProtected: 0,
       };
+      setFirefighterPlaced(true);
+      setNumberOfTreesToProtect(4);
+      addTransparentTreeProtection(item);
       overrideBoard(item, fireFighterObject);
       setNumberOfFireFighters(numberOfFireFighter - 1);
     }
+  }
+
+  function addTransparentTreeProtection(item) {
+    const adjacentTiles = getAdjacentIndices(item.index, "Fire Fighter");
+    setProtectedTiles((prev) => {
+      const updated = new Set(prev);
+      for (let i = 0; i < adjacentTiles.length; i++) {
+        if (
+          boardArray[adjacentTiles[i]].name === "Tree" ||
+          boardArray[adjacentTiles[i]].name === "Dead Tree"
+        ) {
+          updated.add(boardArray[adjacentTiles[i]].index);
+        }
+      }
+      return updated;
+    });
   }
 
   function protectForest(item) {
@@ -248,24 +282,25 @@ function Board({
       description: "This tree is protected and cannot be burned.",
       index: item.index,
     };
-    const neighbors = getAdjacentIndices(item.index, item.name, 0);
+    const neighbors = getAdjacentIndices(item.index, item.name);
     let fireFighterObj = {};
 
     for (let i = 0; i < neighbors.length; i++) {
       if (
         boardArray[neighbors[i]].name === "Fire Fighter" &&
-        boardArray[neighbors[i]].numberOfTreesProtected < 4
+        boardArray[neighbors[i]]?.numberOfTreesProtected < 4
       ) {
         nextToFirefighter = true;
         fireFighterObj = boardArray[neighbors[i]];
       }
     }
+    if (fireFighterObj.numberOfTreesProtected >= 4) {
+      return;
+    }
     if (nextToFirefighter) {
-      if (fireFighterObj.numberOfTreesProtected < 4) {
-        fireFighterObj.numberOfTreesProtected =
-          fireFighterObj.numberOfTreesProtected + 1;
-      } else {
-        return;
+      fireFighterObj.numberOfTreesProtected += 1;
+      if (fireFighterObj.numberOfTreesProtected === 4) {
+        setFirefighterPlaced(false);
       }
       setNumberOfTreesToProtect(numberOfTreesToProtect - 1);
       overrideBoard(item, protectedTreeObject);
@@ -274,6 +309,7 @@ function Board({
   }
 
   function overrideForestProtection() {
+    setFirefighterPlaced(false);
     setNumberOfTreesToProtect(0);
   }
 
@@ -286,6 +322,7 @@ function Board({
           image: treeImage,
           description:
             "One part of a forest. When burned, it will burn in all eight directions around it.",
+
           index: boardArray[i].index,
         });
       } else if (boardArray[i].name === "Fire Fighter") {
@@ -320,6 +357,7 @@ function Board({
       description:
         "Burns trees and other fuel. Normally burns in all eight directions around it.",
     };
+
     const num = Math.floor(Math.random() * 60) + 1;
     if (
       numberOfFires > 0 &&
@@ -333,10 +371,10 @@ function Board({
   }
 
   function checkForestProtection() {
-    if (numberOfTreesToProtect !== 0) {
-      setForestIsProtected(false);
-    } else {
+    if (numberOfTreesToProtect === 0 && numberOfFireFighter === 0) {
       setForestIsProtected(true);
+    } else {
+      setForestIsProtected(false);
     }
   }
 
@@ -345,6 +383,8 @@ function Board({
     setHouseIsBurning(false);
     setRoundHasStarted(false);
     setFireFighterPresent(false);
+    setFirefighterPlaced(false);
+    setProtectedTiles(new Set());
     setNumberOfFireFighters(originalFireFighters);
     setNumberOfFires(originalFires);
     setNumberOfTreesToProtect(0);
@@ -371,6 +411,7 @@ function Board({
   }
 
   function spreadFire(indices) {
+    const prevBoard = boardArray;
     let newArray = new Array();
     let treeShouldBurn;
     for (let i = 0; i < 100; i++) {
@@ -421,6 +462,16 @@ function Board({
         newArray.push(boardArray[i]);
       }
     }
+    let boardUnchanged = true;
+    for (let i = 0; i < 100; i++) {
+      if (JSON.stringify(prevBoard[i]) !== JSON.stringify(newArray[i])) {
+        boardUnchanged = false;
+        break;
+      }
+    }
+    if (boardUnchanged) {
+      console.log("Board is unchanged");
+    }
     setBoardArray(newArray);
   }
 
@@ -443,6 +494,15 @@ function Board({
   useEffect(() => {
     setArrowDirection(determineArrowDirection(windDirection));
   }, [windDirection, processing]);
+
+  useEffect(() => {
+    if (!firefighterPlaced) {
+      setProtectedTiles(new Set());
+    }
+    // else {
+    //   addTransparentTreeProtection();
+    // }
+  }, [firefighterPlaced]);
 
   return (
     <div className="board">
@@ -554,18 +614,40 @@ function Board({
                   >
                     Determine Wind Direction
                   </button>
-                ) : fireFighterPresent && !processing ? (
+                ) : !forestIsProtected && !processing ? (
                   //Determines if there are firefighters that need to be displayed.
                   <div className="board__firefighter ">
-                    <img
-                      src={fireFighterImage}
-                      alt="Fire Fighter"
-                      className="board__firefighter__image "
-                    />
-                    <p className="board__firefighter__description ">
-                      Number of fire fighters left to place:{" "}
-                      {numberOfFireFighter}
-                    </p>
+                    {!firefighterPlaced ? (
+                      <>
+                        <img
+                          src={fireFighterImage}
+                          alt="Fire Fighter"
+                          className="board__firefighter__image "
+                        />
+                        <p className="board__firefighter__description ">
+                          Number of fire fighters left to place:{" "}
+                          {numberOfFireFighter}
+                        </p>
+                      </>
+                    ) : (
+                      <>
+                        <img
+                          src={fireFighterProtection}
+                          alt="Fire Fighter"
+                          className="board__firefighter__image "
+                        />
+                        <p className="board__firefighter__description ">
+                          Number of trees left to protect:
+                          {numberOfTreesToProtect}
+                        </p>
+                        <button
+                          onClick={overrideForestProtection}
+                          className="board__button board__protection-btn"
+                        >
+                          No more trees to protect
+                        </button>
+                      </>
+                    )}
                   </div>
                 ) : houseIsBurning ? (
                   //If the house is burning, the game stops. Otherwise, the Next button should appear.
@@ -577,30 +659,9 @@ function Board({
                     {processing ? (
                       //Protect Forest and Generate/Spread fire will not be displayed until processing is completed.
                       ""
-                    ) : !forestIsProtected ? (
+                    ) : firefighterPlaced ? (
                       //If firefighters are present and the trees not protected, button will be displayed.
-                      // <button
-                      //   onClick={nextButton}
-                      //   className="board__button board__next-btn"
-                      // >
-                      //   Protect Forest
-                      // </button>
                       <div className="board__firefighter">
-                        <img
-                          src={fireFighterImage}
-                          alt="Fire Fighter"
-                          className="board__firefighter__image "
-                        />
-                        <p className="board__firefighter__description ">
-                          Number of trees left to protect:{" "}
-                          {numberOfTreesToProtect}
-                        </p>
-                        <button
-                          onClick={overrideForestProtection}
-                          className="board__button board__protection-btn"
-                        >
-                          No more trees to protect
-                        </button>
                         <button
                           onClick={resetForestProtection}
                           className="board__button board__protection-btn"
@@ -664,6 +725,13 @@ function Board({
                       setNumberOfFireFighters={setNumberOfFireFighters}
                       handleAddFireFighter={addFireFighter}
                       handleProtectTrees={protectForest}
+                      firefighterPlaced={firefighterPlaced}
+                      id={item.id}
+                      className={
+                        protectedTiles.has(item.index)
+                          ? "board-tile__dot_transparent"
+                          : ""
+                      }
                     />
                   );
                 })}

@@ -16,6 +16,7 @@
   top: 40%;
   left: 20%;
   transition: 0.3s linear;
+  z-index: 3;
 }
 
 .board__compass-div.active {

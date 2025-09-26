@@ -3,7 +3,7 @@ import treeImage from "../assets/Tree.png";
 
 import compassArrow from "../assets/Compass-Arrow-Solid.png";
 
-export function getAdjacentIndices(index, name, windDirection, gridSize = 10) {
+export function getAdjacentIndices(index, name, windDirection=0, gridSize = 10) {
   const row = Math.floor(index / gridSize);
   const col = index % gridSize;
   const directions = [];

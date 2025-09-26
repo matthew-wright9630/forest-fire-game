@@ -1,24 +1,26 @@
 import { useEffect, useState } from "react";
 import "./BoardTile.css";
 import InformationPopup from "../InformationPopup/InformationPopup";
+import dot from "../../assets/Protection-Dot-Transparent.png";
 
 function BoardTile({
   title = "",
-  gridRow,
   lastRow = "false",
   item,
   fireFighterPresent,
   handleAddFireFighter,
   handleProtectTrees,
-  forestIsProtected,
+  firefighterPlaced,
+  id,
+  className,
 }) {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
 
   function buttonClicked() {
-    if (fireFighterPresent) {
-      handleAddFireFighter(item);
-    } else if (!forestIsProtected) {
+    if (firefighterPlaced) {
       handleProtectTrees(item);
+    } else if (fireFighterPresent) {
+      handleAddFireFighter(item);
     } else {
       setIsPopupOpen(true);
     }
@@ -54,6 +56,7 @@ function BoardTile({
 
   return (
     <div
+      id={id}
       className={`board__tile ${lastRow === "true" ? "board__empty-cell" : ""}`}
     >
       <h3 className="board-tile__name">{title}</h3>
@@ -66,6 +69,7 @@ function BoardTile({
             src={item?.image}
             alt={item?.name}
           />
+          {className ? <img className={className} src={dot}></img> : ""}
         </button>
       ) : (
         ""

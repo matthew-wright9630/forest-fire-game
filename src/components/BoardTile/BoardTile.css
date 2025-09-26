@@ -10,6 +10,8 @@
 }
 
 .board-tile__button {
+  position: relative;
+  display: flex;
   width: 100%;
   height: 100%;
   padding: 0;
@@ -18,6 +20,16 @@
 .board-tile__image {
     width: 100%;
     height: 100%;
+}
+
+.board-tile__dot_transparent {
+  width: 78%;
+    height: 62%;
+    position: absolute;
+    z-index: 2;
+    top: 27%;
+    left: 11%;
+    opacity: .5;
 }
 
 @media screen and (max-width: 650px) {
