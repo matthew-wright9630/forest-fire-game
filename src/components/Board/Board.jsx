@@ -153,7 +153,7 @@ function Board({
 
   function randomizeWind() {
     const num = Math.floor(Math.random() * 9);
-    setWindDirection(num);
+    setWindDirection(num);  
   }
 
   function animateArrowDirection(windDirection) {

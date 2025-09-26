@@ -72,7 +72,7 @@ function Main({
           </Link>
         </div>
         <div className="main__description">
-          <p className="main__description__paragraph"></p>
+          <p className="main__description__paragraph">Coded by Matthew Wright.</p>
           <p className="main__description__paragraph">
             Inspired by curricula from{" "}
             <a
