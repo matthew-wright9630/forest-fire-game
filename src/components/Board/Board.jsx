@@ -67,6 +67,7 @@ function Board({
   const [forestIsProtected, setForestIsProtected] = useState(true);
   const [arrowDirectionIsSet, setArrowDirectionIsSet] = useState(false);
   const [processing, setProcessing] = useState(false);
+  const [gameOver, setGameOver] = useState(false);
 
   function setUpBoard() {
     setGameHasStarted(true);
@@ -77,6 +78,7 @@ function Board({
     randomizeBoard();
     checkFireFighters();
     checkFires();
+    setGameOver(false);
     setRoundNumber(0);
   }
 
@@ -391,6 +393,7 @@ function Board({
     setForestIsProtected(true);
     setArrowDirectionIsSet(false);
     setArrowDirection({});
+    setGameOver(false);
     setBoardArray([]);
   }
 
@@ -470,7 +473,7 @@ function Board({
       }
     }
     if (boardUnchanged) {
-      console.log("Board is unchanged");
+      setGameOver(true);
     }
     setBoardArray(newArray);
   }
@@ -499,10 +502,13 @@ function Board({
     if (!firefighterPlaced) {
       setProtectedTiles(new Set());
     }
-    // else {
-    //   addTransparentTreeProtection();
-    // }
   }, [firefighterPlaced]);
+
+  useEffect(() => {
+    if (houseIsBurning) {
+      setGameOver(true);
+    }
+  }, [houseIsBurning]);
 
   return (
     <div className="board">
@@ -649,10 +655,12 @@ function Board({
                       </>
                     )}
                   </div>
-                ) : houseIsBurning ? (
+                ) : gameOver ? (
                   //If the house is burning, the game stops. Otherwise, the Next button should appear.
                   <div className="board__game-end board__element">
-                    House has been burned
+                    {houseIsBurning
+                      ? `House has been burned in ${roundNumber} rounds`
+                      : `Fire can no longer spread. Rounds: ${roundNumber - 1}`}
                   </div>
                 ) : (
                   <>
