@@ -15,28 +15,30 @@
   width: 100%;
   height: 100%;
   padding: 0;
+  /* z-index: 1; */
 }
 
 .board-tile__image {
-    width: 100%;
-    height: 100%;
+  width: 100%;
+  height: 100%;
 }
+
+/* .board-tile__dot_transparent {
+  background-image: url("../../assets/Protection-Dot-Transparent.png");
+  border: 1px solid black
+} */
 
 .board-tile__dot_transparent {
   width: 78%;
-    height: 62%;
-    position: absolute;
-    z-index: 2;
-    top: 27%;
-    left: 11%;
-    opacity: .5;
+  height: 62%;
+  position: absolute;
+  z-index: 2;
+  top: 27%;
+  left: 11%;
+  opacity: 0.5;
 }
 
 @media screen and (max-width: 650px) {
-  .board__tile {
-    /* height: 60%; */
-  }
-
   .board-tile__name {
     margin: 0;
   }

@@ -735,7 +735,7 @@ function Board({
                       handleProtectTrees={protectForest}
                       firefighterPlaced={firefighterPlaced}
                       id={item.id}
-                      className={
+                      transparentClassName={
                         protectedTiles.has(item.index)
                           ? "board-tile__dot_transparent"
                           : ""

@@ -8,6 +8,7 @@
     width: calc(496px - (28px * 2));
     border-radius: 10px;
     overflow: auto;
+    z-index: 5;
 }
 
 .modal__section {

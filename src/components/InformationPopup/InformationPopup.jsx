@@ -1,5 +1,6 @@
-import { useEffect, useState } from "react";
+import ReactDOM from "react-dom";
 import "./InformationPopup.css";
+import { useEffect, useState } from "react";
 
 function InformationPopup({
   name,
@@ -7,9 +8,18 @@ function InformationPopup({
   description,
   handleCloseModal,
   isPopupOpen,
+  isClosing,
 }) {
-  return (
-    <div className={`modal ${isPopupOpen ? "modal_opened" : ""}`}>
+  const [isOpening, setIsOpening] = useState(false);
+
+  useEffect(() => {
+    if (isPopupOpen) {
+      setTimeout(() => setIsOpening(true), 10);
+    }
+  }, [isPopupOpen]);
+
+  return ReactDOM.createPortal(
+    <div className={`modal ${isOpening && !isClosing ? "modal_opened" : ""}`}>
       <div className="modal__container__information">
         <h2 className="modal__title">{name}</h2>
         <button
@@ -18,12 +28,12 @@ function InformationPopup({
           className="modal__close-button"
         />
         <div className="modal__section">
-
-        <img src={image} alt={name} className="modal__image" />
-        <p className="modal__element-description">{description}</p>
+          <img src={image} alt={name} className="modal__image" />
+          <p className="modal__element-description">{description}</p>
         </div>
       </div>
-    </div>
+    </div>,
+    document.body // 👈 renders it outside the board
   );
 }
 

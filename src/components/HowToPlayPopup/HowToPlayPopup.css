@@ -31,6 +31,17 @@
   }
 
   .modal__how-to-play-element {
-    margin: 0 10px
+    margin: 0 10px;
+}
+
+.modal__how-to-play-section {
+    flex-direction: column;
+    padding: 10px 0;
+    /* height: 75%; */
+  }
+
+  .modal__how-to-play-image {
+    height: 100%;
+    width: 75%;
   }
 }

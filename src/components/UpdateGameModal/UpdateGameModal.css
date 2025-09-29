@@ -5,15 +5,17 @@
   top: 0;
   left: 0;
   background-color: #0000004d;
-  visibility: hidden;
+  /* visibility: hidden; */
   opacity: 0;
+  pointer-events: none;
   transition: 0.3s linear;
   color: #000;
 }
 
 .modal_opened {
-  visibility: visible;
+  /* visibility: visible; */
   opacity: 1;
+  pointer-events: auto;
 }
 
 .modal__container {

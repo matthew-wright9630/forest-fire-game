@@ -12,9 +12,10 @@ function BoardTile({
   handleProtectTrees,
   firefighterPlaced,
   id,
-  className,
+  transparentClassName,
 }) {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [isClosing, setIsClosing] = useState(false);
 
   function buttonClicked() {
     if (firefighterPlaced) {
@@ -30,18 +31,26 @@ function BoardTile({
     setIsPopupOpen(false);
   }
 
+  function closeWithAnimation() {
+    setIsClosing(true);
+    setTimeout(() => {
+      setIsClosing(false);
+      handleCloseModal();
+    }, 300);
+  }
+
   useEffect(() => {
     if (!isPopupOpen) return;
 
     const handleEscPress = (evt) => {
       if (evt.key === "Escape") {
-        handleCloseModal();
+        closeWithAnimation();
       }
     };
 
     function handleOverlayClick(evt) {
       if (evt.target.classList.contains("modal_opened")) {
-        handleCloseModal();
+        closeWithAnimation();
       }
     }
 
@@ -65,11 +74,15 @@ function BoardTile({
       {item ? (
         <button onClick={buttonClicked} className="board-tile__button">
           <img
-            className="board-tile__image"
+            className={`board-tile__image`}
             src={item?.image}
             alt={item?.name}
           />
-          {className ? <img className={className} src={dot}></img> : ""}
+          {transparentClassName ? (
+            <img className={transparentClassName} src={dot}></img>
+          ) : (
+            ""
+          )}
         </button>
       ) : (
         ""
@@ -79,8 +92,10 @@ function BoardTile({
           name={item.name}
           image={item.image}
           description={item.description}
-          handleCloseModal={handleCloseModal}
+          handleCloseModal={closeWithAnimation}
           isPopupOpen={isPopupOpen}
+          isClosing={isClosing}
+          setIsClosing={setIsClosing}
         />
       ) : (
         ""
